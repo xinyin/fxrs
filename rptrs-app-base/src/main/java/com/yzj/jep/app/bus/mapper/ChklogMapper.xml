@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.ChklogMapper">
+
+    <select id="selectbyisinsderbylevela" resultType="int">
+        SELECT COUNT(*) as count FROM `bus_chk_log` WHERE is_insider=0 GROUP BY `log_level`
+    </select>
+
+
+    <select id="selectbyisinsderbytyped" resultType="int">
+        SELECT COUNT(*) as count FROM `bus_chk_log` WHERE is_insider=0 GROUP BY type
+    </select>
+
+
+    <select id="selectbyisinsderbylevelf" resultType="int">
+        SELECT COUNT(*) as count FROM `bus_chk_log` WHERE is_insider=1 GROUP BY `log_level`
+    </select>
+
+    <select id="selectbyisinsderbytypei" resultType="int">
+        SELECT COUNT(*) as count FROM `bus_chk_log` WHERE is_insider=1 GROUP BY type
+    </select>
+
+</mapper>

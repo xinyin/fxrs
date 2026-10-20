@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="BusRelOrg">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="RelOrgInfo" var="RelOrgInfoVo"
+              varType="com.yzj.jep.app.bus.vo.RelOrgInfoVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">RelOrgInfoVo.orgName</mapping> <!--机构名称-->
+                <mapping cell="B2">RelOrgInfoVo.domesticOrForeign</mapping> <!--境内境外-->
+                <mapping cell="C2">RelOrgInfoVo.identifyType</mapping> <!--证件类型-->
+                <mapping cell="D2">RelOrgInfoVo.uniscCode</mapping> <!--证件号码-->
+                <mapping cell="E2">RelOrgInfoVo.legalPerson</mapping><!--法定代表人-->
+                <mapping cell="F2">RelOrgInfoVo.regCapital</mapping><!--注册资本-->
+                <mapping cell="G2">RelOrgInfoVo.orgNature</mapping><!--机构状态-->
+                <mapping cell="H2">RelOrgInfoVo.regAddress</mapping><!--注册地址-->
+                <mapping cell="I2">RelOrgInfoVo.businessScope</mapping><!--营业范围-->
+                <mapping cell="J2">RelOrgInfoVo.regCapitalCurrency</mapping><!--营业范围-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

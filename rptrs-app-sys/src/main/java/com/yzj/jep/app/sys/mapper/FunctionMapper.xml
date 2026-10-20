@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.sys.mapper.FunctionMapper">
+    <resultMap id="functionMap" type="com.yzj.jep.app.sys.model.Function">
+        <id column="FUNCTION_ID" property="functionId" jdbcType="INTEGER"/>
+        <result column="BUTTON_CODE" property="buttonCode" jdbcType="VARCHAR"/>
+        <result column="BUTTON_NAME" property="buttonName" jdbcType="VARCHAR"/>
+        <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR"/>
+    </resultMap>
+</mapper>
+

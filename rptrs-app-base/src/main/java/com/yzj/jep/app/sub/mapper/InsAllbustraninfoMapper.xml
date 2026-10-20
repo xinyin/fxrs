@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.sub.mapper.InsAllbustraninfoMapper">
+
+
+    <select id="selectAllTrans" resultType="java.util.Map">
+        SELECT
+	REL_NAME as relName,
+	BUS_START_TIME as busStartTime,
+	sum( TRADE_AMOUNT ) as toltAmount
+    FROM
+	sub_ins_allbustraninfo
+    WHERE
+    sub_year=#{year}
+    AND
+    sub_quarter=#{subQuarter}
+    AND
+    TENANT_ID_=#{tid}
+    AND
+	MAJOR_TRADE = '0'
+	AND is_agreement = '1'
+    GROUP BY REL_NAME,
+	agreement_num;
+    </select>
+</mapper>
+

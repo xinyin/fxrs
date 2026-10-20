@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="relPsn1">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="PsnInfoVos" var="PsnInfoVo"
+              varType="com.yzj.jep.app.bus.vo.PsnInfoVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">PsnInfoVo.no</mapping>
+                <mapping cell="B3">PsnInfoVo.name</mapping>
+                <mapping cell="C3">PsnInfoVo.identifyType</mapping>
+                <mapping cell="D3">PsnInfoVo.identifyNumber</mapping>
+                <mapping cell="E3">PsnInfoVo.domesticOrForeign</mapping>
+                <mapping cell="F3">PsnInfoVo.mgerOrg</mapping>
+                <mapping cell="G3">PsnInfoVo.regulatorYbj</mapping>
+                <mapping cell="H3">PsnInfoVo.dataSource</mapping>
+                <mapping cell="I3">PsnInfoVo.status</mapping>
+                <mapping cell="J3">PsnInfoVo.statusComment</mapping>
+                <mapping cell="K3">PsnInfoVo.isBlack</mapping>
+                <mapping cell="L3">PsnInfoVo.sex</mapping>
+                <mapping cell="M3">PsnInfoVo.race</mapping>
+                <mapping cell="N3">PsnInfoVo.politicsStatus</mapping>
+                <mapping cell="O3">PsnInfoVo.maritalStatus</mapping>
+                <mapping cell="P3">PsnInfoVo.educationBackground</mapping>
+                <mapping cell="Q3">PsnInfoVo.mobile</mapping>
+                <mapping cell="R3">PsnInfoVo.email</mapping>
+                <mapping cell="S3">PsnInfoVo.residentialAddress</mapping>
+                <mapping cell="T3">PsnInfoVo.birthdate</mapping>
+                <mapping cell="U3">PsnInfoVo.isShareholder</mapping>
+                <mapping cell="V3">PsnInfoVo.isMainGd</mapping>
+                <mapping cell="W3">PsnInfoVo.capitalNumber</mapping>
+                <mapping cell="X3">PsnInfoVo.shareholdersCode</mapping>
+                <mapping cell="Y3">PsnInfoVo.openBank</mapping>
+                <mapping cell="Z3">PsnInfoVo.tradeAccount</mapping>
+                <mapping cell="AA3">PsnInfoVo.inTime</mapping>
+                <mapping cell="AB3">PsnInfoVo.inPrice</mapping>
+                <mapping cell="AC3">PsnInfoVo.holeShareAmount</mapping>
+                <mapping cell="AD3">PsnInfoVo.shareholdingProportion</mapping>
+                <mapping cell="AE3">PsnInfoVo.frozenShareAmount</mapping>
+                <mapping cell="AF3">PsnInfoVo.pledgedShareAmount</mapping>
+                <mapping cell="AG3">PsnInfoVo.isNoShareVote</mapping>
+                <mapping cell="AH3">PsnInfoVo.voteProportion</mapping>
+                <mapping cell="AI3">PsnInfoVo.limitVoteSituation</mapping>
+                <mapping cell="AJ3">PsnInfoVo.psnName</mapping>
+                <mapping cell="AK3">PsnInfoVo.psnIdentifyType</mapping>
+                <mapping cell="AL3">PsnInfoVo.psnIdentifyNumber</mapping>
+                <mapping cell="AM3">PsnInfoVo.psnDomesticOrForeign</mapping>
+                <mapping cell="AN3">PsnInfoVo.psnResidentialAddress</mapping>
+                <mapping cell="AO3">PsnInfoVo.psnRelCategory</mapping>
+                <mapping cell="AP3">PsnInfoVo.psnRelCategorySub</mapping>
+                <mapping cell="AQ3">PsnInfoVo.orgName</mapping>
+                <mapping cell="AR3">PsnInfoVo.orgIdentifyType</mapping>
+                <mapping cell="AS3">PsnInfoVo.orgUniscCode</mapping>
+                <mapping cell="AT3">PsnInfoVo.orgDomesticOrForeign</mapping>
+                <mapping cell="AU3">PsnInfoVo.orgRegAddress</mapping>
+                <mapping cell="AV3">PsnInfoVo.orgStatus</mapping>
+                <mapping cell="AW3">PsnInfoVo.orgLegalPerson</mapping>
+                <mapping cell="AX3">PsnInfoVo.orgLegalIdentifytype</mapping>
+                <mapping cell="AY3">PsnInfoVo.orgLegalIdentifyNumber</mapping>
+                <mapping cell="AZ3">PsnInfoVo.orgRelCategory</mapping>
+                <mapping cell="BA3">PsnInfoVo.orgRelCategorySub</mapping>
+                <mapping cell="BB3">PsnInfoVo.orgShareholdingRatio</mapping>
+                <!--<mapping cell="N2">naturalPerson.email</mapping>-->
+                <!--<mapping cell="O2">naturalPerson.reportVersion</mapping>-->
+                <!--<mapping cell="P2">naturalPerson.dutyCode</mapping>-->
+                <!--<mapping cell="Q2">naturalPerson.validStatus</mapping>-->
+                <!--<mapping cell="R2">naturalPerson.isReported</mapping>-->
+                <!--<mapping cell="S2">naturalPerson.activeTime</mapping>-->
+                <!--<mapping cell="T2">naturalPerson.invalidTime</mapping>-->
+                <!--<mapping cell="U2">naturalPerson.oldUseDate</mapping>-->
+                <!--<mapping cell="V2">naturalPerson.scrapDate</mapping>-->
+                <!--<mapping cell="W2">naturalPerson.leftAmt</mapping>-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

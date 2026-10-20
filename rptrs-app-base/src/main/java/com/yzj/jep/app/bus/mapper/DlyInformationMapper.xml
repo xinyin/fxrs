@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.DlyInformationMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.DlyInformation" id="dlyInformationMap">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="inf_name" property="infName" jdbcType="VARCHAR"/>
+        <result column="inf_type" property="infType" jdbcType="VARCHAR"/>
+        <result column="inf_text" property="infText" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="release_type" property="releaseType" jdbcType="VARCHAR"/>
+        <result column="release_time" property="releaseTime" jdbcType="DATE"/>
+        <result column="top_type" property="topType" jdbcType="VARCHAR"/>
+        <result column="top_time" property="topTime" jdbcType="DATE"/>
+        <result column="update_time" property="updateTime" jdbcType="DATE"/>
+        <result column="img1" property="img1" jdbcType="VARCHAR"/>
+        <result column="img2" property="img2" jdbcType="VARCHAR"/>
+        <result column="img3" property="img3" jdbcType="VARCHAR"/>
+        <result column="img4" property="img4" jdbcType="VARCHAR"/>
+        <result column="img5" property="img5" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectList" parameterType="com.yzj.jep.app.bus.model.DlyInformation" resultMap="dlyInformationMap">
+    SELECT ID,INF_NAME,INF_TYPE,CREATE_TIME,RELEASE_TYPE,RELEASE_TIME,TOP_TYPE
+    FROM bus_message
+    where
+     1=1
+        <if test="createTime!=null">
+            and
+            create_time=#{createTime}
+        </if>
+        <if test="releaseType!=null">
+            and
+            release_type=#{releaseType}
+        </if>
+        <if test="topType!=null">
+            and
+            top_type=#{topType}
+        </if>
+    </select>
+</mapper>
+

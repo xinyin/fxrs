@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.NaturalPersonMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.NaturalPerson" id="busNaturalPersonMap">
+        <result property="pid" column="pid"/>
+        <result property="regCode" column="reg_code"/>
+        <result property="orignalOrg" column="orignal_org"/>
+        <result property="orignalOrgName" column="orignal_org_name"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="nationality" column="nationality"/>
+        <result property="domesticOrForeign" column="domestic_or_foreign"/>
+        <result property="race" column="race"/>
+        <result property="identifyType" column="identify_type"/>
+        <result property="identifyNumber" column="identify_number"/>
+        <result property="birthdate" column="birthdate"/>
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="reportVersion" column="report_version"/>
+        <result property="validStatus" column="valid_status"/>
+        <result property="dutyCode" column="duty_code"/>
+        <result property="maritalStatus" column="marital_status"/>
+        <result property="isReported" column="is_reported"/>
+        <result property="activeTime" column="active_time"/>
+        <result property="invalidTime" column="invalid_time"/>
+        <result property="tenantId" column="TENANT_ID_"/>
+        <result property="createdById" column="CREATED_BY_ID_"/>
+        <result property="createdByName" column="CREATED_BY_NAME_"/>
+        <result property="createdTime" column="CREATED_TIME_"/>
+        <result property="delflag" column="DELFLAG_"/>
+        <result property="displayOrder" column="DISPLAY_ORDER_"/>
+        <result property="modifiedById" column="MODIFIED_BY_ID_"/>
+        <result property="modifiedByName" column="MODIFIED_BY_NAME_"/>
+        <result property="modifiedTime" column="MODIFIED_TIME_"/>
+        <result property="version" column="VERSION_"/>
+    </resultMap>
+    <select id="serachNaturalByPid" resultMap="busNaturalPersonMap" parameterType="integer">
+        SELECT c.pid,c.name,c.sex,c.identify_number,c.duty_code
+        from bus_legal_person a
+        LEFT JOIN bus_incidence_relation b
+        on a.reg_code=b.entity_reg_code
+        LEFT JOIN bus_natural_person c
+        on b.entity_reg_code=c.reg_code
+        where a.pid=#{pid}
+    </select>
+</mapper>
+

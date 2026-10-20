@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+    <mappings>
+        <mapping xpath="$.BODY.approvalID" field="approvalID" must="not"/>
+        <mapping xpath="$.BODY.fileList" field="fileList" must="not"/>
+   </mappings>
+</config>

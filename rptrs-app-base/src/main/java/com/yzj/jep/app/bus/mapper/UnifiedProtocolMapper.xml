@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.UnifiedProtocolMapper">
+
+
+    <resultMap id="baseResultMap" type="com.yzj.jep.app.bus.vo.ProtocolVo">
+        <id column="pid" property="pid"/>
+        <result column="REL_ID" property="relId"/>
+        <result column="transaction_name" property="transactionName"/>
+        <result column="REL_TYPE" property="relType"/>
+        <result column="REL_NAME" property="relName"/>
+        <result column="REL_NUMBER" property="relNumber"/>
+        <result column="TRADE_ORG" property="tradeOrg"/>
+        <result column="TRAN_TYPE" property="tranType"/>
+        <result column="BUS_TYPE" property="busType"/>
+        <result column="TRAN_DATE" property="tranDate"/>
+        <result column="MAJOR_TRADE" property="majorTrade"/>
+        <!--              <result column="CALIBER" property="CALIBER"/>-->
+        <!--              <result column="STATUS" property="STATUS"/>-->
+        <!--              <result column="STATUS_COMMENT" property="STATUS_COMMENT"/>-->
+        <!--        <result column="TOTOL_TRADE_AMOUNT" property="totolTradeAmount"/>-->
+        <result column="CONTRACT_NO" property="contractNo"/>
+        <result column="TRADE_AMOUNT" property="tradeAmount"/>
+        <!--              <result column="BUS_START_TIME" property="BUS_START_TIME"/>-->
+        <!--              <result column="BUS_END_TIME" property="BUS_END_TIME"/>-->
+        <!--              <result column="TRADE_OCCUR" property="TRADE_OCCUR"/>-->
+        <result column="TRADE_PRICE" property="tradePrice"/>
+        <result column="PRICING_POLICY" property="pricingPolicy"/>
+        <result column="TRADE_SUBJECT" property="tradeSubject"/>
+        <!--              <result column="REMARK" property="REMARK"/>-->
+        <!--              <result column="IS_EFFECTIVE" property="IS_EFFECTIVE"/>-->
+        <!--              <result column="APPROVE_TRADE_AMOUNT" property="APPROVE_TRADE_AMOUNT"/>-->
+        <!--              <result column="TRANS_NUM" property="TRANS_NUM"/>-->
+        <!--              <result column="IS_DEAL_PRICE" property="IS_DEAL_PRICE"/>-->
+        <!--              <result column="RULE_RESULT" property="RULE_RESULT"/>-->
+        <!--              <result column="PRODUCT_CODE" property="PRODUCT_CODE"/>-->
+        <!--              <result column="PRODUCT_NAME" property="PRODUCT_NAME"/>-->
+        <result column="is_HoldingSubsidiary" property="isHoldingSubsidiary"/>
+        <result column="HoldingSubsidiary_name" property="holdingSubsidiaryName"/>
+        <result column="HoldingSubsidiary_number" property="holdingSubsidiaryNumber"/>
+        <!--              <result column="totalAssets" property="totalAssets"/>-->
+        <!--              <result column="Financial_Impact" property="Financial_Impact"/>-->
+        <!--              <result column="Tra_sub_Name" property="Tra_sub_Name"/>-->
+        <!--              <result column="HoldingSubsidiary_type" property="HoldingSubsidiary_type"/>-->
+        <!--              <result column="AMEND_ID" property="AMEND_ID"/>-->
+        <!--              <result column="AMEND_NAME" property="AMEND_NAME"/>-->
+        <!--              <result column="IS_ACCUMULATED" property="IS_ACCUMULATED"/>-->
+        <result column="CONTRACT_NAME" property="contractName"/>
+                      <result column="tran_name" property="tranName"/>
+        <!--              <result column="tran_opponent" property="tran_opponent"/>-->
+        <!--              <result column="cert_type" property="cert_type"/>-->
+        <result column="protocol_code" property="protocolCode"/>
+        <result column="prac_trade_amount" property="pracTradeAmount"/>
+        <result column="agreement_Num" property="agreementNum"/>
+        <result column="is_Agreement_Impl" property="agreementImpl"/>
+        <result column="rel_trade_amount" property="relTradeAmount"/>
+        <result column="contract_date" property="contractDate"/>
+        <result property="pracTradeAmount" column="prac_trade_amount"/>
+        <result property="createdTime" column="CREATED_TIME_"/>
+        <result column="Contract_Amount" property="contractAmount"/>
+        <result column="trade_Agreement_Number" property="agreementNum"/>
+    </resultMap>
+    <!--多条件查询-->
+   <!-- <select id="queryByConditions"  resultMap="baseResultMap">
+        SELECT t.*
+        FROM (
+        SELECT PID,
+        transaction_name,
+        REL_ID,
+        REL_TYPE,
+        REL_NAME,
+        REL_NUMBER,
+        TRADE_ORG,
+        TRAN_TYPE,
+        BUS_TYPE,
+        DATA_SOURCES,
+        TRAN_DATE,
+        MAJOR_TRADE,
+        CALIBER,
+        STATUS,
+        STATUS_COMMENT,
+        TOTOL_TRADE_AMOUNT,
+        CONTRACT_NO,
+        TRADE_AMOUNT,
+        BUS_START_TIME,
+        BUS_END_TIME,
+        TRADE_OCCUR,
+        TRADE_PRICE,
+        PRICING_POLICY,
+        TRADE_SUBJECT,
+        REMARK,
+        IS_EFFECTIVE,
+        APPROVE_TRADE_AMOUNT,
+        TRANS_NUM,
+        IS_DEAL_PRICE,
+        RULE_RESULT,
+        PRODUCT_CODE,
+        PRODUCT_NAME,
+        is_HoldingSubsidiary,
+        HoldingSubsidiary_name,
+        HoldingSubsidiary_number,
+        totalAssets,
+        Financial_Impact,
+        Tra_sub_Name,
+        Major_Type,
+        Contract_Amount,
+        HoldingSubsidiary_type,
+        AMEND_ID,
+        AMEND_NAME,
+        IS_ACCUMULATED,
+        CONTRACT_NAME,
+        tran_name,
+        tran_opponent,
+        cert_type,
+        &lt;!&ndash;protocol_code,&ndash;&gt;
+        CREATED_TIME_,
+        agreement_Num,
+        contract_date,
+        prac_trade_amount,
+        is_Agreement_Impl
+        FROM ins_tra_service
+        where is_Agreement = '1' and STATUS in ('6','7','8')
+        UNION
+        ALL
+        SELECT PID,
+        transaction_name,
+        REL_ID,
+        REL_TYPE,
+        REL_NAME,
+        REL_NUMBER,
+        TRADE_ORG,
+        TRAN_TYPE,
+        BUS_TYPE,
+        DATA_SOURCES,
+        TRAN_DATE,
+        MAJOR_TRADE,
+        CALIBER,
+        STATUS,
+        STATUS_COMMENT,
+        TOTOL_TRADE_AMOUNT,
+        CONTRACT_NO,
+        TRADE_AMOUNT,
+        BUS_START_TIME,
+        BUS_END_TIME,
+        TRADE_OCCUR,
+        TRADE_PRICE,
+        PRICING_POLICY,
+        TRADE_SUBJECT,
+        REMARK,
+        IS_EFFECTIVE,
+        APPROVE_TRADE_AMOUNT,
+        TRANS_NUM,
+        IS_DEAL_PRICE,
+        RULE_RESULT,
+        PRODUCT_CODE,
+        PRODUCT_NAME,
+        is_HoldingSubsidiary,
+        HoldingSubsidiary_name,
+        HoldingSubsidiary_number,
+        totalAssets,
+        Financial_Impact,
+        Tra_sub_Name,
+        Major_Type,
+        Contract_Amount,
+        HoldingSubsidiary_type,
+        AMEND_ID,
+        AMEND_NAME,
+        IS_ACCUMULATED,
+        CONTRACT_NAME,
+        tran_name,
+        tran_opponent,
+        cert_type,
+        &lt;!&ndash;protocol_code,&ndash;&gt;
+        CREATED_TIME_,
+        agreement_Num,
+        contract_date,
+        prac_trade_amount,
+        is_Agreement_Impl
+        FROM ins_tra_business
+        where is_Agreement = '1' and STATUS in ('6','7','8')
+        ) t
+        <where>
+            <if test="param.year!=null and param.year!=''">
+                and CREATED_TIME_ like #{param.year}
+            </if>
+            <if test="param.beginQuarter!=null and param.beginQuarter!=''">
+                and CREATED_TIME_ <![CDATA[
+                    >=
+                ]]> #{param.beginQuarter}
+            </if>
+            <if test="param.endQuarter!=null and param.endQuarter!=''">
+                and CREATED_TIME_ <![CDATA[
+                    <=
+                ]]> #{param.endQuarter}
+            </if>
+
+            <if test="param.contractNo!=null and param.contractNo!=''">
+                and CONTRACT_NO = #{param.contractNo}
+            </if>
+        </where>
+        ORDER BY t.CREATED_TIME_ DESC
+    </select>-->
+
+<!--    <select id="queryByConditions"  resultMap="baseResultMap">
+        SELECT ser.contract_date contractDate, ser.tran_name tranName, ser.rel_trade_amount contractAmount,aa.contractNo
+        contractNo,aa.pracTradeAmount pracTradeAmount FROM (SELECT contract_no contractNo,sum(prac_trade_amount
+        ::numeric) pracTradeAmount FROM ins_tra_service WHERE delflag_ = '1' AND status ='6' AND contract_date is NOT NULL AND
+        is_agreement = '1' GROUP BY contract_no) aa LEFT JOIN
+        ins_tra_service ser ON ser.contract_no = aa.contractNo WHERE ser.delflag_ = '1' AND ser.contract_date is NOT
+        NULL AND ser.is_agreement = '1' and ser.status ='6'
+
+        <if test="contractNo != 'NULL' and contractNo != ''">
+            AND ser.contract_date like #{contractNo}
+        </if>
+
+        UNION ALL
+        SELECT ser.contract_date contractDate, ser.tran_name tranName, ser.rel_trade_amount contractAmount,aa.contractNo
+        contractNo,aa.pracTradeAmount pracTradeAmount FROM (SELECT contract_no contractNo,sum(prac_trade_amount
+        ::numeric) pracTradeAmount FROM ins_tra_business WHERE delflag_ = '1' AND status ='6' AND contract_date is NOT NULL AND
+        is_agreement = '1' GROUP BY contract_no) aa LEFT JOIN
+        ins_tra_business ser ON ser.contract_no = aa.contractNo WHERE ser.delflag_ = '1' AND ser.contract_date is NOT
+        NULL AND ser.is_agreement = '1' and ser.status ='6'
+        <if test="contractNo != 'NULL' and contractNo != ''">
+            AND ser.contract_date like #{contractNo}
+        </if>
+
+    </select>-->
+    <select id="queryByConditions"  resultMap="baseResultMap">
+        select
+        ser.contract_date contract_date,
+        ser.tran_name tran_name,
+        ser.rel_trade_amount Contract_Amount,
+        aa.contractNo CONTRACT_NO,
+        ser.REL_NAME,
+        ser.REL_TYPE ,
+        ser.REL_NUMBER ,
+        aa.pracTradeAmount prac_trade_amount
+        from
+        (
+        select
+        contract_no contractNo,
+        SUM(CAST(prac_trade_amount as decimal)) pracTradeAmount
+        from
+        ins_tra_service
+        where
+        delflag_ = '1'
+        and status = '6'
+        and contract_date is not null
+        and
+        is_agreement = '1'
+        group by
+        contract_no) aa
+        left join
+        ins_tra_service ser on
+        ser.contract_no = aa.contractNo
+        where
+        ser.delflag_ = '1'
+        and ser.contract_date is not
+        null
+        and ser.is_agreement = '1'
+        and ser.status = '6'
+        <if test="param.contractNo!=null and param.contractNo!=''">
+            and ser.CONTRACT_NO = #{param.contractNo}
+        </if>
+        <if test="param.beginQuarter!=null and param.beginQuarter!=''">
+            and contract_date <![CDATA[
+                    >=
+                ]]> #{param.beginQuarter}
+        </if>
+        <if test="param.endQuarter!=null and param.endQuarter!=''">
+            and contract_date <![CDATA[
+                    <=
+                ]]> #{param.endQuarter}
+        </if>
+        <if test="param.year!=null and param.year!=''">
+            and contract_date like #{param.year}
+        </if>
+        union all
+        select
+        ser.contract_date contractDate,
+        ser.tran_name tranName,
+        ser.rel_trade_amount contractAmount,
+        aa.contractNo
+        contractNo,
+        ser.REL_NAME,
+        ser.REL_TYPE ,
+        ser.REL_NUMBER ,
+        aa.pracTradeAmount pracTradeAmount
+        from
+        (
+        select
+        contract_no contractNo,
+        SUM(CAST(prac_trade_amount as decimal)) pracTradeAmount
+        from
+        ins_tra_business
+        where
+        delflag_ = '1'
+        and status = '6'
+        and contract_date is not null
+        and
+        is_agreement = '1'
+        group by
+        contract_no) aa
+        left join
+        ins_tra_business ser on
+        ser.contract_no = aa.contractNo
+        where
+        ser.delflag_ = '1'
+        and ser.contract_date is not
+        null
+        and ser.is_agreement = '1'
+        and ser.status = '6'
+        <if test="param.contractNo!=null and param.contractNo!=''">
+            and ser.CONTRACT_NO = #{param.contractNo}
+        </if>
+        <if test="param.beginQuarter!=null and param.beginQuarter!=''">
+            and contract_date <![CDATA[
+                    >=
+                ]]> #{param.beginQuarter}
+        </if>
+        <if test="param.endQuarter!=null and param.endQuarter!=''">
+            and contract_date <![CDATA[
+                    <=
+                ]]> #{param.endQuarter}
+        </if>
+        <if test="param.year!=null and param.year!=''">
+            and contract_date like #{param.year}
+        </if>
+</select>
+
+    <select id="getAgreementNum" resultType="java.lang.String">
+    SELECT
+    a.trade_Agreement_Number AS agreement_Num
+    FROM(SELECT trade_Agreement_Number FROM ins_tra_interest
+    WHERE is_Agreement = '1'
+    UNION
+    SELECT trade_agreement_number FROM ins_tra_service
+    WHERE is_Agreement = '1'
+    UNION
+    SELECT trade_agreement_number FROM ins_tra_business
+    WHERE is_Agreement = '1')AS a
+    </select>
+
+
+    <select id="getAgreementTotalDetail" resultMap="baseResultMap">
+    SELECT
+    sum( a.REL_TRADE_AMOUNT ) REL_TRADE_AMOUNT
+    FROM(
+        SELECT sum(REL_TRADE_AMOUNT) REL_TRADE_AMOUNT FROM ins_tra_interest
+        WHERE is_Agreement = '1'
+        and STATUS in ('2','6')
+        and DELFLAG_ = '1'
+        and is_Agreement_Impl in ('4')
+        and trade_Agreement_Number = #{agreementNumber}
+        UNION
+        SELECT sum(REL_TRADE_AMOUNT) REL_TRADE_AMOUNT FROM ins_tra_service
+        WHERE is_Agreement = '1'
+        and STATUS in ('2','6')
+        and DELFLAG_ = '1'
+        and is_Agreement_Impl in ('4')
+        and trade_Agreement_Number = #{agreementNumber}
+        UNION
+        SELECT sum(REL_TRADE_AMOUNT) REL_TRADE_AMOUNT FROM ins_tra_business
+        WHERE is_Agreement = '1'
+        and STATUS in ('2','6')
+        and DELFLAG_ = '1'
+        and is_Agreement_Impl in ('4')
+        and trade_Agreement_Number = #{agreementNumber}
+    )AS a
+    </select>
+
+    <select id="getIsAgreement" resultMap="baseResultMap">
+        SELECT
+        a.*
+        FROM(
+        SELECT pid , contract_date,Contract_Amount, REL_ID,REL_TYPE,REL_NAME,REL_NUMBER,TRAN_TYPE,BUS_TYPE,CONTRACT_NO,REL_TRADE_AMOUNT,trade_Agreement_Number,CREATED_TIME_ FROM ins_tra_interest
+        <where>
+            is_Agreement = '1'
+            and STATUS in ('2','6')
+            and DELFLAG_ = '1'
+            and is_Agreement_Impl in ('1','2','3')
+            <if test="relNumber!=null and relNumber!=''">
+                and REL_NUMBER like CONCAT('%', #{relNumber},'%')
+            </if>
+            <if test="relName!=null and relName!=''">
+                and REL_NAME like CONCAT('%',#{relName},'%')
+            </if>
+        </where>
+        UNION
+        SELECT pid , contract_date ,Contract_Amount, REL_ID,REL_TYPE,REL_NAME,REL_NUMBER,TRAN_TYPE,BUS_TYPE,CONTRACT_NO,REL_TRADE_AMOUNT,trade_Agreement_Number,CREATED_TIME_ FROM ins_tra_service
+        <where>
+            is_Agreement = '1'
+            and STATUS in ('2','6')
+            and DELFLAG_ = '1'
+            and is_Agreement_Impl in ('1','2','3')
+            <if test="relNumber!=null and relNumber!=''">
+                and REL_NUMBER like CONCAT('%', #{relNumber},'%')
+            </if>
+            <if test="relName!=null and relName!=''">
+                and REL_NAME like CONCAT('%',#{relName},'%')
+            </if>
+        </where>
+        UNION
+        SELECT pid , contract_date ,Contract_Amount, REL_ID,REL_TYPE,REL_NAME,REL_NUMBER,TRAN_TYPE,BUS_TYPE,CONTRACT_NO,REL_TRADE_AMOUNT,trade_Agreement_Number,CREATED_TIME_ FROM ins_tra_business
+        <where>
+            is_Agreement = '1'
+            and STATUS in ('2','6')
+            and DELFLAG_ = '1'
+            and is_Agreement_Impl in ('1','2','3')
+            <if test="relNumber!=null and relNumber!=''">
+                and REL_NUMBER like CONCAT('%', #{relNumber},'%')
+            </if>
+            <if test="relName!=null and relName!=''">
+                and REL_NAME like CONCAT('%',#{relName},'%')
+            </if>
+        </where>
+        )AS a
+        ORDER BY a.CREATED_TIME_ DESC
+    </select>
+</mapper>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.sub.mapper.EffectiveRelatedPartyMapper">
+
+    <insert id="insertBusRelList" parameterType ="com.yzj.jep.app.sub.model.Bus_rel_list">
+        insert into bus_rel_list(relType,relName,relUscType,relUscCode,Version)
+        values(#{relType},#{relName},#{relUscType},#{relUscCode},#{Version})
+    </insert>
+    <insert id="insertBusRelListHi" parameterType ="com.yzj.jep.app.sub.model.Bus_rel_list_hi">
+          insert into bus_rel_list_hi(relType,relName,relUscType,relUscCode,Version)
+        values(#{relType},#{relName},#{relUscType},#{relUscCode},#{Version})
+    </insert>
+    <delete id="truncateBybusRellist">
+        truncate table bus_rel_list;
+    </delete>
+</mapper>

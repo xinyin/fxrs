@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="traServiceSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="traServices" var="ser"
+              varType="com.yzj.jep.app.ins.model.TraServiceVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">ser.tranName</mapping>
+                <mapping cell="B3">ser.relName</mapping>
+                <mapping cell="C3">ser.relType</mapping>
+                <mapping cell="D3">ser.relNumber</mapping>
+                <mapping cell="E3">ser.busType</mapping>
+                <mapping cell="F3">ser.contractNo</mapping>
+                <mapping cell="G3">ser.relTradeAmount</mapping>
+                <mapping cell="H3">ser.pracTradeAmount</mapping>
+                <mapping cell="I3">ser.contractDateString</mapping>
+                <mapping cell="J3">ser.busStartTimeString</mapping>
+                <mapping cell="K3">ser.busEndTimeString</mapping>
+                <mapping cell="L3">ser.isconsiderSituation</mapping>
+                <mapping cell="M3">ser.considerSituation</mapping>
+                <mapping cell="N3">ser.isAgreement</mapping>
+                <mapping cell="O3">ser.tradeAgreementType</mapping>
+                <mapping cell="P3">ser.isAgreementImpl</mapping>
+                <mapping cell="Q3">ser.tradingDirection</mapping>
+                <mapping cell="R3">ser.tradePrice</mapping>
+                <mapping cell="S3">ser.pricingPolicy</mapping>
+                <mapping cell="T3">ser.tradeSubject</mapping>
+                <mapping cell="U3">ser.remark</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="insider">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="insiders" var="insider"
+              varType="com.yzj.jep.app.bus.vo.InsiderImportVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">insider.orgName</mapping>
+                <mapping cell="B2">insider.identifyType</mapping>
+                <mapping cell="C2">insider.uniscCode</mapping>
+                <mapping cell="D2">insider.domesticOrForeign</mapping>
+                <mapping cell="E2">insider.regAddress</mapping>
+                <mapping cell="F2">insider.legalPerson</mapping>
+                <mapping cell="G2">insider.legalIdentifyType</mapping>
+                <mapping cell="H2">insider.legalIdentifyNumber</mapping>
+                <mapping cell="I2">insider.status</mapping>
+                <mapping cell="J2">insider.orgType</mapping>
+                <mapping cell="K2">insider.businessScope</mapping>
+                <mapping cell="L2">insider.regCapital</mapping>
+                <mapping cell="M2">insider.regCapitalCurrency</mapping>
+                <mapping cell="N2">insider.groupName</mapping>
+                <mapping cell="O2">insider.memGroup</mapping>
+                <mapping cell="P2">insider.isShareholder</mapping>
+                <mapping cell="Q2">insider.ismainhoder</mapping>
+                <mapping cell="R2">insider.capitalNumber</mapping>
+                <mapping cell="S2">insider.shareholdersCode</mapping>
+                <mapping cell="T2">insider.openBank</mapping>
+                <mapping cell="U2">insider.tradeAccount</mapping>
+                <mapping cell="V2">insider.inTime</mapping>
+                <mapping cell="W2">insider.inPrice</mapping>
+                <mapping cell="X2">insider.holeShareAmount</mapping>
+                <mapping cell="Y2">insider.isNoShareVote</mapping>
+                <mapping cell="Z2">insider.voteProportion</mapping>
+                <mapping cell="AA2">insider.limitVoteSituation</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

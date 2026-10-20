@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <title>WebOffice控件打开一个EXCEL文件</title>
+    <script language=javascript>
+        var pfile = '126.xls'; //EXCEL文件的文件名
+        var varpath = decodeURI(window.location.pathname);
+        var varhost = window.location.host;
+        var strRoot, strSmartUrl;
+        if (varhost == '') {
+            //本机地址
+            strRoot = varpath.substring(1, varpath.lastIndexOf('/') + 1);//取得打开、保存路径
+            if (strRoot == '') strRoot = varpath.substring(1, varpath.lastIndexOf('\\') + 1);
+
+        } else {
+            //网络地址
+            varpro = window.location.protocol;
+            strRoot = varpro + "//" + varhost + "/" + varpath.substring(1, varpath.lastIndexOf('/') + 1);
+            if (strRoot == '') strRoot = varpath.substring(1, varpath.lastIndexOf('\\') + 1);
+
+        }
+
+
+        var strOpenUrl = strRoot + "file/" + pfile; //取得打开路径和文件名
+        var strSaveUrl = strRoot + "file/" + pfile; //取得保存路径和文件名
+        strSmartUrl = "WebOffice://|Officectrl|" + window.location.href;//开启智能窗模式
+        var WebOffice;
+
+        function WebOpen() {
+            obj = document.getElementById('WebOffice');//获得控件对象
+            if (obj) setTimeout('openfile()', 100);//等待控件初始化完毕，时间可以根据网络速度设定。
+        }
+
+        function openfile() {
+            //setMenu();
+            //strOpenUrl = encodeURI(strOpenUrl);
+            document.getElementById('WebOffice').Open(strOpenUrl, true, "Excel.Sheet", "", "");
+            bOpen = true;
+        }
+
+        function SmartOpen() {
+            location.href = strSmartUrl;
+        }
+
+        function WebJspSave() {
+            strSaveUrl = strRoot + 'upload.asp'
+            Save();
+        }
+
+        function Save() {
+
+            try {
+                //alert(strSaveUrl);
+                //a用于取得网页返回的数据，方便调试程序使用
+                a = document.getElementById('WebOffice').Save(strSaveUrl);
+
+                alert('office文档保存成功!');
+                document.getElementById('WebOffice').Close();
+                setTimeout('location.reload();', 3000);
+            } catch (e) {
+                //alert(a);
+                alert('发生错误！请使用查阅返回值！');
+            }
+
+        }
+
+        function WebSave() {
+            try {
+
+                if (bOpen) {//如果文档为打开状态，则执行保存代码
+                    if (varhost == '') {
+                    } else {//当使用网络服务器布置打开此示例，则设置默认保存到本地c盘下
+                        strSaveUrl = "c:\\" + pfile
+                    }
+
+                    var strSavePath = strSaveUrl.replace(new RegExp('/', 'g'), '\\');
+                    alert(strSavePath);
+                    //方法一
+                    document.getElementById('WebOffice').SaveLocal(strSavePath);
+                    //方法二
+                    /*
+                      document.getElementById('WebOffice').SaveAs(strSavePath,1);
+                    */
+                    //方法三
+                    /*
+                       document.getElementById('WebOffice').ActiveDocument.SaveAs(strSavePath,1);
+                      */
+                    alert('已将当前文档保存');
+                    location.reload();
+                }
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+    </script>
+    <script language=javascript src="cssjs/save.js" charset="utf-8"></script>
+</head>
+<body topmargin=0 leftmargin=0 onload="javascript:WebOpen();">
+<div style="text-align:left;font-size:15px;">
+    <input type="button" class="button" value="Jsp后台保存" onclick="WebSave();"/>
+    <input type="button" class="button" value="关闭智能窗" onclick="SmartWindowClose();"/>
+    <script language=javascript src="cssjs/webofficetip.js" charset="utf-8"></script>
+    <a href="javascript:SmartOpen();">智能窗口链接</a>
+</div>
+<script language=javascript src="cssjs/webofficeocx.js" charset="utf-8"></script>
+</body>
+</html>

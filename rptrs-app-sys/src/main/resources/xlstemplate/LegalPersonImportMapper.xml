@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="basicInfo">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="legalPersons" var="legalPerson"
+              varType="com.yzj.jep.app.bus.model.LegalPerson">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">legalPerson.pid</mapping>
+                <mapping cell="B2">legalPerson.regCode</mapping>
+                <mapping cell="C2">legalPerson.orignalOrg</mapping>
+                <mapping cell="D2">legalPerson.orignalOrgName</mapping>
+                <mapping cell="E2">legalPerson.orgName</mapping>
+                <mapping cell="F2">legalPerson.orgType</mapping>
+                <mapping cell="G2">legalPerson.domesticOrForeign</mapping>
+                <mapping cell="H2">legalPerson.uniscCode</mapping>
+                <mapping cell="I2">legalPerson.regCapital</mapping>
+                <mapping cell="J2">legalPerson.regCapitalCurrency</mapping>
+                <mapping cell="K2">legalPerson.businessScope</mapping>
+                <mapping cell="L2">legalPerson.status</mapping>
+                <mapping cell="M2">legalPerson.legalPerson</mapping>
+                <mapping cell="N2">legalPerson.regAddress</mapping>
+                <mapping cell="O2">legalPerson.reportVersion</mapping>
+                <mapping cell="P2">legalPerson.validStatus</mapping>
+                <mapping cell="Q2">legalPerson.isReported</mapping>
+                <mapping cell="R2">legalPerson.activeTime</mapping>
+                <mapping cell="S2">legalPerson.invalidTime</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

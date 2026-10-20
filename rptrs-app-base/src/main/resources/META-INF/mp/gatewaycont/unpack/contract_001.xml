@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+	<mappings>
+		<mapping xpath="$.resultCode"  field="msgCode" must="not"/><!-- 响应状态 -->
+		<mapping xpath="$.msg"  field="msg" must="not"/> <!-- 接口交易成功提示/错误提示-->
+		<mapping xpath="$.data"  field="data" must="not"/>
+	</mappings>
+</config>

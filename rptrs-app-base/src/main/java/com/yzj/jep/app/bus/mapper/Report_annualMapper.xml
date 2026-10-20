@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.Report_annualMapper">
+    <!--保险业务类-->
+    <select id="selectBusiness" resultType="com.yzj.jep.app.bus.model.ReportAnnual">
+           SELECT sum(CASE WHEN MAJOR_TRADE = "1" THEN 1 END) as generalRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "0" THEN 1 END) as majorRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "1" AND consider_type != "1" THEN Contract_Amount END) as generalRelTranAmount,
+sum(case when MAJOR_TRADE = "0" then Contract_Amount end) as majorRelTranAmount,
+sum(case when consider_type = "1" then Contract_Amount end) as considerAmount,
+sum(Contract_Amount) as tranAmount from ins_tra_business
+WHERE DELFLAG_ = 1 and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3};
+    </select>
+
+    <!--资金运用类-->
+    <select id="selectFunds" resultType="com.yzj.jep.app.bus.model.ReportAnnual">
+       SELECT sum(CASE WHEN MAJOR_TRADE = "1" THEN 1 END) as generalRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "0" THEN 1 END) as majorRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "1" AND consider_type != "1" THEN Contract_Amount END) as generalRelTranAmount,
+sum(case when MAJOR_TRADE = "0" then Contract_Amount end) as majorRelTranAmount,
+sum(case when consider_type = "1" then Contract_Amount end) as considerAmount,
+sum(Contract_Amount) as tranAmount from ins_tra_funds
+WHERE DELFLAG_ = 1 and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3};
+	</select>
+
+    <!--利益转移类-->
+    <select id="selectInterest" resultType="com.yzj.jep.app.bus.model.ReportAnnual">
+          SELECT sum(CASE WHEN MAJOR_TRADE = "1" THEN 1 END) as generalRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "0" THEN 1 END) as majorRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "1" AND consider_type != "1" THEN Contract_Amount END) as generalRelTranAmount,
+sum(case when MAJOR_TRADE = "0" then Contract_Amount end) as majorRelTranAmount,
+sum(case when consider_type = "1" then Contract_Amount end) as considerAmount,
+sum(Contract_Amount) as tranAmount from ins_tra_interest
+WHERE DELFLAG_ = 1 and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3};
+	</select>
+
+    <!--提供服务类-->
+    <select id="selectService" resultType="com.yzj.jep.app.bus.model.ReportAnnual">
+        SELECT sum(CASE WHEN MAJOR_TRADE = "1" THEN 1 END) as generalRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "0" THEN 1 END) as majorRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "1" AND consider_type != "1" THEN Contract_Amount END) as generalRelTranAmount,
+sum(case when MAJOR_TRADE = "0" then Contract_Amount end) as majorRelTranAmount,
+sum(case when consider_type = "1" then Contract_Amount end) as considerAmount,
+sum(Contract_Amount) as tranAmount from ins_tra_service
+WHERE DELFLAG_ = 1 and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3};
+	</select>
+
+    <!--投资入股类-->
+    <select id="selectInvestment" resultType="com.yzj.jep.app.bus.model.ReportAnnual">
+         SELECT sum(CASE WHEN MAJOR_TRADE = "1" THEN 1 END) as generalRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "0" THEN 1 END) as majorRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "1" AND consider_type != "1" THEN Contract_Amount END) as generalRelTranAmount,
+sum(case when MAJOR_TRADE = "0" then Contract_Amount end) as majorRelTranAmount,
+sum(case when consider_type = "1" then Contract_Amount end) as considerAmount,
+sum(Contract_Amount) as tranAmount from ins_tra_investment
+WHERE DELFLAG_ = 1 and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3};
+	</select>
+
+    <!--其他类-->
+    <select id="selectOther" resultType="com.yzj.jep.app.bus.model.ReportAnnual">
+         SELECT sum(CASE WHEN MAJOR_TRADE = "1" THEN 1 END) as generalRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "0" THEN 1 END) as majorRelTranNumber,
+sum(CASE WHEN MAJOR_TRADE = "1" AND consider_type != "1" THEN Contract_Amount END) as generalRelTranAmount,
+sum(case when MAJOR_TRADE = "0" then Contract_Amount end) as majorRelTranAmount,
+sum(case when consider_type = "1" then Contract_Amount end) as considerAmount,
+sum(Contract_Amount) as tranAmount from ins_tra_other
+WHERE DELFLAG_ = 1 and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3};
+	</select>
+
+    <!--查询各个表的记录数-->
+    <select id="selectTableCount" resultType="com.yzj.jep.app.bus.model.ReportStatistical">
+         select sum(b) businessCount, sum(f) fundsCount, sum(inter) interestCount, sum(inv) investmentCount, sum(o) otherCount, sum(s) serviceCount from
+(SELECT count(1) b, 0 f, 0 inter, 0 inv, 0 o, 0 s from ins_tra_business where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, count(1) f, 0 inter, 0 inv, 0 o, 0 s from ins_tra_funds WHERE DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, count(1) inter, 0 inv, 0 o, 0 s from ins_tra_interest where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, 0 inter, count(1) inv, 0 o, 0 s from ins_tra_investment where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, 0 inter, 0 inv, count(1) o, 0 s from ins_tra_other where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, 0 inter, 0 inv, 0 o, count(1) s from ins_tra_service where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3}) t;
+	</select>
+
+    <!--查询各个表的合同金额-->
+    <select id="selectTableAmount" resultType="com.yzj.jep.app.bus.model.ReportStatistical">
+         select sum(b) businessCount, sum(f) fundsCount, sum(inter) interestCount, sum(inv) investmentCount, sum(o) otherCount, sum(s) serviceCount from
+(SELECT sum(Contract_Amount) b, 0 f, 0 inter, 0 inv, 0 o, 0 s from ins_tra_business where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, sum(Contract_Amount) f, 0 inter, 0 inv, 0 o, 0 s from ins_tra_funds WHERE DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, sum(Contract_Amount) inter, 0 inv, 0 o, 0 s from ins_tra_interest where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, 0 inter, sum(Contract_Amount) inv, 0 o, 0 s from ins_tra_investment where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, 0 inter, 0 inv, sum(Contract_Amount) o, 0 s from ins_tra_other where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3} union all
+select 0 b, 0 f, 0 inter, 0 inv, 0 o, sum(Contract_Amount) s from ins_tra_service where DELFLAG_ = "1" and STATUS in (${param4}) and date(TRAN_DATE) BETWEEN #{param1} and #{param2} and Tra_sub_Name = #{param3}) t;
+	</select>
+</mapper>
+

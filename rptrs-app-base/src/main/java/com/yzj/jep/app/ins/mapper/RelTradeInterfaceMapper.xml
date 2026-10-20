@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.ins.mapper.RelTradeInterfaceMapper">
+
+    <select id="queryTableMap" resultType="java.util.Map">
+        select t.status as "status",t.TRANS_NUM as "transNum",t.REL_TRADE_AMOUNT as "relTradeAmount"
+        from ${param.tableName} t
+        where delflag_ = '1'
+          <if test="param.contractNo !=null">
+              and contractNo = #{param.contractNo}
+          </if>
+          <if test="param.tenantId !=null">
+              and TENANT_ID_ like #{param.tenantId}
+          </if>
+    </select>
+    <!-- 更新数据表审批状态-->
+    <update id="updateTableStatus">
+        update ${param.tableName}
+        SET STATUS = #{param.status}
+        where DELFLAG_ = '1'
+        <if test="param.contractNo !=null">
+            and CONTRACT_NO like #{param.contractNo}
+        </if>
+        <if test="param.tenantId !=null">
+            and TENANT_ID_ like #{param.tenantId}
+        </if>
+    </update>
+
+</mapper>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.pub.mapper.FundsRegularMapper">
+    <select id="getAll" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,rel_Trade_Amount as contractAmount,
+    MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,'1', TRAN_TYPE as tranType
+    from ins_tra_funds
+    where (MAJOR_TRADE ='0') and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')and delflag_='1'
+
+</select>
+    <select id="getConsiderTypeOne" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+    select pid,rel_number as relNumber,rel_name as relName ,rel_type as relType,rel_Trade_Amount as contractAmount,MAJOR_TRADE as majorTrade,
+    pricing_policy as pricingPolicy , TRAN_TYPE as tranType from ins_tra_funds
+     where  consider_Type='2' and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')
+    union  all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,rel_Trade_Amount as contractAmount,
+    MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,
+    TRAN_TYPE as tranType from ins_tra_funds where consider_Type ='1' and  status ='6' and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1') and delflag_='1'
+    </select>
+</mapper>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.yzj.jep.app.sub.mapper.TransbalanceMapper">
+    <resultMap id="exit" type="com.yzj.jep.app.sub.model.Person">
+        <id property="pid" column="pid" ></id>
+        <result property="orignalOrg" column="orignal_org" ></result>
+        <result property="orignalOrgName" column="orignal_org_name" ></result>
+        <result property="name" column="name" ></result>
+        <result property="sex" column="sex" ></result>
+        <result property="nationality" column="nationality" ></result>
+        <result property="race" column="race" ></result>
+        <result property="domesticOrForeign" column="domestic_or_foreign" ></result>
+        <result property="identityType" column="identity_type" ></result>
+        <result property="identityNo" column="identity_no" ></result>
+        <result property="birthdate" column="birthdate" ></result>
+        <result property="mobile" column="mobile" ></result>
+        <result property="email" column="email" ></result>
+    </resultMap>
+    <resultMap id="Orgexit" type="com.yzj.jep.app.sub.model.Organ">
+        <id property="pid" column="pid" ></id>
+        <result property="name" column="name" ></result>
+        <result property="domesticOrForeign" column="domestic_or_foreign" ></result>
+        <result property="identityNo" column="identity_no" ></result>
+        <result property="regCapital" column="reg_capital" ></result>
+        <result property="regCapitalCurrency" column="reg_capital_currency" ></result>
+    </resultMap>
+	<delete id="deleteAll" >
+       delete FROM sub_transbalance;
+    </delete>
+    <insert id="insertAll" parameterType="com.yzj.jep.app.sub.model.Transbalance">
+        insert into sub_transbalance(pid,related_party_name,related_party_cert_no,related_party_type,credit_risk_limit,max_percentIn_net_assets,loans_balance,securities_balance,SPV_balance,other_on_balance,liabilities_balance,NBE_balance,other_off_balance,deposits,credit_balance,percent_in_netAssets,asset_transfer_balance,service_balance,other_balance,status,status_comment,MODIFIED_TIME_) VALUES (null,#{relatedPartyName},#{relatedPartyCertNo},#{relatedPartyType},#{creditRiskLimit},#{maxPercentInNetAssets},#{loansBalance},#{securitiesBalance},#{spvbalance},#{otherOnBalance},#{liabilitiesBalance},#{nbebalance},#{otherOffBalance},#{deposits},#{creditBalance},#{percentInNetAssets},#{assetTransferBalance},#{serviceBalance},#{otherBalance},#{status},#{statusComment},#{modifiedTime});
+    </insert>
+    <!--<select id="getIfExit" resultType="com.yzj.jep.app.sub.model.Person">-->
+        <!--SELECT * FROM `sub_transbalance` s WHERE s.related_party_cert_no=#{no} AND s.MODIFIED_TIME_&gt;=#{startN} AND s.MODIFIED_TIME_&lt;= #{endN};-->
+    <!--</select>-->
+    <select id="getIfExit" resultMap="exit">
+        SELECT * FROM `sub_transbalance` s WHERE s.related_party_cert_no=#{no} AND s.MODIFIED_TIME_&gt;=#{startN} AND s.MODIFIED_TIME_&lt;= #{endN};
+    </select>
+    <select id="getOrgIfExit" resultMap="Orgexit">
+        SELECT * FROM `sub_transbalance` s WHERE s.related_party_cert_no=#{no} AND s.MODIFIED_TIME_&gt;=#{start} AND s.MODIFIED_TIME_&lt;= #{end};
+    </select>
+</mapper>
+

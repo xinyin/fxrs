@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.GdFileDataMapper">
+    <select id="getAllGdInfo" parameterType="com.yzj.jep.app.bus.model.GdFileData"
+            resultType="com.yzj.jep.app.bus.model.GdFileData">
+        <if test='shareholdersType != "ORG"'>
+            select shareholders_code as shareholdersCode,'PSN' as shareholdersType,
+            hole_share_amount as holeShareAmount,shareholding_proportion as shareholdingProportion,dj_status as
+            djStatus,null as stateOwned,
+            identify_type as identifyType,identify_number as identifyNumber,domestic_or_foreign as
+            domesticOrForeign,name,status
+            from bus_rel_psn
+            where is_shareholder = '1' and DELFLAG_ = '1'
+            <if test="shareholdersCode != null and shareholdersCode != ''">
+                and shareholders_code = #{shareholdersCode}
+            </if>
+            <if test="name_ != null and name_ != ''">
+                and name_ like concat(concat('%',#{name_}),'%')
+            </if>
+            <if test="domesticOrForeign != null and domesticOrForeign != ''">
+                and domestic_or_foreign like #{domesticOrForeign}
+            </if>
+            <if test="status != null and status != ''">
+                and status like #{status}
+            </if>
+        </if>
+        <if test="shareholdersType == '' or shareholdersType == null">
+            union ALL
+        </if>
+        <if test='shareholdersType != "PSN"'>
+            select shareholders_code as shareholdersCode,'ORG' as shareholdersType,hole_share_amount as holeShareAmount,
+            shareholding_proportion as shareholdingProportion,dj_status as djStatus,domestic_or_foreign as
+            domesticOrForeign,
+            org_name as name_,state_owned as stateOwned,unisc_code as identifyNumber,identify_type as
+            identifyType,status
+            from bus_rel_org
+            where is_shareholder = '1' and DELFLAG_ = '1'
+            <if test="shareholdersCode != null and shareholdersCode != ''">
+                and shareholders_code = #{shareholdersCode}
+            </if>
+            <if test="name_ != null and name_ != ''">
+                and org_name like concat(concat('%',#{name_}),'%')
+            </if>
+            <if test="domesticOrForeign != null and domesticOrForeign != ''">
+                and domestic_or_foreign like #{domesticOrForeign}
+            </if>
+            <if test="stateOwned != null and stateOwned != ''">
+                and state_owned = #{stateOwned}
+            </if>
+            <if test="status != null and status != ''">
+                and status like #{status}
+            </if>
+        </if>
+    </select>
+    <insert id="newFileBatch" parameterType="com.yzj.jep.app.bus.model.GdFileData">
+        insert into bus_gd_file_data
+        (shareholders_code,name_,shareholders_type,domestic_or_foreign,identify_type,identify_number,
+        dj_status,hole_share_amount,shareholding_proportion,status,status_comment,batch_number,state_owned) select *
+        from
+        (
+        <if test='shareholdersType != "ORG"'>
+            select shareholders_code ,name_,'PSN' as
+            shareholders_type,domestic_or_foreign,identify_type,identify_number,dj_status,
+            hole_share_amount,shareholding_proportion,status,status_comment,#{batchNumber} as batch_number,null as
+            state_owned
+            from bus_rel_psn
+            where is_shareholder = '1' and DELFLAG_ = '1'
+            <if test="shareholdersCode != null and shareholdersCode != ''">
+                and shareholders_code = #{shareholdersCode}
+            </if>
+            <if test="name_ != null and name_ != ''">
+                and name_ like concat(concat('%',#{name_}),'%')
+            </if>
+            <if test="domesticOrForeign != null and domesticOrForeign != ''">
+                and domestic_or_foreign like #{domesticOrForeign}
+            </if>
+            <if test="status != null and status != ''">
+                and status like #{status}
+            </if>
+        </if>
+        <if test="shareholdersType == '' or shareholdersType == null">
+            union ALL
+        </if>
+        <if test='shareholdersType != "PSN"'>
+            select shareholders_code,org_name as name_,'ORG' as
+            shareholders_type,domestic_or_foreign,identify_type,unisc_code as identify_number,
+            dj_status,hole_share_amount,shareholding_proportion,status,status_comment,#{batchNumber} as
+            batch_number,state_owned
+            from bus_rel_org
+            where is_shareholder = '1' and DELFLAG_ = '1'
+            <if test="shareholdersCode != null and shareholdersCode != ''">
+                and shareholders_code = #{shareholdersCode}
+            </if>
+            <if test="name_ != null and name_ != ''">
+                and org_name like concat(concat('%',#{name_}),'%')
+            </if>
+            <if test="domesticOrForeign != null and domesticOrForeign != ''">
+                and domestic_or_foreign like #{domesticOrForeign}
+            </if>
+            <if test="stateOwned != null and stateOwned != ''">
+                and state_owned = #{stateOwned}
+            </if>
+            <if test="status != null and status != ''">
+                and status like #{status}
+            </if>
+        </if>
+        ) as resource
+    </insert>
+</mapper>
+

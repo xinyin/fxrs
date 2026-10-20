@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.TraCreditMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.TraCredit" id="TranMap">
+        <id column="pid" property="pid"/>
+        <result column="related_name" property="relatedName"/>
+        <result column="manage_org" property="manageOrg"/>
+        <result column="identify_type" property="identifyType"/>
+
+        <result column="ident_number" property="identNumber"/>
+        <result column="tran_type" property="tranType"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="validity_contract" property="validityContract"/>
+        <result column="status" property="status"/>
+        <result column="credit_amount" property="creditAmount"/>
+        <result column="validity_balance" property="validityContract"/>
+        <result column="credit_start_date" property="creditStartDate"/>
+        <result column="credit_end_date" property="creditEndDate"/>
+        <result column="guara_mode" property="guaraMode"/>
+        <result column="collateral" property="collateral"/>
+        <result column="guarantor" property="guarantor"/>
+        <result column="five_level" property="fiveLevel"/>
+        <result column="securit_deposit" property="securitDeposit"/>
+        <result column="margin_ratio" property="marginRatio"/>
+        <result column="business_type" property="businessType"/>
+        <result column="is_del" property="isDel"/>
+        <result column="collateral" property="collateral"/>
+
+        <result column="regulator_ybj" property="regulatorYbj"/>
+        <result column="regulator_zjh" property="regulatorZjh"/>
+        <result column="regulator_czb" property="regulatorCzb"/>
+        <result column="regulator_oth1" property="regulatorOth1"/>
+        <result column="regulator_oth2" property="regulatorOth2"/>
+        <result column="related_tran_type" property="relatedTranType"/>
+        <result column="tran_omp_time" property="tranOmpTime"/>
+        <result column="tran_target" property="tranTarget"/>
+    </resultMap>
+    <select id="selectByID" parameterType="java.lang.Integer" resultMap="TranMap">
+        select * from bus_tra_credit where pid = #{pid};
+
+    </select>
+
+    <update id="updateStatus" parameterType="java.lang.Integer">
+        update bus_tra_credit set status = 'A' where pid = #{pid};
+
+    </update>
+
+    <select id="queryMaxID" resultType="java.lang.Integer">
+        SELECT MAX(btc.pid) as pid FROM bus_tra_credit btc ;
+
+    </select>
+
+    <update id="del" parameterType="java.lang.Integer">
+
+        update bus_tra_credit set is_del = 0 where pid = #{pid}
+    </update>
+
+    <select id="getCreditBalance" parameterType="com.yzj.jep.app.bus.model.TraCredit" resultType="java.math.BigDecimal">
+        select sum(validity_balance) from bus_tra_credit where DELFLAG_ = '1' and is_effective = '1'
+        <if test="relId!=null and relId!=''">
+            and rel_id = #{relId}
+        </if>
+        <if test="relType!=null and relType!=''">
+            and rel_type = #{relType}
+        </if>
+        <if test="relatedName!=null and relatedName!=''">
+            and related_name = #{relatedName}
+        </if>
+        <if test="isInsider!=null and isInsider!=''">
+            and is_insider = #{isInsider}
+        </if>
+    </select>
+
+    <select id="getBankDeposit" parameterType="com.yzj.jep.app.bus.model.TraCredit" resultType="java.math.BigDecimal">
+        select sum(bank_deposit) from bus_tra_credit where DELFLAG_ = '1' and is_effective = '1' and rel_id = #{relId}
+        and rel_type = #{relType}
+    </select>
+
+    <select id="getNationalDebt" parameterType="com.yzj.jep.app.bus.model.TraCredit" resultType="java.math.BigDecimal">
+        select sum(national_debt) from bus_tra_credit where DELFLAG_ = '1' and is_effective = '1' and rel_id = #{relId}
+        and rel_type = #{relType}
+    </select>
+
+    <select id="getSecuritDeposit" parameterType="com.yzj.jep.app.bus.model.TraCredit"
+            resultType="java.math.BigDecimal">
+        select sum(securit_deposit) from bus_tra_credit where DELFLAG_ = '1' and is_effective = '1' and rel_id =
+        #{relId} and rel_type = #{relType}
+    </select>
+</mapper>
+

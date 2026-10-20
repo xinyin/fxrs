@@ -1,0 +1,2 @@
+法人名称	境内(外)	证件类型	证件号码
+${organ.name}	${organ.domesticOrForeign}	${organ.identityType}	${organ.identityNo}

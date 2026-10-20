@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fPaaS1="http://www.fPaaS1.com/schema/fPaaS1"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.fPaaS1.com/schema/fPaaS1
+	http://www.fPaaS1.com/schema/fPaaS1.xsd">
+
+	
+	<fPaaS1:flow service-id="SI_gatewayCcaFlow">
+		<fPaaS1:try>
+			<fPaaS1:route>
+				<fPaaS1:invoke>
+					<fPaaS1:service ref="M_UNPACK" />
+				</fPaaS1:invoke>
+				<fPaaS1:invoke>
+					<fPaaS1:service ref="confirmServerFPaaS1Handler" />
+				</fPaaS1:invoke>
+				<fPaaS1:invoke>
+					<fPaaS1:service ref="M_PACK" />
+				</fPaaS1:invoke>
+			</fPaaS1:route>
+		</fPaaS1:try>
+		<fPaaS1:catchException />
+		<fPaaS1:finally />
+	</fPaaS1:flow>
+
+</beans>	

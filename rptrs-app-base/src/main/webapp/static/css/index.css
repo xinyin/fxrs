@@ -1,0 +1,118 @@
+body.skin-light {
+    background: #fff;
+}
+
+.skin-light .jep-logo {
+    width: 100%;
+    height: 70px;
+    background: #0d8ddb;
+    text-align: center;
+    color: #fff;
+    line-height: 70px;
+}
+
+.skin-light .jep-logo .profile-element {
+    font-size: 16px;
+    height: 70px;
+}
+
+.skin-light .jep-logo .logo-element {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+body.mini-navbar .nav-header {
+    background-color: #0d8ddb;
+}
+
+.skin-light .nav-header {
+    color: #fff;
+}
+
+.skin-light .nav > li > a {
+    color: #333;
+    font-size: 14px;
+}
+
+.skin-light .nav > li.active {
+    background-color: #fcfcfc;
+    color: #23b7e5;
+    border-left: #23b7e5 solid 4px;
+}
+
+.skin-light .nav > li.active > a {
+    color: #0d8ddb;
+}
+
+.skin-light .navbar-default .nav > li > a:hover, .skin-light .navbar-default .nav > li > a:focus {
+    background-color: #0d8ddb;
+}
+
+.skin-light ul.nav-second-level {
+    background: #fcfcfc;
+}
+
+.skin-light ul.nav-second-level > li.active {
+    border: none;
+}
+
+.skin-light ul.nav-second-level > li a {
+    font-weight: normal;
+}
+
+.mini-navbar .nav .nav-second-level {
+    background-color: #fcfcfc;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.skin-light #page-wrapper {
+    border-left: 1px solid #e7eaec
+}
+
+.skin-light .blue-bg {
+    background-color: #0d8ddb !important;
+    margin-bottom: 0;
+}
+
+.skin-light .navbar-minimalize {
+    background: #fff;
+    margin: 0px 5px 5px 15px;
+    padding: 4px 12px;
+}
+
+.skin-light .navbar-top-links li a {
+    color: #fff;
+}
+
+.skin-light .navbar-top-links li a:hover {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .125);
+    background: #28a2e2;
+}
+
+.skin-light .breadcrumb {
+    min-height: 40px;
+    background: #0d8ddb;
+    padding: 0 0 0 1%;
+}
+
+.skin-light .breadcrumb > li {
+    padding: 11px 0;
+}
+
+.skin-light .breadcrumb > li a {
+    color: #f2f2f2;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.navbar {
+    height: 70px;
+}
+
+.navbar .minimalize {
+    line-height: 70px;
+}

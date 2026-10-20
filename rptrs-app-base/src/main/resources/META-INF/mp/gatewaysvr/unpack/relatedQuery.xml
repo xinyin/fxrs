@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+    <mappings>
+    	<mapping xpath="$.BODY.name" field="name" must="not"/>
+    </mappings>
+</config>

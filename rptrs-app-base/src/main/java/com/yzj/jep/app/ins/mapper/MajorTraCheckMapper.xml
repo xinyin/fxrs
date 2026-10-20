@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.ins.mapper.MajorTraCheckMapper">
+
+    <select id="sumAmount" resultType="java.math.BigDecimal">
+        select IFNULL(sum(IFNULL(prac_trade_amount, 0)), 0)
+        from ${param.tableName}
+        where delflag_ = '1'
+          and status in('6', '2','7','8')
+          <if test="param.year !=null">
+              and created_time_ like #{param.year}
+          </if>
+          <if test="param.relNumber !=null">
+              and rel_info_list_str like #{param.relNumber}
+          </if>
+    </select>
+    <select id="sumNotClearAmount" resultType="java.math.BigDecimal">
+        SELECT
+            IFNULL (
+                    SUM (IFNULL(prac_trade_amount, 0)),
+                    0
+                )
+        FROM
+            ${param.tableName}
+        WHERE
+            consider_type IN ('1', '2')
+          AND delflag_ != '0'
+          AND prac_trade_amount IS NOT NULL
+        <if test="param.year !=null">
+            and created_time_ like #{param.year}
+        </if>
+        <if test="param.relNumber !=null">
+            and rel_info_list_str like #{param.relNumber}
+        </if>
+        <if test="param.notClear !=null">
+            and not_major_rel_number like '%' || #{param.notClear} || '%'
+        </if>
+    </select>
+    <select id="sumCompleteApprove" resultType="java.math.BigDecimal">
+        SELECT
+        IFNULL (
+            SUM (IFNULL(REL_TRADE_AMOUNT, 0)),
+            0
+        )
+        FROM
+        ${param.tableName}
+        WHERE
+        consider_type IN ('2')
+        AND prac_trade_amount IS NULL
+        AND status = '6'
+        AND delflag_ = '1'
+        <if test="param.year !=null">
+            and created_time_ like #{param.year}
+        </if>
+        <if test="param.relNumber !=null">
+            and rel_info_list_str like #{param.relNumber}
+        </if>
+        <if test="param.notClear !=null">
+            and not_major_rel_number like '%' || #{param.notClear} || '%'
+        </if>
+    </select>
+
+    <!--查询未归类的交易数据与该关联方-->
+    <select id="hasUnassortedBus" resultType="java.lang.Integer">
+        select count(*) from ins_un_sort_out where delflag_ = '1' and rel_info_list_str like #{param.relNumber}
+    </select>
+    <!-- 实际交易金额年度汇总-->
+    <select id="sumPracTradeAmount" resultType="java.math.BigDecimal">
+        select IFNULL(sum(IFNULL(prac_trade_amount, 0)), 0)
+        from ins_tra_counterparty
+        where delflag_ = '1'
+        and status in('6', '2','7','8')
+        and REL_NUMBER = #{param.relNumber}
+        <if test="param.year !=null">
+            and created_time_ like #{param.year}
+        </if>
+    </select>
+
+    <!-- 关联交易金额年度汇总 -->
+    <select id="sumRelTradeAmount" resultType="java.math.BigDecimal">
+        select IFNULL(sum(IFNULL(PRAC_TRADE_AMOUNT, 0)),0)
+        from ins_tra_counterparty
+        where delflag_ = '1'
+        and status in('6', '2','7','8')
+
+        <if test="param.year != null and param.year != ''">
+            and DATE_FORMAT(TRAN_DATE, '%Y')=#{param.year}
+        </if>
+
+        <if test="param.isAccumulated !=null">
+            and IS_ACCUMULATED = #{param.isAccumulated}
+        </if>
+        <if test="param.majorTrade !=null">
+            and MAJOR_TRADE = #{param.majorTrade}
+        </if>
+        <if test="param.isTradeAgreement !=null">
+            and IS_TRADE_AGREEMENT = #{param.isTradeAgreement}
+        </if>
+
+        <if test="'02'==param.tranType and 'ORG'==param.relType">
+            and REL_NUMBER IN (
+            SELECT unisc_code FROM bus_rel_org WHERE mem_group = (SELECT mem_group FROM bus_rel_org WHERE unisc_code = #{param.relNumber}) )
+        </if>
+        <if test="'02'!=param.tranType || 'ORG'!=param.relType">
+            And REL_NUMBER = #{param.relNumber}
+        </if>
+    </select>
+
+</mapper>
+

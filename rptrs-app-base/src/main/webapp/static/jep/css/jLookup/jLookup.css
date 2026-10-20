@@ -1,0 +1,25 @@
+.lookup {
+
+}
+
+.lookup-text-disabled {
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    background-color: #eee;
+}
+
+.lookup-btn-disabled {
+    color: #ccc;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    cursor: not-allowed;
+    background-color: #eee;
+}
+
+.lookup-btn-disabled:hover {
+    color: #ccc;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    cursor: not-allowed;
+    background-color: #eee;
+}

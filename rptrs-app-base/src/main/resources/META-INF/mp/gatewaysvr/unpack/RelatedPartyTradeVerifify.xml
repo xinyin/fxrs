@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+    <mappings>
+        <mapping xpath="$.BODY.tenantId" field="tenantId" must="not"/>
+        <mapping xpath="$.BODY.contractNo" field="contractNo" must="not"/>
+        <mapping xpath="$.BODY.tranType" field="tranType" must="not"/>
+        <mapping xpath="$.BODY.relList" field="relList" must="not"/>
+    </mappings>
+</config>

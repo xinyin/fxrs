@@ -1,0 +1,115 @@
+
+.jepModal-1 {
+    z-index: 2055 !important;
+}
+
+.jepModal-1 + .modal-backdrop {
+    z-index: 2050 !important;
+}
+
+.jepModal-2 {
+    z-index: 2065 !important;
+}
+
+.jepModal-2 + .modal-backdrop {
+    z-index: 2060 !important;
+}
+
+.jepModal-3 {
+    z-index: 2075 !important;
+}
+
+.jepModal-3 + .modal-backdrop {
+    z-index: 2070 !important;
+}
+
+.jepModal-4 {
+    z-index: 2085 !important;
+}
+
+.jepModal-4 + .modal-backdrop {
+    z-index: 2080 !important;
+}
+
+.jepModal-5 {
+    z-index: 2095 !important;
+}
+
+.jepModal-5 + .modal-backdrop {
+    z-index: 2090 !important;
+}
+
+
+.jep-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2100;
+    background-color: #000;
+}
+
+.jep-backdrop.fade {
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+.jep-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.jep-loading {
+    display: block;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    z-index: 2105;
+}
+
+.label-lg {
+    font-size: 18px;
+    padding: 15px 16px;
+    width: 49px;
+    height: 49px;
+}
+
+.label-circle {
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.jep-loading-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+
+.jep-backdrop .jep-loading-text {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFF;
+    text-align: center;
+    display: block;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    z-index: 2105;
+}
+
+/*Kevin@20170930：调整list页面与面包屑之间的距离*/
+div.animated.fadeInRight > div.row {
+    margin-top: -2px;
+}

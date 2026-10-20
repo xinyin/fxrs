@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="allFunsSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="allFunds" var="allFund"
+              varType="com.yzj.jep.app.sub.model.InsAllfunds">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">allFund.currentAssetinvestmentBalance</mapping><!--固定收益类资产投资余额-->
+                <mapping cell="B2">allFund.fixedProfitBalance</mapping><!--固定收益类资产投资余额-->
+                <mapping cell="C2">allFund.investAmount</mapping><!--权益类资产投资余额-->
+<!--                <mapping cell="D2">allFund.unlistedInvestBalance</mapping>&lt;!&ndash;未上市权益类资产投资余额&ndash;&gt;-->
+                <mapping cell="D2">allFund.imvbsInvestBalance</mapping><!--不动产类资产投资余额-->
+                <mapping cell="E2">allFund.abroadFund</mapping><!--境外投资余额-->
+                <mapping cell="F2">allFund.insManageProFund</mapping><!--保险资产管理产品-->
+                <mapping cell="G2">allFund.comBankFinFund</mapping><!--商业银行理财-->
+                <mapping cell="H2">allFund.bankCreditFund</mapping><!--银行业金融机构信贷资产支持证券-->
+                <mapping cell="I2">allFund.trustFund</mapping><!--信托公司集合资金信托计划-->
+                <mapping cell="J2">allFund.bondSpecialFund</mapping><!--证券公司专项资产管理计划-->
+                <mapping cell="K2">allFund.insCompanyPlanFund</mapping><!--保险资管公司发行资产支持计划-->
+                <mapping cell="L2">allFund.otherTotalAmount</mapping><!--其他-->
+                <mapping cell="M2">allFund.allTotalFund</mapping><!--全部投资余额-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

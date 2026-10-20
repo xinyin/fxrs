@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.pub.mapper.PublogRegularMapper">
+    <select id="getAll" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+
+    select pid,rel_number as relNumber,rel_name as relName ,rel_type as relType,rel_Trade_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,is_agreement as isAgreement , TRAN_TYPE as tranType from ins_tra_business  where  (MAJOR_TRADE ='0'or is_agreement='0') and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')and delflag_='1'
+    union  all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,rel_Trade_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,is_agreement as  isAgreement ,TRAN_TYPE as tranType from ins_tra_interest where (MAJOR_TRADE ='0' or is_agreement ='0') and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')and delflag_='1'
+    union all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,rel_Trade_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,is_agreement as  isAgreement , TRAN_TYPE as tranType from ins_tra_service where (MAJOR_TRADE ='0' or is_agreement ='0') and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')and delflag_='1'
+    union all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,rel_Trade_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,'1', TRAN_TYPE as tranType from ins_tra_investment where (MAJOR_TRADE='0') and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')and delflag_='1'
+    union  all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,rel_Trade_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,'1' ,TRAN_TYPE as tranType from ins_tra_other where  (MAJOR_TRADE='0') and  status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '1')and delflag_='1';
+    </select>
+
+
+    <select id="getQuarterList" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as TRAN_DATE ,max(i.REL_NAME) as REL_NAME,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRAN_TYPE ,
+           max(i.tran_Name) as tran_Name ,sum(i.contract_Amount)as  contract_Amount
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.investment_Type is not null
+        and i.contract_Amount is NOT NULL and delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as TRAN_DATE ,max(i.REL_NAME) as REL_NAME,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRAN_TYPE ,
+           max(i.tran_Name) as tran_Name ,sum(i.contract_Amount)as  contract_Amount
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.tran_Type is not null
+        and i.contract_Amount is NOT NULL
+        and is_Agreement_Impl ='0' and delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as TRAN_DATE ,max(i.REL_NAME) as REL_NAME,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRAN_TYPE ,
+           max(i.tran_Name) as tran_Name ,sum(i.contract_Amount)as  contract_Amount
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.tran_Type is not null
+        and i.contract_Amount is NOT NULL
+        and is_Agreement_Impl ='0' and delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as TRAN_DATE ,max(i.REL_NAME) as REL_NAME,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRAN_TYPE ,
+           max(i.tran_Name) as tran_Name ,sum(i.contract_Amount)as  contract_Amount
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.tran_Type is not null
+        and i.contract_Amount is NOT NULL and delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as TRAN_DATE ,max(i.REL_NAME) as REL_NAME,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRAN_TYPE ,
+           max(i.tran_Name) as tran_Name ,sum(i.contract_Amount)as  contract_Amount
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.tran_Type is not null
+        and i.contract_Amount is NOT NULL
+        and is_Agreement_Impl='0' and delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as TRAN_DATE ,max(i.REL_NAME) as REL_NAME,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRAN_TYPE ,
+           max(i.tran_Name) as tran_Name ,sum(i.contract_Amount)as  contract_Amount
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.tran_Type is not null
+        and i.contract_Amount is NOT NULL and delflag_='1'
+    group by i.CONTRACT_NO
+    </select>
+</mapper>
+

@@ -1,0 +1,125 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family: 微软雅黑, 宋体;
+    color: #000;
+}
+
+*, html > body {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+div, ul, li, dl, dt, dd {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+table td {
+    font: 9pt "微软雅黑", Verdana, "宋体"
+}
+
+.menu-collapse {
+    background: #F3F9FD url('images/tabs_icons.png') no-repeat 1px center;
+    text-decoration: none;
+    height: 31px;
+    width: 18px;
+}
+
+/*编辑页面样式*/
+body form {
+    maring: 0px;
+    padding: 0px;
+}
+
+/*查询和编辑样式*/
+.kTable {
+    border-top: 1px #b9d5f6 solid;
+    border-left: 1px #b9d5f6 solid;
+}
+
+.kTable .kCaption {
+    height: 26px;
+    color: #fffc;
+    background: url(../images/panel_title.png) left top repeat-x;
+    overflow: hidden;
+    padding-left: 5px;
+    font: bold;
+}
+
+.kTable .kTableLabel {
+    background: #e9f1fc;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.kTable .kTableValue {
+    text-align: left;
+    padding: 0px 5px;
+}
+
+.kTable tr td {
+    height: 28px;
+    /*background:#fff; 对嵌套在表格内的 datagrid 的样式有影响*/
+    border-right: 1px #b9d5f6 solid;
+    border-bottom: 1px #b9d5f6 solid;
+    valign: middle;
+    align: left;
+}
+
+.kTable tr td textarea, select {
+    padding-left: 5px;
+    background-color: #red;
+    color: #000000;
+}
+
+/*在IE中*/
+.kTable tr td input {
+    padding-left: 5px;
+    background-color: #red;
+    color: #000000;
+    height: 22px;
+    line-height: 22px;
+    width: expression(this.type=="text"?"200":"");
+}
+
+/*在Firefox中*/
+.kTable tr td input[type="text"] {
+    padding-left: 5px;
+    background-color: #red;
+    color: #000000;
+    width: "200";
+}
+
+/*必输项验证*/
+.required {
+    color: red;
+    padding-left: 2px;
+}
+
+.titlelink {
+    color: #1F3B7B;
+    font-size: 12px;
+    /*text-decoration:none;*/
+}
+
+.preview {
+    width：100%;
+    white-space: pre-wrap; /*css-3*/
+    white-space: -moz-pre-wrap; /*Mozilla,since1999*/
+    white-space: -pre-wrap; /*Opera4-6*/
+    white-space: -o-pre-wrap; /*Opera7*/
+    word-wrap: break-word; /*InternetExplorer5.5+*/
+    font: 14px "宋体";
+    color: #333;
+    line-height: 150%;
+}

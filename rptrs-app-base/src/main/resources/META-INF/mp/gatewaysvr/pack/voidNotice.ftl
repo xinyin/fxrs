@@ -1,0 +1,12 @@
+{
+  "BODY":{
+    "contractNo":"${contractNo}",
+    "isRevoke":"${isRevoke}"
+  },
+  "SYSHEAD":{
+    "msg":"${msg}",
+    "resultCode":"${resultCode}",
+    "TRANS_CODE":"${TRANS_CODE}",
+    "CHNL_ID":"${CHNL_ID}"
+  }
+}

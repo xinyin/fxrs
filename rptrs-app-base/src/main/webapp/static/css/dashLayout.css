@@ -1,0 +1,192 @@
+body, img, p, h1, h2, h3, h4, h5, h6, ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+}
+
+body {
+
+    font-family: Arial, Verdana, Sans-Serif;
+    overflow: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+#columns {
+    overflow: hidden;
+}
+
+#columns .column {
+    float: left;
+    margin: 0 0 0 0;
+    min-height: 400px;
+    height: auto !important;
+    height: 400px;
+    /* 	border: dashed 1px #b9d5f6; */
+}
+
+#columns .column .column-edge {
+    float: right;
+    width: 2px;
+    /*background-color: #b9d5f6;*/
+    text-indent: -9999em;
+    cursor: w-resize;
+    min-height: 400px;
+    height: auto !important;
+    height: 400px;
+}
+
+/* #columns #column2{
+	width: 33%;
+}
+
+#columns #column1,#column3{
+	width: 33%;
+} */
+
+.widget {
+    margin: 0 2px 1px 1px;
+}
+
+.widget .widget-head {
+    color: #000;
+    overflow: hidden;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: url("../img/dwbg_title.gif") repeat center center;
+
+}
+
+.widget-head a.arrow {
+    float: left;
+    display: inline;
+    width: 16px;
+    height: 16px;
+    margin: 10px 0px 8px 4px;
+    text-indent: -9999em;
+    outline: none;
+}
+
+.widget-head a.remove {
+    float: right;
+    display: inline;
+    background: url(../img/li.gif) no-repeat 0 0;
+    width: 16px;
+    height: 16px;
+    margin: 10px 0px 8px 4px;
+    text-indent: -9999em;
+    outline: none;
+}
+
+.widget .widget-content {
+    overflow: hidden;
+    border: solid 1px #b9d5f6;
+}
+
+.widget .widget-tail {
+    border: none;
+    height: 2px;
+    /*background-color: #b9d5f6;*/
+    text-indent: -9999em;
+    cursor: s-resize;
+}
+
+.widget-table {
+    border: 1px #b9d5f6 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.widget-table th {
+    height: 22px;
+    color: #032C7B;
+    font-size: 12px;
+    font-weight: normal;
+    border: 1px #b9d5f6 solid;
+    padding: 0;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.widget-table tr {
+    height: 22px;
+    background: #fff;
+    border: 1px #b9d5f6 solid;
+    padding: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.widget-table tr td {
+    height: 22px;
+    background: #fff;
+    border: 1px #b9d5f6 solid;
+    padding: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 5px;
+}
+
+.widget-table A:link {
+    color: #2A5994;
+    text-decoration: none;
+}
+
+.widget-table A:visited {
+    color: #07519A;
+    text-decoration: none;
+}
+
+.widget-table A:hover {
+    color: #FF6600;
+    text-decoration: none;
+}
+
+.widget-content .more {
+    border: solid 1px #b9d5f6;
+    border-top: none;
+    height: 22px;
+    background: url('../img/dwbg_more.gif') repeat-x;
+}
+
+.widget-content .more A {
+    float: right;
+    margin: 3px 5px 0 0;
+}
+
+.tab_menu {
+    list-style: none;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+.tab_menu li {
+    width: 30%;
+    float: left;
+    height: 21px;
+    line-height: 21px;
+    color: #07519A;
+    background: #E9F3F6;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tab_menu li.current {
+    color: #E76109;
+    background: #fff;
+}
+
+.tab_box {
+    padding: 1px;
+}
+
+.tab_box .hide {
+    display: none;
+}

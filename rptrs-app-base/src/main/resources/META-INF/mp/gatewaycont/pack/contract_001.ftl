@@ -1,0 +1,10 @@
+{
+	"nonce":"${nonce}",
+	"appId":"${appId}",
+	"timestamp":"${timestamp}",
+	"sig":"${sig}",
+	"methodType":"${methodType}",
+	"data":{
+			"contractNo":"${contractNo}"
+			}
+}			

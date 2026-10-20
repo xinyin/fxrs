@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.sub.mapper.EastGljyhzbViewMapper">
+
+
+
+    <resultMap id="baseResultMap" type="com.yzj.jep.app.sub.model.EastGljyhzbView">
+
+        <result property="tjzq" column="TJZQ" jdbcType="VARCHAR"/>
+        <result property="glfbh" column="GLFBH" jdbcType="INTEGER"/>
+        <result property="glfmc" column="GLFMC" jdbcType="VARCHAR"/>
+        <result property="glflb" column="GLFLB" jdbcType="VARCHAR"/>
+        <result property="gljyywlx" column="GLJYYWLX" jdbcType="VARCHAR"/>
+        <result property="gljyje" column="GLJYJE" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <select id="queryOne" resultMap="baseResultMap">
+
+SELECT
+	tjzq,
+	glfbh,
+	glfmc,
+	glflb,
+	gljyywlx,
+	SUM(gljyje) as gljyje
+FROM
+        east_gljyhzb_view
+        WHERE
+        1=1
+        <if test="id != null">
+            and  pch = #{id}
+        </if>
+GROUP BY
+	tjzq,
+	glfbh,
+	glfmc,
+	glflb,
+	gljyywlx
+	ORDER BY
+	MODIFIED_TIME_
+
+
+
+
+    </select>
+
+
+</mapper>

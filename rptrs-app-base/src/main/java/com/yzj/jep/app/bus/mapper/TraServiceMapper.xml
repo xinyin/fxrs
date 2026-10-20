@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.TraServiceMapper">
+
+    <resultMap type="com.yzj.jep.app.bus.model.TraService" id="TranMap">
+        <id column="pid" property="pid"/>
+        <result column="related_name" property="relatedName"/>
+        <result column="house_manage_org" property="houseManageOrg"/>
+        <result column="identlfy_type" property="identlfyType"/>
+
+        <result column="ident_number" property="identNumber"/>
+        <result column="tran_type" property="tranType"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="validity_contract" property="validityContract"/>
+        <result column="status" property="status"/>
+        <result column="tran_amount" property="tranAmount"/>
+        <result column="tran_date" property="tranDate"/>
+        <result column="tran_info" property="tranInfo"/>
+        <result column="business_type" property="businessType"/>
+        <result column="is_del" property="isDel"/>
+        <result column="regulator_ybj" property="regulatorYbj"/>
+        <result column="regulator_zjh" property="regulatorZjh"/>
+        <result column="regulator_czb" property="regulatorCzb"/>
+        <result column="regulator_oth1" property="regulatorOth1"/>
+        <result column="regulator_oth2" property="regulatorOth2"/>
+        <result column="related_tran_type" property="relatedTranType"/>
+        <result column="tran_omp_time" property="tranOmpTime"/>
+        <result column="pricing_strategy" property="pricingStrategy"/>
+        <result column="tran_target" property="tranTarget"/>
+        <result column="TENANT_ID_" property="tenantId"/>
+        <result column="CREATED_BY_ID_" property="createById"/>
+        <result column="CREATED_BY_NAME_" property="createByName"/>
+        <result column="CREATED_TIME_" property="createTime"/>
+        <result column="DELFLAG_" property="delflag"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime"/>
+        <result column="VERSION_" property="version"/>
+
+    </resultMap>
+
+    <select id="queryMaxID" resultType="java.lang.Integer">
+        SELECT MAX(bcc.pid) as pid FROM bus_tra_service bcc ;
+
+    </select>
+    <update id="updateIsDel" parameterType="java.lang.Integer">
+        update bus_tra_service set is_del = 0 where pid = #{pid};
+
+    </update>
+    <select id="selectByID" parameterType="java.lang.Integer" resultMap="TranMap">
+        select * from bus_tra_service where pid = #{pid};
+
+    </select>
+
+    <update id="updateStatus" parameterType="java.lang.Integer">
+        update bus_tra_service set status = 'A' where pid = #{pid};
+
+    </update>
+
+    <select id="selStaffSH" resultType="java.lang.String">
+        SELECT STAFF_CODE_ FROM sys_duty
+        WHERE POSITION_CODE_ IN
+        (SELECT POSITION_CODE_ FROM sys_position WHERE ROLE_CODE_ IN
+        (SELECT ROLE_CODE_ FROM sys_role WHERE ROLE_STD_CODE_ = 130))
+    </select>
+
+    <select id="selStaffFH" resultType="java.lang.String">
+        SELECT STAFF_CODE_ FROM sys_duty
+        WHERE POSITION_CODE_ IN
+        (SELECT POSITION_CODE_ FROM sys_position WHERE ROLE_CODE_ IN
+        (SELECT ROLE_CODE_ FROM sys_role WHERE ROLE_STD_CODE_ = 140))
+    </select>
+
+    <select id="getBalance" parameterType="com.yzj.jep.app.bus.model.TraService" resultType="java.math.BigDecimal">
+        select sum(transation_amount) from bus_tra_service where DELFLAG_ = '1' and is_effective = '1'
+        <if test="relId!=null and relId!=''">
+            and rel_id = #{relId}
+        </if>
+        <if test="relType!=null and relType!=''">
+            and rel_type = #{relType}
+        </if>
+        <if test="productCode!=null and productCode!=''">
+            and product_code = #{productCode}
+        </if>
+    </select>
+</mapper>
+

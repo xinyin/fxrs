@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+    <previews>
+		 <preview id="gatewaysvr" xpath="$.SYSHEAD.TRANS_CODE"
+            trancodename="_TRAN_CODE" charset="UTF-8" errCodeName="errCode" errMsgName="errMsg"
+            sysName="TRANS" relationSysId="60" concreteSysId="60" >
+        </preview>
+    </previews>
+</config>

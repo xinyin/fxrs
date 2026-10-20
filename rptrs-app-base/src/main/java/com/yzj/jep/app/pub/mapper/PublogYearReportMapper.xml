@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.pub.mapper.PublogYearReportMapper">
+    <select id="getYearReportList" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+    select i.CONTRACT_NO  ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid ,max(i.investment_Type) as busType
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.investment_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.BUS_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.INVESTMENT_TYPE) as busType
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.INVESTMENT_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    </select>
+
+    <select id="getGroupByTranTypeAndRelNameAndBusType" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+     select busType as busType ,relname as relName,sum(contractAmount) as contractAmount from(
+         select i.CONTRACT_NO  ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid ,max(i.investment_Type) as busType
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.investment_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.BUS_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.INVESTMENT_TYPE) as busType
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.INVESTMENT_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+     ) where tranType=#{tranType} group by relname,busType order by contractAmount desc
+    </select>
+
+    <select id="getGroupByRelName" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+     select relname as relName,sum(contractAmount) as contractAmount from(
+         select i.CONTRACT_NO  ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid ,max(i.investment_Type) as busType
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.investment_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.BUS_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.INVESTMENT_TYPE) as busType
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.INVESTMENT_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+     ) group by relname
+    </select>
+
+    <select id="getOrderByPracTradeAmount" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+     select * from(
+         select i.CONTRACT_NO  ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid ,max(i.investment_Type) as busType
+           ,max(major_Trade) as majorTrade
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.investment_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+           ,max(major_Trade) as majorTrade
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.bus_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+           ,max(major_Trade) as majorTrade
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.BUS_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.INVESTMENT_TYPE) as busType
+           ,max(major_Trade) as majorTrade
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.INVESTMENT_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+           ,max(major_Trade) as majorTrade
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+           ,max(major_Trade) as majorTrade
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+     )  order by contractamount desc
+    </select>
+    <select id="getTranType" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+     select trantype from(
+         select i.CONTRACT_NO  ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid ,max(i.investment_Type) as busType
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.investment_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.bus_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.BUS_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.INVESTMENT_TYPE) as busType
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.INVESTMENT_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl='0'
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between concat(#{year},'-01-01') and concat(#{year},'-12-31')
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.year_Rep_Status is NULL or i.year_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+     )  group by trantype
+    </select>
+
+    <select id="getQuarterReportList" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+    select i.CONTRACT_NO  ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid ,max(i.investment_Type) as busType
+    from ins_tra_investment i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.investment_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_business i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_Type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_service i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.BUS_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl ='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.INVESTMENT_TYPE) as busType
+    from ins_tra_funds i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.INVESTMENT_TYPE is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    union all
+        select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_interest i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and is_Agreement_Impl='0'
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+
+    union all
+    select i.CONTRACT_NO ,max(i.TRAN_DATE)as tranDate ,max(i.REL_NAME) as relName,
+           max(r.relStatement) as relStatement ,max(i.TRAN_TYPE) as TRANTYPE ,
+           max(i.tran_Name) as tranName ,sum(i.prac_Trade_Amount)as  contractAmount,max(i.pid) as pid,max(i.bus_Type) as busType
+    from ins_tra_other i
+        INNER join bus_rel r on r.to_pid = i.rel_id
+    where
+        i.TRAN_DATE between #{startTime} and #{endTime}
+        and
+        i.bus_type is not null
+        and i.PRAC_TRADE_AMOUNT is NOT NULL
+        and (i.quarter_Rep_Status is NULL or i.quarter_Rep_Status &lt;&gt;  '1')  and i.delflag_='1'
+    group by i.CONTRACT_NO
+    </select>
+</mapper>
+

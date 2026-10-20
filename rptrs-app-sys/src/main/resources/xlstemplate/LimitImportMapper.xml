@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="limitSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="limits" var="limit"
+              varType="com.yzj.jep.app.bus.model.Product">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">limit.tranOrg</mapping>
+                <mapping cell="B2">limit.busDepart</mapping>
+                <mapping cell="C2">limit.tradeType</mapping>
+                <mapping cell="D2">limit.businessType</mapping>
+                <mapping cell="E2">limit.busLevel</mapping>
+                <mapping cell="F2">limit.proName</mapping>
+                <mapping cell="G2">limit.preLimitCurrency</mapping>
+                <mapping cell="H2">limit.preLimit</mapping>
+                <mapping cell="I2">limit.pasLimit</mapping>
+                <mapping cell="J2">limit.remLimit</mapping>
+                <mapping cell="K2">limit.limitRate</mapping>
+                <mapping cell="L2">limit.warnLeve</mapping>
+                <mapping cell="M2">limit.activeTime</mapping>
+                <mapping cell="N2">limit.expiryTime</mapping>
+                <mapping cell="O2">limit.isActive</mapping>
+                <mapping cell="P2">limit.approveStatus</mapping>
+                <!--<mapping cell="N2">naturalPerson.email</mapping>-->
+                <!--<mapping cell="O2">naturalPerson.reportVersion</mapping>-->
+                <!--<mapping cell="P2">naturalPerson.dutyCode</mapping>-->
+                <!--<mapping cell="Q2">naturalPerson.validStatus</mapping>-->
+                <!--<mapping cell="R2">naturalPerson.isReported</mapping>-->
+                <!--<mapping cell="S2">naturalPerson.activeTime</mapping>-->
+                <!--<mapping cell="T2">naturalPerson.invalidTime</mapping>-->
+                <!--<mapping cell="U2">naturalPerson.oldUseDate</mapping>-->
+                <!--<mapping cell="V2">naturalPerson.scrapDate</mapping>-->
+                <!--<mapping cell="W2">naturalPerson.leftAmt</mapping>-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <parameters>
+        <scalar-parameter name="startTime" id="689">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["startTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endTime" id="690">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["endTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Rptrs" id="617">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.246:3306/rptrs</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">MTIzNDU2</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="report_creditYBJ" id="688">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">tranName</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">tranName</text-property>
+                    <text-property name="heading">tranName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">relNum</property>
+                    <property name="alias">relNum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">relNum</text-property>
+                    <text-property name="heading">relNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tranNum</property>
+                    <property name="alias">tranNum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">tranNum</text-property>
+                    <text-property name="heading">tranNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">sum_Amount</property>
+                    <property name="alias">sum_Amount</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">sum_Amount</text-property>
+                    <text-property name="heading">sum_Amount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">avg_rel</property>
+                    <property name="alias">avg_rel</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">avg_rel</text-property>
+                    <text-property name="heading">avg_rel</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">avg_tranum</property>
+                    <property name="alias">avg_tranum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">avg_tranum</text-property>
+                    <text-property name="heading">avg_tranum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tra_maxAmount</property>
+                    <property name="alias">tra_maxAmount</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">tra_maxAmount</text-property>
+                    <text-property name="heading">tra_maxAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">rel_maxAmount</property>
+                    <property name="alias">rel_maxAmount</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">rel_maxAmount</text-property>
+                    <text-property name="heading">rel_maxAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">rela_ral</property>
+                    <property name="alias">rela_ral</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">rela_ral</text-property>
+                    <text-property name="heading">rela_ral</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">rela_tran</property>
+                    <property name="alias">rela_tran</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">rela_tran</text-property>
+                    <text-property name="heading">rela_tran</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">tranName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">relNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">tranNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">sum_Amount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">avg_rel</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">avg_tranum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">tra_maxAmount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">rel_maxAmount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">rela_ral</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">rela_tran</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var startTime = reportContext.getParameterValue("startTime"); 
+var endTime = reportContext.getParameterValue("endTime");
+var related_tran_type ="重大关联交易";
+//System.out.println("--------------------"+startTime+"---------"+endTime);
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	//this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+	this.queryText =this.queryText.replace("1=1", " approval_time >= '" + startTime + "'" +" AND (approval_time)<= '"+endTime+"'");
+	//this.queryText =this.queryText.replace("_related_tran_type",+"'"+endTime+"'");
+	System.out.println("--------------------"+this.queryText);
+}else{
+this.queryText = this.queryText;
+}]]></method>
+            <property name="dataSource">Rptrs</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">tranName</property>
+                    <property name="nativeName">ITEM_LABEL_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">relNum</property>
+                    <property name="nativeName">relNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">tranNum</property>
+                    <property name="nativeName">tranNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">sum_Amount</property>
+                    <property name="nativeName">sum_Amount</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">avg_rel</property>
+                    <property name="nativeName">avg_rel</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">avg_tranum</property>
+                    <property name="nativeName">avg_tranum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">tra_maxAmount</property>
+                    <property name="nativeName">tra_maxAmount</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">rel_maxAmount</property>
+                    <property name="nativeName">rel_maxAmount</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">rela_ral</property>
+                    <property name="nativeName">rela_ral</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">rela_tran</property>
+                    <property name="nativeName">rela_tran</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT
+	`sdi`.`ITEM_LABEL_` AS `tranName`,
+	-- 交易名称
+	SUM(DISTINCT(btc.rel_id) OR NULL) AS relNum,
+	-- 关联方交户数
+	COUNT(btc.is_del = 1 OR NULL) AS tranNum,
+	-- 交易笔数
+	SUM(btc.credit_amount) AS sum_Amount,
+	-- 交易总额
+-- 	CONCAT(
+		ROUND(
+			(
+				(
+					(SUM(btc.is_del = 1 OR NULL)) / (SUM(btc.rel_id OR NULL))
+				) * 1
+			),
+			2
+		)
+-- 		'%'
+-- 	) 
+AS avg_rel,
+	-- 单户平均交易笔数
+	ROUND(
+		(
+			(
+				(SUM(btc.credit_amount)) / (SUM(btc.is_del = 1 OR NULL))
+			) * 1
+		),
+		2
+	) AS avg_tranum,
+	-- 单笔平均交易金额
+	MAX(btc.credit_amount) AS tra_maxAmount,
+	-- 单笔最大交易金额
+  	MAX(a.sumA) rel_maxAmount,
+	-- 单户最大交易金额
+	COUNT(
+		DISTINCT(btc.rel_id)
+		AND btc.related_tran_type ='重大关联交易'
+		OR NULL
+	) AS rela_ral,
+	-- 重大关联交易户数
+	COUNT(
+		(btc.related_tran_type ='重大关联交易')
+		OR NULL
+	) AS rela_tran -- 重大关联交易笔数
+FROM
+	sys_dict_item sdi,
+	bus_tra_credit btc
+
+
+
+  LEFT JOIN (
+  	SELECT
+  		SUM(credit_amount) AS sumA,
+  		tran_type AS tt
+  	FROM
+  		bus_tra_credit
+  	WHERE
+  		 1=1
+  	AND is_del = 1
+  	AND regulator_ybj = 1
+  	GROUP BY
+  		tran_type,
+  		rel_id
+  ) a ON a.tt = btc.tran_type
+
+
+WHERE
+	 1=1
+AND btc.is_del = 1
+AND sdi.ITEM_VALUE_ = btc.tran_type
+AND regulator_ybj = 1
+GROUP BY
+	btc.tran_type]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ITEM_LABEL_</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranName</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranName</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>relNum</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>relNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>relNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>24</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tranNum</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>23</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>24</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>sum_Amount</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>sum_Amount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>sum_Amount</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>avg_rel</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>30</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>avg_rel</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>avg_rel</design:label>
+            <design:formattingHints>
+              <design:displaySize>30</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>avg_tranum</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>36</design:precision>
+            <design:scale>2</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>avg_tranum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>avg_tranum</design:label>
+            <design:formattingHints>
+              <design:displaySize>38</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tra_maxAmount</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tra_maxAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tra_maxAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>sumA</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>rel_maxAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>rel_maxAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>rela_ralNum</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>rela_ralNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>rela_ralNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>related_tran</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>related_tran</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>related_tran</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="NewStyle" id="706">
+            <property name="backgroundPositionX">center</property>
+            <property name="backgroundPositionY">center</property>
+            <property name="backgroundRepeat">repeat</property>
+            <property name="fontFamily">"@微软雅黑"</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+            <property name="marginLeft">auto</property>
+            <property name="textAlign">center</property>
+            <property name="verticalAlign">middle</property>
+        </style>
+    </styles>
+   
+    <body>
+        <table id="618">
+            <property name="fontFamily">"@微软雅黑"</property>
+            <property name="marginLeft">10%</property>
+            <property name="marginRight">10%</property>
+            <property name="verticalAlign">middle</property>
+            <property name="width">80%</property>
+            <property name="dataSet">report_creditYBJ</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">tranName</property>
+                    <text-property name="displayName">tranName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tranName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tranNum</property>
+                    <text-property name="displayName">tranNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tranNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">sum_Amount</property>
+                    <text-property name="displayName">sum_Amount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["sum_Amount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">avg_rel</property>
+                    <text-property name="displayName">avg_rel</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["avg_rel"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">avg_tranum</property>
+                    <text-property name="displayName">avg_tranum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["avg_tranum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">tra_maxAmount</property>
+                    <text-property name="displayName">tra_maxAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tra_maxAmount"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">rel_maxAmount</property>
+                    <text-property name="displayName">rel_maxAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["rel_maxAmount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">Time</property>
+                    <expression name="expression" type="javascript">if( params["startTime"].value == null &amp;&amp; params["endTime"].value == null){&#13;
+"统计时间："&#13;
+}else{&#13;
+"统计时间：" + params["startTime"].value + " - " + params["endTime"].value;&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">relNum</property>
+                    <text-property name="displayName">relNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["relNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">rela_ral</property>
+                    <text-property name="displayName">rela_ral</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["rela_ral"]</expression>
+                    <property name="dataType">decimal</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">rela_tran</property>
+                    <text-property name="displayName">rela_tran</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["rela_tran"]</expression>
+                    <property name="dataType">decimal</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="652"/>
+            <column id="653"/>
+            <column id="654"/>
+            <column id="655"/>
+            <column id="656"/>
+            <column id="657"/>
+            <column id="658"/>
+            <column id="659"/>
+            <column id="660"/>
+            <column id="661"/>
+            <header>
+                <row id="619">
+                    <cell id="620">
+                        <property name="colSpan">10</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="662">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[授信类关联交易整体统计情况表-银保监会]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+                <row id="724">
+                    <cell id="725">
+                        <property name="colSpan">10</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <grid id="735">
+                            <column id="736"/>
+                            <row id="737">
+                                <cell id="738">
+                                    <data id="740">
+                                        <property name="resultSetColumn">Time</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+                <row id="667">
+                    <cell id="668">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="678">
+                            <property name="marginTop">auto</property>
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="marginRight">auto</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[交易类型]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="669">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="679">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[关联方户数]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="670">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="680">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[关联方交易笔数]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="671">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="685">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[关联交易总额]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="672">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="681">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[单户平均交易笔数]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="673">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="682">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[单笔平均交易金额]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="674">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="683">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[单笔最大金额]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="675">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="684">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[单户最大交易金额]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="676">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="686">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[重大关联交易户数]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="677">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <text id="687">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[重大关联交易笔数]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="630">
+                    <property name="verticalAlign">middle</property>
+                    <cell id="631">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="691">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">tranName</property>
+                        </data>
+                    </cell>
+                    <cell id="632">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="692">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">relNum</property>
+                        </data>
+                    </cell>
+                    <cell id="633">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="693">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">tranNum</property>
+                        </data>
+                    </cell>
+                    <cell id="634">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="694">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">sum_Amount</property>
+                        </data>
+                    </cell>
+                    <cell id="635">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="695">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <structure name="numberFormat">
+                                <property name="category">Percent</property>
+                                <property name="pattern">###0.00%;(###0.00)%{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">avg_rel</property>
+                        </data>
+                    </cell>
+                    <cell id="636">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="696">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">avg_tranum</property>
+                        </data>
+                    </cell>
+                    <cell id="637">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="697">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">tra_maxAmount</property>
+                        </data>
+                    </cell>
+                    <cell id="638">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="741">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">rel_maxAmount</property>
+                        </data>
+                    </cell>
+                    <cell id="639">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="742">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">rela_ral</property>
+                        </data>
+                    </cell>
+                    <cell id="640">
+                        <property name="style">NewStyle</property>
+                        <property name="verticalAlign">middle</property>
+                        <data id="743">
+                            <property name="marginLeft">auto</property>
+                            <property name="marginBottom">auto</property>
+                            <property name="resultSetColumn">rela_tran</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>

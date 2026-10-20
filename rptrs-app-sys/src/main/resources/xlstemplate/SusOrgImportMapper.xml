@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="SusRelOrgSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="SusOrgPsns" var="RelOrgSuspectVo"
+              varType="com.yzj.jep.app.bus.model.RelOrgSuspectVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">RelOrgSuspectVo.orgName</mapping> <!--机构名称-->
+                <mapping cell="B2">RelOrgSuspectVo.domesticOrForeign</mapping> <!--境内境外-->
+                <mapping cell="C2">RelOrgSuspectVo.identifyType</mapping> <!--证件类型-->
+                <mapping cell="D2">RelOrgSuspectVo.uniscCode</mapping> <!--证件号码-->
+                <mapping cell="E2">RelOrgSuspectVo.isSubsidiary</mapping><!--是否控股子公司-->
+                <mapping cell="F2">RelOrgSuspectVo.memGroup</mapping><!--集团证件号-->
+                <mapping cell="G2">RelOrgSuspectVo.regCapital</mapping><!--注册资本-->
+                <mapping cell="H2">RelOrgSuspectVo.orgType</mapping><!--企业类型-->
+                <mapping cell="I2">RelOrgSuspectVo.regAddress</mapping><!--注册地址-->
+                <mapping cell="J2">RelOrgSuspectVo.businessScope</mapping><!--营业范围-->
+                <mapping cell="K2">RelOrgSuspectVo.legalPerson</mapping><!--法定代表人-->
+                <mapping cell="L2">RelOrgSuspectVo.legalIdentifyType</mapping><!--法定代表人证件类型-->
+                <mapping cell="M2">RelOrgSuspectVo.legalIdentifyNumber</mapping><!--法定代表人证件号码-->
+                <mapping cell="N2">RelOrgSuspectVo.status</mapping><!--机构状态-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.sub.mapper.ProcessQueryMapper">
+
+    <resultMap id="procLogResultMap" type="com.yzj.jep.workflow.wf.model.HisProcLog">
+        <id column="ID_" property="id"/>
+        <result column="PROCESS_INSTANT_ID_" property="processInstantId"/>
+        <result column="BIZ_ID_" property="bizId"/>
+        <result column="PROC_INST_ID_" property="procInstId"/>
+        <result column="PROC_ID_" property="procId"/>
+        <result column="PROC_CODE_" property="procCode"/>
+        <result column="PROC_NAME_" property="procName"/>
+        <result column="CREATED_BY_NAME_" property="createByName"/>
+        <result column="PROC_VERSION_" property="procVersion"/>
+        <result column="MODULE_CODE_" property="moduleCode"/>
+        <result column="MODULE_NAME_" property="moduleName"/>
+        <result column="TEMPLATE_CODE_" property="templateCode"/>
+        <result column="TEMPLATE_NAME_" property="templateName"/>
+        <result column="PROCESS_DEF_ID_" property="processDefId"/>
+        <result column="PROCESS_DEF_KEY_" property="processDefKey"/>
+        <result column="PROCESS_DEF_NAME_" property="processDefName"/>
+        <result column="TASK_ID_" property="taskId"/>
+        <result column="TASK_KEY_" property="taskKey"/>
+        <result column="TASK_NAME_" property="taskName"/>
+        <result column="TYPE_" property="type"/>
+        <result column="ACTION_" property="action"/>
+        <result column="STAFF_CODE_" property="staffCode"/>
+        <result column="STAFF_NAME_" property="staffName"/>
+        <result column="UNIT_CODE_" property="unitCode"/>
+        <result column="DEPT_CODE_" property="deptCode"/>
+        <result column="DEPT_NAME_" property="deptName"/>
+        <result column="UNIT_NAME_" property="unitName"/>
+        <result column="MEMO_" property="memo"/>
+        <result column="LOG_TIME_" property="logTime"/>
+        <result column="NEXT_TASK_ID_" property="nextTaskId"/>
+        <result column="NEXT_TASK_KEY_" property="nextTaskKey"/>
+        <result column="NEXT_TASK_NAME_" property="nextTaskName"/>
+        <result column="NEXT_STAFF_" property="nextStaff"/>
+        <result column="DURATION_" property="duration"/>
+        <result column="NANO_TIME_" property="nanoTime"/>
+        <result column="CONTENT_" property="content"/>
+        <result column="ERROR_MESSAGE_" property="errorMessage"/>
+        <result column="ARCHIEVE_TIME_" property="archieveTime"/>
+        <result column="TENANT_ID_" property="tenantId"/>
+        <result column="CREATED_TIME_" property="createTime"/>
+    </resultMap>
+    <!--查询审批日志表-->
+    <select id="queryHisProcLogByInsId" resultMap="procLogResultMap">
+        SELECT ID_,
+               PROCESS_INSTANT_ID_,
+               BIZ_ID_,
+               PROC_INST_ID_,
+               PROC_ID_,
+               PROC_CODE_,
+               PROC_NAME_,
+               PROC_VERSION_,
+               MODULE_CODE_,
+               MODULE_NAME_,
+               TEMPLATE_CODE_,
+               TEMPLATE_NAME_,
+               PROCESS_DEF_ID_,
+               PROCESS_DEF_KEY_,
+               PROCESS_DEF_NAME_,
+               TASK_ID_,
+               TASK_KEY_,
+               TASK_NAME_,
+               ACTION_,
+               STAFF_CODE_,
+               STAFF_NAME_,
+               UNIT_CODE_,
+               DEPT_CODE_,
+               DEPT_NAME_,
+               UNIT_NAME_,
+               MEMO_,
+               LOG_TIME_,
+               NEXT_TASK_ID_,
+               NEXT_TASK_KEY_,
+               NEXT_TASK_NAME_,
+               NEXT_STAFF_,
+               DURATION_,
+               NANO_TIME_,
+               CONTENT_,
+               TENANT_ID_,
+               CREATED_BY_ID_,
+               CREATED_BY_NAME_,
+               CREATED_TIME_,
+               DELFLAG_,
+               DISPLAY_ORDER_,
+               MODIFIED_BY_ID_,
+               MODIFIED_BY_NAME_,
+               MODIFIED_TIME_,
+               VERSION_
+        FROM wf_proc_log
+        WHERE PROCESS_INSTANT_ID_ = #{processInstantId}
+          AND ACTION_ = #{action}
+          AND (STAFF_CODE_ = #{userid} OR NEXT_STAFF_ LIKE '%' || #{userid} || '%')
+        ORDER BY LOG_TIME_
+    </select>
+    <select id="queryTaskImplByTaskId" resultMap="procLogResultMap">
+        SELECT ID_,
+               PROCESS_INSTANT_ID_,
+               BIZ_ID_,
+               PROC_INST_ID_,
+               PROC_ID_,
+               PROC_CODE_,
+               PROC_NAME_,
+               PROC_VERSION_,
+               MODULE_CODE_,
+               MODULE_NAME_,
+               TEMPLATE_CODE_,
+               TEMPLATE_NAME_,
+               PROCESS_DEF_ID_,
+               PROCESS_DEF_KEY_,
+               PROCESS_DEF_NAME_,
+               TASK_ID_,
+               TASK_KEY_,
+               TASK_NAME_,
+               ACTION_,
+               STAFF_CODE_,
+               STAFF_NAME_,
+               UNIT_CODE_,
+               DEPT_CODE_,
+               DEPT_NAME_,
+               UNIT_NAME_,
+               MEMO_,
+               LOG_TIME_,
+               NEXT_TASK_ID_,
+               NEXT_TASK_KEY_,
+               NEXT_TASK_NAME_,
+               NEXT_STAFF_,
+               DURATION_,
+               NANO_TIME_,
+               CONTENT_,
+               TENANT_ID_,
+               CREATED_BY_ID_,
+               CREATED_BY_NAME_,
+               CREATED_TIME_,
+               DELFLAG_,
+               DISPLAY_ORDER_,
+               MODIFIED_BY_ID_,
+               MODIFIED_BY_NAME_,
+               MODIFIED_TIME_,
+               VERSION_
+        FROM wf_proc_log
+        <where>
+            <if test="taskId!=null">
+                and TASK_ID_=#{taskId}
+            </if>
+            <if test="action!=null">
+                AND ACTION_ = #{action}
+            </if>
+            <if test="nextTaskId!=null ">
+                AND NEXT_TASK_ID_ = #{nextTaskId}
+            </if>
+        </where>
+        ORDER BY LOG_TIME_
+    </select>
+    <!--查询提交时保存的表单数据-->
+    <resultMap id="dataResultMap" type="com.yzj.jep.workflow.wf.model.ProcInstData">
+        <id column="PROC_INST_ID_" property="procInstId"/>
+        <result column="BIZ_ID_" property="bizId"/>
+        <result column="OLD_FORM_DATA_" property="oldFormData"/>
+        <result column="FORM_DATA_" property="formData"/>
+        <result column="TENANT_ID_" property="tenantId"/>
+        <result column="CREATED_BY_ID_" property="createById"/>
+        <result column="CREATED_BY_NAME_" property="createByName"/>
+        <result column="CREATED_TIME_" property="createTime"/>
+        <result column="VERSION_" property="version"/>
+    </resultMap>
+    <select id="queryProcInstDataByprocInstId" resultMap="dataResultMap">
+        SELECT
+            PROC_INST_ID_,
+            BIZ_ID_,
+            OLD_FORM_DATA_,
+            FORM_DATA_,
+            TENANT_ID_,
+            CREATED_BY_ID_,
+            CREATED_BY_NAME_,
+            CREATED_TIME_,
+            VERSION_
+        FROM
+            wf_proc_inst_data
+        WHERE PROC_INST_ID_ = #{procInstId}
+    </select>
+    <resultMap type="com.yzj.jep.app.sub.model.MidBusProc" id="MidBusProcMap">
+        <result property="pid" column="pid"/>
+        <result property="procInstId" column="proc_inst_id"/>
+        <result property="flagPid" column="flag_pid"/>
+        <result property="filPid" column="fil_pid"/>
+        <result property="busType" column="bus_type"/>
+        <result property="focusApprovePid" column="focus_approve_pid"/>
+    </resultMap>
+
+    <select id="queryMidData" resultMap="MidBusProcMap">
+        select pid,
+               proc_inst_id,
+               flag_pid,
+               fil_pid,
+               bus_type,
+               focus_approve_pid
+        from mid_bus_proc
+        where proc_inst_id = #{procInsId}
+    </select>
+    <select id="queryNextStafIsNotUser" resultMap="procLogResultMap">
+        SELECT ID_,
+               PROCESS_INSTANT_ID_,
+               BIZ_ID_,
+               PROC_INST_ID_,
+               PROC_ID_,
+               PROC_CODE_,
+               PROC_NAME_,
+               PROC_VERSION_,
+               MODULE_CODE_,
+               MODULE_NAME_,
+               TEMPLATE_CODE_,
+               TEMPLATE_NAME_,
+               PROCESS_DEF_ID_,
+               PROCESS_DEF_KEY_,
+               PROCESS_DEF_NAME_,
+               TASK_ID_,
+               TASK_KEY_,
+               TASK_NAME_,
+               ACTION_,
+               STAFF_CODE_,
+               STAFF_NAME_,
+               UNIT_CODE_,
+               DEPT_CODE_,
+               DEPT_NAME_,
+               UNIT_NAME_,
+               MEMO_,
+               LOG_TIME_,
+               NEXT_TASK_ID_,
+               NEXT_TASK_KEY_,
+               NEXT_TASK_NAME_,
+               NEXT_STAFF_,
+               DURATION_,
+               NANO_TIME_,
+               CONTENT_,
+               TENANT_ID_,
+               CREATED_BY_ID_,
+               CREATED_BY_NAME_,
+               CREATED_TIME_,
+               DELFLAG_,
+               DISPLAY_ORDER_,
+               MODIFIED_BY_ID_,
+               MODIFIED_BY_NAME_,
+               MODIFIED_TIME_,
+               VERSION_
+        FROM wf_his_proc_log
+        WHERE PROCESS_INSTANT_ID_ = #{processInstantId}
+          AND ACTION_ IN ('COMPLETE','REJECT')
+        ORDER BY LOG_TIME_
+    </select>
+    <select id="queryTrans" resultType="com.yzj.jep.workflow.wf.model.ProcAutoTransfer">
+        SELECT DISTINCT
+            t.ID_ id,
+            t.STAFF_CODE_ staffCode,
+            t.STAFF_NAME_ staffName,
+            t.TRANSFER_STAFF_CODE_ transferStaffCode,
+            t.TRANSFER_STAFF_NAME_ transferStaffName,
+            t.IS_INCLUDE_ONESELF_  isIncludeOneself,
+            t.START_TIME_ startTime,
+            t.END_TIME_ endTime
+        FROM
+            wf_proc_auto_transfer t
+        WHERE
+            #{logTimeString} BETWEEN t.START_TIME_ and t.END_TIME_
+            AND t.TRANSFER_STAFF_CODE_= #{staffCode}
+    </select>
+</mapper>
+

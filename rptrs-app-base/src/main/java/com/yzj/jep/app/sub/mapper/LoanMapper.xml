@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.yzj.jep.app.sub.mapper.LoanMapper">
+    <!--各项贷款-->
+    <select id="getLoan"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='loan' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构各项贷款-->
+    <select id="getOrgLoan"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='loan' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--债券投资-->
+    <select id="getBondInvestment"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='bondInvestment' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构债券投资-->
+    <select id="getOrgBondInvestment"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='bondInvestment' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--特定目的载体投资-->
+    <select id="getInvestment"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='investment' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构的特定目的载体投资-->
+    <select id="getOrgInvestment"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='investment' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--其他表内授信-->
+    <select id="getOtherinnercredit" resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type IN (
+					'dissum',
+					'securitiesRepurchase',
+					'tradeFinancing',
+					'factoring',
+					'overdraft',
+					'borrow Money'
+				) AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构的其他表内授信-->
+    <select id="getOrgOtherinnercredit" resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type IN (
+					'dissum',
+					'securitiesRepurchase',
+					'tradeFinancing',
+					'factoring',
+					'overdraft',
+					'borrow Money'
+				) AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--不可撤销的承诺及或有负债-->
+    <select id="getIrrevocablecommitments"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type IN (
+					'loanCommitment',
+					'acceptance',
+					'letterCredit',
+					'letterGuarantee',
+					'guarantee'
+				) AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构的不可撤销的承诺及或有负债-->
+    <select id="getOrgIrrevocablecommitments"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type IN (
+					'loanCommitment',
+					'acceptance',
+					'letterCredit',
+					'letterGuarantee',
+					'guarantee'
+				) AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--本行非保本理财产品进行的授信-->
+    <select id="getNonbreakevenfinancial"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='nonbreakevenfinancial' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构的本行非保本理财产品进行的授信-->
+    <select id="getOrgNonbreakevenfinancial"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='nonbreakevenfinancial' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--其他表外授信-->
+    <select id="getOtheroutcredit"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='commercialBankproducts' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--关联机构的其他表外授信-->
+    <select id="getOrgOtheroutcredit"  resultType="java.math.BigDecimal">
+        SELECT sum(s.contract_amount) FROM sub_loan s WHERE s.credit_type='commercialBankproducts' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--授信净额-->
+    <select id="getMaxCreditBalance" resultType="java.math.BigDecimal">
+        SELECT sum(coalesce(s.contract_amount,0)) FROM sub_loan s WHERE  s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end} group by TO_DAYS(s.trans_start_date);
+    </select>
+    <!--关联机构的授信净额-->
+    <select id="getOrgMaxCreditBalance" resultType="java.math.BigDecimal">
+        SELECT sum(coalesce(s.contract_amount,0)) FROM sub_loan s WHERE  s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end} group by TO_DAYS(s.trans_start_date);
+    </select>
+</mapper>
+

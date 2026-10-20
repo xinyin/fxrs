@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelOrgHistoryMapper">
+
+
+    <resultMap type="com.yzj.jep.app.bus.model.RelOrgHistory" id="relOrgMap">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="reg_code" property="regCode" jdbcType="VARCHAR"/>
+        <result column="orignal_org" property="orignalOrg" jdbcType="VARCHAR"/>
+        <result column="orignal_org_name" property="orignalOrgName" jdbcType="VARCHAR"/>
+        <result column="org_name" property="orgName" jdbcType="VARCHAR"/>
+        <result column="org_type" property="orgType" jdbcType="VARCHAR"/>
+        <result column="domestic_or_foreign" property="domesticOrForeign" jdbcType="VARCHAR"/>
+        <result column="identify_type" property="identifyType" jdbcType="VARCHAR"/>
+        <result column="unisc_code" property="uniscCode" jdbcType="VARCHAR"/>
+        <result column="reg_capital" property="regCapital" jdbcType="REAL"/>
+        <result column="reg_capital_currency" property="regCapitalCurrency" jdbcType="VARCHAR"/>
+        <result column="business_scope" property="businessScope" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="legal_person" property="legalPerson" jdbcType="VARCHAR"/>
+        <result column="reg_address" property="regAddress" jdbcType="VARCHAR"/>
+        <result column="valid_status" property="validStatus" jdbcType="VARCHAR"/>
+        <result column="active_time" property="activeTime" jdbcType="TIMESTAMP"/>
+        <result column="invalid_time" property="invalidTime" jdbcType="TIMESTAMP"/>
+        <result column="mger_org" property="mgerOrg" jdbcType="VARCHAR"/>
+        <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR"/>
+        <result column="status_comment" property="statusComment" jdbcType="VARCHAR"/>
+        <result column="up_approval_department" property="upApprovalDepartment" jdbcType="VARCHAR"/>
+        <result column="next_approval_department" property="nextApprovalDepartment" jdbcType="VARCHAR"/>
+        <result column="up_approval_people" property="upApprovalPeople" jdbcType="VARCHAR"/>
+        <result column="next_approval_people" property="nextApprovalPeople" jdbcType="VARCHAR"/>
+        <result column="regulator_ybj" property="regulatorYbj" jdbcType="VARCHAR"/>
+        <result column="regulator_zjh" property="regulatorZjh" jdbcType="VARCHAR"/>
+        <result column="regulator_czb" property="regulatorCzb" jdbcType="VARCHAR"/>
+        <result column="regulator_oth1" property="regulatorOth1" jdbcType="VARCHAR"/>
+        <result column="regulator_oth2" property="regulatorOth2" jdbcType="VARCHAR"/>
+        <result column="is_black" property="isBlack" jdbcType="VARCHAR"/>
+        <result column="black_reason" property="blackReason" jdbcType="VARCHAR"/>
+        <result column="is_shareholder" property="isShareholder" jdbcType="VARCHAR"/>
+        <result column="shareholders_code" property="shareholdersCode" jdbcType="VARCHAR"/>
+        <result column="legal_identify_type" property="legalIdentifyType" jdbcType="VARCHAR"/>
+        <result column="legal_identify_number" property="legalIdentifyNumber" jdbcType="VARCHAR"/>
+        <result column="state_owned" property="stateOwned" jdbcType="VARCHAR"/>
+        <result column="open_bank" property="openBank" jdbcType="VARCHAR"/>
+        <result column="trade_account" property="tradeAccount" jdbcType="VARCHAR"/>
+        <result column="hole_share_amount" property="holeShareAmount" jdbcType="VARCHAR"/>
+        <result column="shareholding_proportion" property="shareholdingProportion" jdbcType="VARCHAR"/>
+        <result column="frozen_share" property="frozenShare" jdbcType="VARCHAR"/>
+        <result column="pledged_share" property="pledgedShare" jdbcType="VARCHAR"/>
+        <result column="isValid" property="isValid" jdbcType="VARCHAR"/>
+        <result column="rel_type" property="relType" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+        <result column="preset_limit_currency" property="presetLimitCurrency" jdbcType="VARCHAR"/>
+        <result column="preset_limit" property="presetLimit" jdbcType="VARCHAR"/>
+        <result column="available_limit" property="availableLimit" jdbcType="VARCHAR"/>
+        <result column="data_source" property="dataSource" jdbcType="VARCHAR"/>
+        <result column="AMEND_ID" property="amendId" jdbcType="VARCHAR"/>
+        <result column="AMEND_NAME" property="amendName" jdbcType="VARCHAR"/>
+        <result column="in_time" property="inTime" jdbcType="VARCHAR"/>
+        <result column="in_price" property="inPrice" jdbcType="VARCHAR"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="mem_group" property="memGroup" jdbcType="VARCHAR"/>
+        <result column="is_main_gd" property="isMainGd" jdbcType="VARCHAR"/>
+        <result column="effect_relation" property="effectRelation" jdbcType="VARCHAR"/>
+        <result column="capital_number" property="capitalNumber" jdbcType="VARCHAR"/>
+        <result column="is_no_share_vote" property="isNoShareVote" jdbcType="VARCHAR"/>
+        <result column="vote_proportion" property="voteProportion" jdbcType="VARCHAR"/>
+        <result column="limit_vote_situation" property="limitVoteSituation" jdbcType="VARCHAR"/>
+        <result column="from_pid" property="fromPid" jdbcType="VARCHAR"/>
+        <result column="TRANSACTION_DEP" property="transactionDep" jdbcType="VARCHAR"/>
+        <result column="OPERATOR" property="operator" jdbcType="VARCHAR"/>
+        <result column="is_subsidiary" property="isSubsidiary" jdbcType="VARCHAR"/>
+        <result column="relate_number" property="relateNumber" jdbcType="VARCHAR"/>
+        <result column="record_type" property="recordType" jdbcType="VARCHAR"/>
+        <result column="record_number" property="recordNumber" jdbcType="VARCHAR"/>
+        <result column="source_id" property="sourceId" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryRecordNumberData" resultMap="relOrgMap">
+        SELECT h.*
+        FROM bus_rel_org_history h
+                 RIGHT JOIN
+             (SELECT h1.record_number,
+                     h1.unisc_code,
+                     MAX(h1.PID) pid
+              FROM (SELECT * FROM bus_rel_org_history ORDER BY CREATED_TIME_ DESC) h1,
+                   (SELECT record_number
+                    FROM bus_rel_org_history
+                    WHERE record_number IS NOT NULL
+                      AND date_format(CREATED_TIME_, '%Y-%m-%d') = #{createTime}
+                    GROUP BY record_number) queryNum
+              WHERE h1.record_number = queryNum.record_number
+                AND date_format(h1.CREATED_TIME_, '%Y-%m-%d') <![CDATA[ <= ]]> #{createTime}
+                AND h1.record_type != '3'
+        AND h1.PID
+        AND NOT EXISTS (
+        SELECT
+        h2.PID
+        FROM
+        bus_rel_org_history h2
+        LEFT JOIN (
+        SELECT
+        t1.record_number,t1.unisc_code,MAX(t1.CREATED_TIME_) CREATED_TIME_
+        FROM
+        ( SELECT * FROM bus_rel_org_history h ORDER BY CREATED_TIME_ DESC ) t1,
+        ( SELECT record_number FROM bus_rel_org_history WHERE record_number IS NOT NULL AND date_format( CREATED_TIME_, '%Y-%m-%d' ) = #{createTime} GROUP BY record_number ) queryNum
+                  WHERE
+                  t1.record_number = queryNum.record_number
+                AND date_format( CREATED_TIME_
+                  , '%Y-%m-%d' ) <![CDATA[ <= ]]> #{createTime}
+                AND t1.record_type = '3'
+                  GROUP BY
+                  t1.record_number
+                  , t1.unisc_code
+                  ) h3 ON h2.unisc_code = h3.unisc_code
+                  WHERE
+                  h2.record_number = h3.record_number
+                AND h2.CREATED_TIME_ <![CDATA[ < ]]> h3.CREATED_TIME_
+                AND h1.pid = h2.PID
+                  )
+              GROUP BY
+                  h1.record_number,
+                  h1.unisc_code) h4 ON h.PID = h4.PID
+
+    </select>
+    <select id="queryRecordNumber" resultMap="relOrgMap">
+        SELECT *
+        FROM
+        bus_rel_org_history
+        where DELFLAG_ ='1' and
+        record_number=#{recordNumber}
+        <if test="recordType != null">
+            AND  record_type = #{recordType}
+        </if>
+        ORDER BY  UNISC_CODE,CREATED_TIME_ DESC
+    </select>
+
+    <select id="recordNumber" resultType="java.lang.String">
+        SELECT distinct
+        record_number
+        FROM bus_rel_org_history
+        WHERE record_number is NOT NULL
+        ORDER BY record_number DESC
+    </select>
+</mapper>
+

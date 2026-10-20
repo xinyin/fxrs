@@ -1,0 +1,34 @@
+{
+  "BODY":{
+            "contractNo":"${contractNo}",
+            "RelTranRange":"${RelTranRange}",
+            "anchorList":[<#list anchorList as p>
+                            {
+                                "contSubType":"${p.contSubType}",
+                                "contSubName":"${p.contSubName}",
+                                "uscType":"${p.uscType}",
+                                "uscCode":"${p.uscCode}",
+                                "anchorType":"${p.anchorType}",
+                                "isOverrun":"${p.isOverrun}",
+                                "overrunInf":"${p.overrunInf}",
+                                "relTranCategory":"${p.relTranCategory}",
+                                "relList":[<#list p.relList as r>
+                                              {
+                                                "relType":"${r.relType}",
+                                                "relName":"${r.relName}",
+                                                "uscType":"${r.uscType}",
+                                                "uscCode":"${r.uscCode}",
+                                                "relTranAmt":"${r.relTranAmt}",
+                                                "relTranType":"${r.relTranType}"
+                                                 }
+                                            </#list>]
+                                 }
+                            </#list>]
+  },
+  "SYSHEAD":{
+    "msg":"${msg}",
+    "resultCode":"${resultCode}",
+    "TRANS_CODE":"${TRANS_CODE}",
+    "CHNL_ID":"${CHNL_ID}"
+  }
+}

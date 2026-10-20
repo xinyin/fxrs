@@ -1,0 +1,1887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="year" id="294">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["year"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="quarter" id="295">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["quarter"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="code" id="1155">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["code"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="706"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Data Set" id="707">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_NUMBER</property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_NUMBER</property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_AMOUNT</property>
+                </structure>
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_AMOUNT</property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAN_AMOUNT</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //季度
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set begin**************");
+cf=new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set**************");
+c=cf.selectInvestment(year, quarter, code);
+System.out.println("************set end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1) {
+    System.out.println("************set fetch**************");
+    row["GENERAL_REL_TRAN_NUMBER"] = c.get(count).getGENERAL_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_NUMBER"] = c.get(count).getMAJOR_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_AMOUNT"] = c.get(count).getMAJOR_REL_TRAN_AMOUNT();
+    row["GENERAL_REL_TRAN_AMOUNT"] = c.get(count).getGENERAL_REL_TRAN_AMOUNT();
+    row["TRAN_AMOUNT"] = c.get(count).getTRAN_AMOUNT();
+    System.out.println("************set fetch end**************");
+    count++;
+    return true;
+}
+return false;]]></method>
+            <method name="close"><![CDATA[System.out.println("************set close**************");
+System.out.println("************set close end**************");]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set1" id="708">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAN_AMOUNT</property>
+                    <text-property name="displayName">TRAN_AMOUNT</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //年份
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set1 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set1*************");
+c=cf.selectFunds(year, quarter, code);
+System.out.println("************set1 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1 ){
+    System.out.println("************set1 fetch**************");
+    row["GENERAL_REL_TRAN_NUMBER"] = c.get(count).getGENERAL_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_NUMBER"] = c.get(count).getMAJOR_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_AMOUNT"] = c.get(count).getMAJOR_REL_TRAN_AMOUNT();
+    row["GENERAL_REL_TRAN_AMOUNT"] = c.get(count).getGENERAL_REL_TRAN_AMOUNT();
+    row["TRAN_AMOUNT"] = c.get(count).getTRAN_AMOUNT();
+    System.out.println("************set1 fetch end**************");
+    count++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set2" id="714">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAN_AMOUNT</property>
+                    <text-property name="displayName">TRAN_AMOUNT</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //年份
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set2 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set2**************");
+c=cf.selectInterest(year, quarter, code);
+System.out.println("************set2 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1 ){
+    System.out.println("************set2 fetch**************");
+    row["GENERAL_REL_TRAN_NUMBER"] = c.get(count).getGENERAL_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_NUMBER"] = c.get(count).getMAJOR_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_AMOUNT"] = c.get(count).getMAJOR_REL_TRAN_AMOUNT();
+    row["GENERAL_REL_TRAN_AMOUNT"] = c.get(count).getGENERAL_REL_TRAN_AMOUNT();
+    row["TRAN_AMOUNT"] = c.get(count).getTRAN_AMOUNT();
+    System.out.println("************set2 fetch end**************");
+    count++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set3" id="715">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAN_AMOUNT</property>
+                    <text-property name="displayName">TRAN_AMOUNT</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //年份
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set3 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set3**************");
+c=cf.selectBusiness(year, quarter, code);
+System.out.println("************set3 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1 ){
+    System.out.println("************set3 fetch**************");
+    row["GENERAL_REL_TRAN_NUMBER"] = c.get(count).getGENERAL_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_NUMBER"] = c.get(count).getMAJOR_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_AMOUNT"] = c.get(count).getMAJOR_REL_TRAN_AMOUNT();
+    row["GENERAL_REL_TRAN_AMOUNT"] = c.get(count).getGENERAL_REL_TRAN_AMOUNT();
+    row["TRAN_AMOUNT"] = c.get(count).getTRAN_AMOUNT();
+    System.out.println("************set3 fetch end**************");
+    count++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set4" id="716">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAN_AMOUNT</property>
+                    <text-property name="displayName">TRAN_AMOUNT</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //季度
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set4 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set4**************");
+c=cf.selectService(year, quarter, code);
+System.out.println("************set4 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1 ){
+    System.out.println("************set4 fetch**************");
+    row["GENERAL_REL_TRAN_NUMBER"] = c.get(count).getGENERAL_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_NUMBER"] = c.get(count).getMAJOR_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_AMOUNT"] = c.get(count).getMAJOR_REL_TRAN_AMOUNT();
+    row["GENERAL_REL_TRAN_AMOUNT"] = c.get(count).getGENERAL_REL_TRAN_AMOUNT();
+    row["TRAN_AMOUNT"] = c.get(count).getTRAN_AMOUNT();
+    System.out.println("************set4 fetch end**************");
+    count++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set5" id="717">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">TRAN_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_NUMBER</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">MAJOR_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">GENERAL_REL_TRAN_AMOUNT</property>
+                    <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TRAN_AMOUNT</property>
+                    <text-property name="displayName">TRAN_AMOUNT</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">TRAN_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //年份
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set5 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set5**************");
+c=cf.selectOther(year, quarter, code);
+System.out.println("************set5 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1 ){
+    System.out.println("************set5 fetch**************");
+    row["GENERAL_REL_TRAN_NUMBER"] = c.get(count).getGENERAL_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_NUMBER"] = c.get(count).getMAJOR_REL_TRAN_NUMBER();
+    row["MAJOR_REL_TRAN_AMOUNT"] = c.get(count).getMAJOR_REL_TRAN_AMOUNT();
+    row["GENERAL_REL_TRAN_AMOUNT"] = c.get(count).getGENERAL_REL_TRAN_AMOUNT();
+    row["TRAN_AMOUNT"] = c.get(count).getTRAN_AMOUNT();
+    System.out.println("************set5 fetch end**************");
+    count++;
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set6" id="743">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">TOTAL_TRADE_NUMBER</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">TOTAL_TRADE_AMOUNT</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">TOTAL_TRADE_NUMBER</property>
+                    <text-property name="displayName">TOTAL_TRADE_NUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TOTAL_TRADE_AMOUNT</property>
+                    <text-property name="displayName">TOTAL_TRADE_AMOUNT</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">TOTAL_TRADE_NUMBER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">TOTAL_TRADE_AMOUNT</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //季度
+var code = reportContext.getParameterValue("code");//机构码
+count = 0;
+System.out.println("************set6 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+System.out.println("************set6**************");
+c=cf.selectAllTable(year, quarter, code);
+System.out.println("************set6 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1) {
+    System.out.println("************set6 fetch**************");
+    row["TOTAL_TRADE_NUMBER"] = c.get(count).getTOTAL_TRADE_NUMBER();
+    row["TOTAL_TRADE_AMOUNT"] = c.get(count).getTOTAL_TRADE_AMOUNT();
+    count++;
+    System.out.println("************set6 fetch end**************");
+    return true;
+}
+return false;]]></method>
+            <method name="close"><![CDATA[System.out.println("************set6 close**************");
+System.out.println("************set6 end**************");]]></method>
+        </script-data-set>
+        <script-data-set name="Data Set7" id="1153">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">YEARANDQUARTER</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">YEARANDQUARTER</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">YEARANDQUARTER</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var year = reportContext.getParameterValue("year"); //年份
+var quarter = reportContext.getParameterValue("quarter"); //季度
+count = 0;
+System.out.println("************set7 begin**************");
+cf= new Packages.com.yzj.controller.Report_quarterController();
+c=cf.selectYearAndQuarter(year, quarter);
+System.out.println("************set7 end**************");]]></method>
+            <method name="fetch"><![CDATA[if (count <= c.size() -1) {
+    System.out.println("************set7 fetch**************");
+    row["YEARANDQUARTER"] = c.get(count);
+    count++;
+    System.out.println("************set7 fetch end**************");
+    return true;
+}
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="454">
+            <column id="455"/>
+            <column id="456"/>
+            <column id="457"/>
+            <column id="458"/>
+            <column id="459"/>
+            <column id="460"/>
+            <column id="461"/>
+            <column id="462"/>
+            <column id="463"/>
+            <row id="464">
+                <cell id="465">
+                    <property name="colSpan">9</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="544">
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[中再保险统计分析]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="474">
+                <cell id="475">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="546">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[年度]]></text-property>
+                    </text>
+                </cell>
+                <cell id="476">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="547">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[关联交易类型]]></text-property>
+                    </text>
+                </cell>
+                <cell id="477">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="548">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[一般关联交易笔数]]></text-property>
+                    </text>
+                </cell>
+                <cell id="478">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="549">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[重大关联交易笔数]]></text-property>
+                    </text>
+                </cell>
+                <cell id="479">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="550">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[重大关联交易金额（万元）]]></text-property>
+                    </text>
+                </cell>
+                <cell id="480">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="551">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[一般关联交易金额（万元）]]></text-property>
+                    </text>
+                </cell>
+                <cell id="481">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="552">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[交易金额（万元）]]></text-property>
+                    </text>
+                </cell>
+                <cell id="482">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="553">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[总交易笔数]]></text-property>
+                    </text>
+                </cell>
+                <cell id="483">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="554">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[总交易金额（万元）]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="484">
+                <cell id="485">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">6</property>
+                    <property name="color">black</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="1154">
+                        <property name="dataSet">Data Set7</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">YEARANDQUARTER</property>
+                                <text-property name="displayName">YEARANDQUARTER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["YEARANDQUARTER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">YEARANDQUARTER</property>
+                    </data>
+                </cell>
+                <cell id="486">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="555">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[投资入股类]]></text-property>
+                    </text>
+                </cell>
+                <cell id="487">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="1150">
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="1144">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="1151">
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="1145">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="1149">
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="1146">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="1148">
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="1147">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="1152">
+                        <property name="dataSet">Data Set</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRAN_AMOUNT</property>
+                                <text-property name="displayName">TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="492">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">6</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="778">
+                        <property name="dataSet">Data Set6</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TOTAL_TRADE_NUMBER</property>
+                                <text-property name="displayName">TOTAL_TRADE_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TOTAL_TRADE_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TOTAL_TRADE_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="493">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">6</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="777">
+                        <property name="dataSet">Data Set6</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TOTAL_TRADE_AMOUNT</property>
+                                <text-property name="displayName">TOTAL_TRADE_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TOTAL_TRADE_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TOTAL_TRADE_AMOUNT</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="494">
+                <cell id="496">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="556">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[资金运用类]]></text-property>
+                    </text>
+                </cell>
+                <cell id="497">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="780">
+                        <property name="dataSet">Data Set1</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="752">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="782">
+                        <property name="dataSet">Data Set1</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="753">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="781">
+                        <property name="dataSet">Data Set1</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="754">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="779">
+                        <property name="dataSet">Data Set1</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="755">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="783">
+                        <property name="dataSet">Data Set1</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRAN_AMOUNT</property>
+                                <text-property name="displayName">TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="504">
+                <cell id="506">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="557">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[利益转移类]]></text-property>
+                    </text>
+                </cell>
+                <cell id="507">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="785">
+                        <property name="dataSet">Data Set2</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="756">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="787">
+                        <property name="dataSet">Data Set2</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="757">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="786">
+                        <property name="dataSet">Data Set2</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="758">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="784">
+                        <property name="dataSet">Data Set2</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="759">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="788">
+                        <property name="dataSet">Data Set2</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRAN_AMOUNT</property>
+                                <text-property name="displayName">TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="514">
+                <cell id="516">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="558">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[保险业务类]]></text-property>
+                    </text>
+                </cell>
+                <cell id="517">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="790">
+                        <property name="dataSet">Data Set3</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="760">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="792">
+                        <property name="dataSet">Data Set3</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="761">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="791">
+                        <property name="dataSet">Data Set3</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="762">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="789">
+                        <property name="dataSet">Data Set3</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="763">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="793">
+                        <property name="dataSet">Data Set3</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRAN_AMOUNT</property>
+                                <text-property name="displayName">TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="524">
+                <cell id="526">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="559">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[提供服务类]]></text-property>
+                    </text>
+                </cell>
+                <cell id="527">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="795">
+                        <property name="dataSet">Data Set4</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="764">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="797">
+                        <property name="dataSet">Data Set4</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="765">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="796">
+                        <property name="dataSet">Data Set4</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="766">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="794">
+                        <property name="dataSet">Data Set4</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="767">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="798">
+                        <property name="dataSet">Data Set4</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRAN_AMOUNT</property>
+                                <text-property name="displayName">TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="534">
+                <cell id="536">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="560">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[其他类]]></text-property>
+                    </text>
+                </cell>
+                <cell id="537">
+                    <property name="colSpan">1</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="800">
+                        <property name="dataSet">Data Set5</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="768">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="802">
+                        <property name="dataSet">Data Set5</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_NUMBER</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_NUMBER</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_NUMBER"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_NUMBER</property>
+                    </data>
+                </cell>
+                <cell id="769">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="801">
+                        <property name="dataSet">Data Set5</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">MAJOR_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">MAJOR_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["MAJOR_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">MAJOR_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="770">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="799">
+                        <property name="dataSet">Data Set5</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">GENERAL_REL_TRAN_AMOUNT</property>
+                                <text-property name="displayName">GENERAL_REL_TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["GENERAL_REL_TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">GENERAL_REL_TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+                <cell id="771">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="textAlign">center</property>
+                    <property name="verticalAlign">middle</property>
+                    <data id="803">
+                        <property name="dataSet">Data Set5</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">TRAN_AMOUNT</property>
+                                <text-property name="displayName">TRAN_AMOUNT</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["TRAN_AMOUNT"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">TRAN_AMOUNT</property>
+                    </data>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

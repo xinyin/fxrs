@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+
+<mapper namespace="com.yzj.dao.Report_creditDetailsMapper">
+	<select id="selectByAll" resultType="report_creditDetails">
+
+	select
+	btc.related_name related_name,
+	btc.ident_number ident_number,
+	btc.important_trade important_trade,
+	btc.internal_apply_no
+	internal_apply_no,
+	btc.apply_over_time apply_over_time,
+	btc.apply_time
+	apply_time,
+	btc.credit_amount credit_amount,
+	btc.credit_plan credit_plan,
+	btc.remark remark
+	FROM
+	bus_tra_credit btc
+	WHERE 
+	credit_start_date > #{param1}    <![CDATA[ AND  credit_start_date < #{param2} ]]>  AND btc.DELFLAG_ =  1
+									
+	</select>
+
+</mapper>

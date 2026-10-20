@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.TermReminderMapper">
+    <resultMap id="TermReminderMap" type="com.yzj.jep.app.bus.model.TermReminder">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="rel_pid" property="relPid" jdbcType="INTEGER"/>
+        <result column="to_pid" property="toPid" jdbcType="VARCHAR"/>
+        <result column="from_pid" property="fromPid" jdbcType="VARCHAR"/>
+        <result column="rel_category" property="relCategory" jdbcType="VARCHAR"/>
+        <result column="rel_category_sub" property="relCategorySub" jdbcType="VARCHAR"/>
+        <result column="from_type" property="fromType" jdbcType="VARCHAR"/>
+        <result column="to_type" property="toType" jdbcType="VARCHAR"/>
+        <result column="from_memo" property="fromMemo" jdbcType="VARCHAR"/>
+        <result column="to_memo" property="toMemo" jdbcType="VARCHAR"/>
+        <result column="regulator" property="regulator" jdbcType="VARCHAR"/>
+        <result column="rel_sort" property="relSort" jdbcType="VARCHAR"/>
+        <result column="relation" property="relation" jdbcType="VARCHAR"/>
+        <result column="shareholding_strand" property="shareholdingStrand" jdbcType="VARCHAR"/>
+        <result column="shareholding_ratio" property="shareholdingRatio" jdbcType="REAL"/>
+        <result column="to_pid_shareholders" property="toPidShareholders" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="VARCHAR"/>
+        <result column="isValid" property="isValid" jdbcType="VARCHAR"/>
+        <result column="from_name" property="fromName" jdbcType="VARCHAR"/>
+        <result column="to_name" property="toName" jdbcType="VARCHAR"/>
+        <result column="rel_type" property="relType" jdbcType="VARCHAR"/>
+        <result column="from_alig_code" property="fromAligCode" jdbcType="VARCHAR"/>
+        <result column="to_alig_code" property="toAligCode" jdbcType="VARCHAR"/>
+        <result column="pa_rel_id" property="paRelId" jdbcType="INTEGER"/>
+        <result column="rel_type" property="relType" jdbcType="VARCHAR"/>
+        <result column="rel_status" property="relStatus" jdbcType="VARCHAR"/>
+        <result column="rel_predicate" property="relPredicate" jdbcType="VARCHAR"/>
+        <result column="rel_name" property="relName" jdbcType="VARCHAR"/>
+        <result column="rel_dataSource" property="relDataSource" jdbcType="VARCHAR"/>
+        <result column="identify_type" property="identifyType" jdbcType="VARCHAR"/>
+        <result column="identify_number" property="identifyNumber" jdbcType="VARCHAR"/>
+        <result column="mger_org" property="mgerOrg" jdbcType="VARCHAR"/>
+        <result column="work_hours" property="workHours" jdbcType="VARCHAR"/>
+        <result column="remind_time" property="remindTime" jdbcType="VARCHAR"/>
+        <result column="IS_ALREADY_REMIND" property="isAlreadyRemind" jdbcType="VARCHAR"/>
+        <result column="IS_NEED_REMIND" property="isNeedRemind" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <select id="selectRelPsnInfo" resultType="com.yzj.jep.app.bus.model.TermReminder">
+        SELECT
+        rel.pid relPid,
+        rel.to_pid toPid,
+        rel.from_pid fromPid,
+        psn.name relName,
+        psn.identify_type identifyType,
+        psn.identify_number identifyNumber,
+        psn.mger_org mgerOrg,
+        psn.data_source relDataSource,
+        rel.rel_category relCategory,
+        rel.rel_category_sub relCategorySub,
+        rel.from_type fromType,
+        rel.to_type toType,
+        rel.regulator,
+        rel.rel_sort relSort,
+        rel.shareholding_ratio shareholdingRatio,
+        rel.from_name fromName,
+        rel.to_name toName,
+        (SELECT DATEDIFF(now(), rel.MODIFIED_TIME_) FROM DUAL ) workHours,
+        rel.MODIFIED_TIME_ modifiedTime,
+        rel.DELFLAG_ delflag,
+        rel.rel_status relStatus
+        FROM
+        bus_rel_psn AS psn
+        INNER JOIN bus_rel AS rel ON psn.pid = rel.to_pid
+        WHERE
+        (
+        (rel.shareholding_ratio > 5 and (rel.rel_category = 'C' and rel.rel_category_sub IN (13,14,15,16) ))
+        OR
+        (rel.rel_category = 'B' and rel.rel_category_sub IN (5, 6, 7))
+        )
+        AND
+        rel.MODIFIED_TIME_ > ( SELECT date_sub(now(), INTERVAL 15 DAY) AS jetLag )
+        AND
+        rel.DELFLAG_ = psn.delflag_ = '1'
+
+    </select>
+
+
+    <select id="selectRelOrgInfo" resultType="com.yzj.jep.app.bus.model.TermReminder">
+        SELECT
+        rel.pid relPid,
+        rel.to_pid toPid,
+        rel.from_pid fromPid,
+        org.org_name relName,
+        org.identify_type identifyType,
+        org.unisc_code identifyNumber,
+        org.mger_org mgerOrg,
+        org.data_source relDataSource,
+        rel.rel_category relCategory,
+        rel.rel_category_sub relCategorySub,
+        rel.from_type fromType,
+        rel.to_type toType,
+        rel.regulator,
+        rel.rel_sort relSort,
+        rel.shareholding_ratio shareholdingRatio,
+        rel.from_name fromName,
+        rel.to_name toName,
+        (SELECT DATEDIFF(now(), rel.MODIFIED_TIME_) FROM DUAL ) workHours,
+        rel.MODIFIED_TIME_ modifiedTime,
+        rel.DELFLAG_ delflag,
+        rel.rel_status relStatus
+        FROM
+        bus_rel AS rel
+        INNER JOIN bus_rel_org AS org ON rel.to_pid = org.pid
+        WHERE
+        (
+        (rel.shareholding_ratio > 5 and rel.rel_category = 'C')
+        )
+        AND
+        rel.MODIFIED_TIME_ > (SELECT date_sub(now(),INTERVAL 15 DAY) AS jetLag )
+        AND
+        rel.DELFLAG_ = org.delflag_ = 1
+    </select>
+
+    <insert id="insertList" parameterType="com.yzj.jep.app.bus.model.TermReminder">
+        INSERT IGNORE INTO bus_termreminder
+        (rel_pid,to_pid,from_pid,rel_name,identify_type,identify_number,rel_dataSource,work_hours,rel_category,rel_category_sub,from_type,to_type,regulator,rel_sort,shareholding_ratio,from_name,to_name,rel_status,MODIFIED_TIME_,remind_time,IS_ALREADY_REMIND,IS_NEED_REMIND,mger_org,DELFLAG_)
+        values
+        (
+        #{relPid},
+        #{toPid},
+        #{fromPid},
+        #{relName},
+        #{identifyType},
+        #{identifyNumber},
+        #{relDataSource},
+        #{workHours},
+        #{relCategory},
+        #{relCategorySub},
+        #{fromType},
+        #{toType},
+        #{regulator},
+        #{relSort},
+        #{shareholdingRatio},
+        #{fromName},
+        #{toName},
+        #{relStatus},
+        #{modifiedTime},
+        #{remindTime},
+        #{isAlreadyRemind},
+        #{isNeedRemind},
+        #{mgerOrg},
+        #{delflag}
+        )
+    </insert>
+</mapper>

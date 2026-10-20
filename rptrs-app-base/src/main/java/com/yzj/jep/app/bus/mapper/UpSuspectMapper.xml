@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.UpSuspectMapper">
+    <resultMap id="UpSuspectMap" type="com.yzj.jep.app.bus.model.suspect.UpSuspect">
+        <id column="pid" property="pid"/>
+        <result column="from_pid" property="fromPid"/>
+        <result column="to_pid" property="toPid"/>
+        <result column="name_" property="name"/>
+        <result column="shareholders_code" property="shareholdersCode"/>
+        <result column="identify_type" property="identifyType"/>
+        <result column="unisc_code" property="uniscCode"/>
+        <result column="rel_type" property="relType"/>
+        <result column="relation" property="relation"/>
+        <result column="shareholding_ratio" property="shareholdingRatio"/>
+        <result column="hole_share_amount" property="holeShareAmount"/>
+    </resultMap>
+    <select id="getUpPsnInfo" resultMap="UpSuspectMap">
+        select a.name_
+        ,a.shareholders_code
+        ,a.identify_type
+        ,a.identify_number as unisc_code
+        ,b.rel_type
+        ,b.relation
+        ,b.shareholding_ratio
+        ,b.pid
+        ,b.from_pid
+        ,b.to_pid
+        ,a.hole_share_amount
+        from bus_rel_psn a
+        left join bus_rel b
+        on a.pid=b.from_pid
+        where b.to_pid=#{pid}
+        and b.to_type in ('SUSPSN','SUSORG')
+        and b.from_type = 'PSN'
+    </select>
+
+    <select id="getUpOrgInfo" resultMap="UpSuspectMap">
+        select a.org_name as name
+        ,a.shareholders_code
+        ,a.identify_type
+        ,a.unisc_code
+        ,b.rel_type
+        ,b.relation
+        ,b.shareholding_ratio
+        ,a.hole_share_amount
+        from bus_rel_org a
+        left join bus_rel b
+        on a.pid=b.from_pid
+        where b.to_pid=#{pid}
+        and b.to_type in('SUSPSN','SUSORG')
+        and b.from_type = 'ORG'
+    </select>
+
+
+    <select id="getUpInfoOnOrg" resultMap="UpSuspectMap">
+        select a.org_name as name
+        ,a.shareholders_code
+        ,a.identify_type
+        ,a.unisc_code
+        ,b.rel_type
+        ,b.relation
+        ,b.shareholding_ratio
+        ,a.hole_share_amount
+        from bus_rel_org a
+        left join bus_rel b
+        on a.pid=b.from_pid
+        and b.to_type='ORG'
+        and b.is_show!=0
+        where b.to_pid=#{pid}
+    </select>
+
+    <select id="getUpInfoOnPsn" resultMap="UpSuspectMap">
+        select a.name_
+        ,a.shareholders_code
+        ,a.identify_type
+        ,a.identify_number as unisc_code
+        ,b.rel_type
+        ,b.relation
+        ,b.shareholding_ratio
+        ,b.pid
+        ,b.from_pid
+        ,b.to_pid
+        ,a.hole_share_amount
+        from bus_rel_psn a
+        left join bus_rel b
+        on a.pid=b.from_pid
+        and b.to_type='PSN'
+        and b.is_show!=0
+        where b.to_pid=#{pid}
+    </select>
+</mapper>
+

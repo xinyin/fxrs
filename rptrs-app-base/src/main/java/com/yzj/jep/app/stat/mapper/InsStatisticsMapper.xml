@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.stat.mapper.InsStatisticsMapper">
+    <!--查询流程实例-->
+    <select id="queryInsByConditions" parameterType="hashMap" resultType="com.yzj.jep.workflow.wf.model.HisProcInst">
+        select * from (
+        SELECT
+        t.id_ id,
+        t.process_Instant_Id_ processInstantId,
+        t.biz_Id_ bizId,
+        t.proc_Id_ procId,
+        t.proc_Code_ procCode,
+        t.proc_Name_ procName,
+        t.proc_Version_ procVersion,
+        t.module_Code_ moduleCode,
+        t.module_Name_ moduleName,
+        t.template_Code_ templateCode,
+        t.template_Name_ templateName,
+        t.process_Def_Id_ processDefId,
+        t.process_Def_Key_ processDefKey,
+        t.process_Def_Name_ processDefName,
+        t.form_Code_ formCode,
+        t.form_Name_ formName,
+        t.task_Id_ taskId,
+        t.task_Key_ taskKey,
+        t.task_Name_ taskName,
+        t.starter_Code_ starterCode,
+        t.starter_Name_ starterName,
+        t.starter_Unit_Code_ starterUnitCode,
+        t.starter_Unit_Name_ starterUnitName,
+        t.starter_Dept_Code_ starterDeptCode,
+        t.starter_Dept_Name_ starterDeptName,
+        t.start_Time_ startTime,
+        t.end_Time_ endTime,
+        t.duration_ duration,
+        t.status_ STATUS,
+        t.archieve_Time_ archieveTime,
+        t.starter_Unit_Hierarchy_ starterUnitHierarchy
+        FROM
+        wf_his_proc_inst t,
+        wf_proc_inst s,
+        wf_his_proc_log l
+        WHERE
+        t.id_ = s.ID_
+        and (t.STATUS_ = '30' or t.STATUS_ = '40')
+        and t.proc_Code_ in ('zybr_relGreat','zyzbyjybrel','zyzbyizdrel','zyzbejybrel','zyzbejzdrel')
+        and t.process_Instant_Id_ = l.process_Instant_Id_
+        and l.task_name_ in ( '总部合规部门审核人','合规部门审核人')
+        and l.action_ = 'COMPLETE'
+        <if test="param.year!=null">
+            and l.log_time_ like #{param.year}
+        </if>
+        <if test="param.beginQuarter!=null">
+            and l.log_time_ >= #{param.beginQuarter}
+        </if>
+        <if test="param.endQuarter!=null">
+            and l.log_time_ <![CDATA[
+                <
+            ]]> #{param.endQuarter}
+        </if>
+        <if test="param.startTime!=null">
+            and l.log_time_ >= #{param.startTime}
+        </if>
+        <if test="param.endTime!=null">
+            and l.log_time_ <![CDATA[
+                <=
+            ]]> #{param.endTime}
+        </if>
+        order by t.created_time_ DESC
+        )
+
+    </select>
+    <!--根据流程实例ID查询流程所绑定的数据-->
+    <resultMap id="dataResultMap" type="com.yzj.jep.workflow.wf.model.ProcInstData">
+        <id column="PROC_INST_ID_" property="procInstId"/>
+        <result column="BIZ_ID_" property="bizId"/>
+        <result column="OLD_FORM_DATA_" property="oldFormData"/>
+        <result column="FORM_DATA_" property="formData"/>
+        <result column="TENANT_ID_" property="tenantId"/>
+        <result column="CREATED_BY_ID_" property="createById"/>
+        <result column="CREATED_BY_NAME_" property="createByName"/>
+        <result column="CREATED_TIME_" property="createTime"/>
+        <result column="VERSION_" property="version"/>
+    </resultMap>
+    <select id="queryInsDataByProcInsId" resultMap="dataResultMap">
+        SELECT PROC_INST_ID_,
+               BIZ_ID_,
+               OLD_FORM_DATA_,
+               FORM_DATA_,
+               TENANT_ID_,
+               CREATED_BY_ID_,
+               CREATED_BY_NAME_,
+               CREATED_TIME_,
+               DELFLAG_,
+               DISPLAY_ORDER_,
+               MODIFIED_BY_ID_,
+               MODIFIED_BY_NAME_,
+               MODIFIED_TIME_,
+               VERSION_
+        FROM wf_proc_inst_data
+        where PROC_INST_ID_ = #{procId}
+    </select>
+    <!--查询工作流的表数据-->
+    <resultMap id="taskResultMap" type="com.yzj.jep.app.stat.vo.TaskInfo">
+        <id column="ID_" property="id"/>
+        <result column="ASSIGNEE_" property="assignee"/>
+        <result column="END_TIME_" property="endTime"/>
+    </resultMap>
+    <select id="queryActTaskByInsId" resultType="java.util.Map">
+        select *
+        from rptrs_zybx_pre.act_hi_taskinst
+        where proc_inst_id_ = #{processInstantId}
+        order by id_
+    </select>
+    <resultMap id="procLogResultMap" type="com.yzj.jep.workflow.wf.model.HisProcLog">
+        <id column="ID_" property="id"/>
+        <result column="PROCESS_INSTANT_ID_" property="processInstantId"/>
+        <result column="BIZ_ID_" property="bizId"/>
+        <result column="PROC_INST_ID_" property="procInstId"/>
+        <result column="PROC_ID_" property="procId"/>
+        <result column="PROC_CODE_" property="procCode"/>
+        <result column="PROC_NAME_" property="procName"/>
+        <result column="CREATED_BY_NAME_" property="createByName"/>
+        <result column="PROC_VERSION_" property="procVersion"/>
+        <result column="MODULE_CODE_" property="moduleCode"/>
+        <result column="MODULE_NAME_" property="moduleName"/>
+        <result column="TEMPLATE_CODE_" property="templateCode"/>
+        <result column="TEMPLATE_NAME_" property="templateName"/>
+        <result column="PROCESS_DEF_ID_" property="processDefId"/>
+        <result column="PROCESS_DEF_KEY_" property="processDefKey"/>
+        <result column="PROCESS_DEF_NAME_" property="processDefName"/>
+        <result column="TASK_ID_" property="taskId"/>
+        <result column="TASK_KEY_" property="taskKey"/>
+        <result column="TASK_NAME_" property="taskName"/>
+        <result column="TYPE_" property="type"/>
+        <result column="ACTION_" property="action"/>
+        <result column="STAFF_CODE_" property="staffCode"/>
+        <result column="STAFF_NAME_" property="staffName"/>
+        <result column="UNIT_CODE_" property="unitCode"/>
+        <result column="DEPT_CODE_" property="deptCode"/>
+        <result column="DEPT_NAME_" property="deptName"/>
+        <result column="UNIT_NAME_" property="unitName"/>
+        <result column="MEMO_" property="memo"/>
+        <result column="LOG_TIME_" property="logTime"/>
+        <result column="NEXT_TASK_ID_" property="nextTaskId"/>
+        <result column="NEXT_TASK_KEY_" property="nextTaskKey"/>
+        <result column="NEXT_TASK_NAME_" property="nextTaskName"/>
+        <result column="NEXT_STAFF_" property="nextStaff"/>
+        <result column="DURATION_" property="duration"/>
+        <result column="NANO_TIME_" property="nanoTime"/>
+        <result column="CONTENT_" property="content"/>
+        <result column="ERROR_MESSAGE_" property="errorMessage"/>
+        <result column="ARCHIEVE_TIME_" property="archieveTime"/>
+        <result column="TENANT_ID_" property="tenantId"/>
+        <result column="CREATED_TIME_" property="createTime"/>
+    </resultMap>
+    <!--查询审批日志表-->
+    <select id="queryProcLogByInsId" resultMap="procLogResultMap">
+        SELECT ID_,
+               PROCESS_INSTANT_ID_,
+               BIZ_ID_,
+               PROC_INST_ID_,
+               PROC_ID_,
+               PROC_CODE_,
+               PROC_NAME_,
+               PROC_VERSION_,
+               MODULE_CODE_,
+               MODULE_NAME_,
+               TEMPLATE_CODE_,
+               TEMPLATE_NAME_,
+               PROCESS_DEF_ID_,
+               PROCESS_DEF_KEY_,
+               PROCESS_DEF_NAME_,
+               TASK_ID_,
+               TASK_KEY_,
+               TASK_NAME_,
+               ACTION_,
+               STAFF_CODE_,
+               STAFF_NAME_,
+               UNIT_CODE_,
+               DEPT_CODE_,
+               DEPT_NAME_,
+               UNIT_NAME_,
+               MEMO_,
+               LOG_TIME_,
+               NEXT_TASK_ID_,
+               NEXT_TASK_KEY_,
+               NEXT_TASK_NAME_,
+               NEXT_STAFF_,
+               DURATION_,
+               NANO_TIME_,
+               CONTENT_,
+               TENANT_ID_,
+               CREATED_BY_ID_,
+               CREATED_BY_NAME_,
+               CREATED_TIME_,
+               DELFLAG_,
+               DISPLAY_ORDER_,
+               MODIFIED_BY_ID_,
+               MODIFIED_BY_NAME_,
+               MODIFIED_TIME_,
+               VERSION_
+        FROM wf_his_proc_log
+        WHERE PROCESS_INSTANT_ID_ = #{processInstantId}
+          and dept_name_ = '法律合规部'
+        ORDER BY LOG_TIME_
+    </select>
+    <!--流程统计-->
+    <select id="sumIns" resultType="java.util.Map">
+        select * from (
+        select id_ id,
+        proc_name_ "procName",
+        proc_code_ "procCode",
+        task_id_ "taskId",
+        starter_code_ "starterCode",
+        starter_name_ "starterName",
+        starter_unit_code_ "starterUnitCode",
+        starter_dept_code_ "starterDeptCode",
+        starter_dept_name_ "starterDeptName",
+        status_ "status",
+        to_char(start_time_,'yyyy-MM-dd hh24:mm:ss') "startTime"
+        from wf_his_proc_inst
+        where delflag_ = '1'
+        <choose>
+            <when test='param.procType == "1"'>
+                and proc_code_ = 'zyRel003'
+            </when>
+            <when test='param.procType == "2"'>
+                and proc_code_ in
+                ('zyzbejzdrel','zyzbejybrel','zyzbyizdrel','zyzbyjybrel','zybr_relGreat','zybr_relGeneral')
+            </when>
+            <when test='param.procType == "3"'>
+                and proc_code_ = 'ZZ_Pro001'
+            </when>
+            <when test='param.procType == "4"'>
+                and proc_code_ = 'WTSP001'
+            </when>
+            <when test='param.procType == "5"'>
+                and proc_code_ = 'ZYCS003'
+            </when>
+            <when test='param.procType == "6"'>
+                and proc_code_ = 'ZZ_Org001'
+            </when>
+        </choose>
+        <if test="param.starterDeptName != null">
+            and starter_dept_name_ like '%' || #{param.starterDeptName} || '%'
+        </if>
+        <if test="param.starterName !=null">
+            and starter_name_ like '%' || #{param.starterName} || '%'
+        </if>
+        <if test="param.status != null">
+            and status_ in ${param.status}
+        </if>
+        <if test="param.startTime">
+            and start_time_ <![CDATA[
+                >=
+            ]]> #{param.startTime}
+        </if>
+        <if test="param.startTime">
+            and start_time_ <![CDATA[
+                <=
+            ]]> #{param.endTime}
+        </if>
+        order by created_time_ desc
+        )
+    </select>
+</mapper>
+

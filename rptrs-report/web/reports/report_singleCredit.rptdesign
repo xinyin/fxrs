@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <parameters>
+        <scalar-parameter name="related_tran_type" id="167">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["related_tran_type"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="manage_org" id="169">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["manage_org"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="startTime" id="171">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["startTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endTime" id="172">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["endTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.245:3306/rptrs</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">MTIzNDU2</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="report_singleCredit" id="133">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">related_name</property>
+                    <text-property name="displayName">related_name</text-property>
+                    <text-property name="heading">related_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ident_number</property>
+                    <text-property name="displayName">ident_number</text-property>
+                    <text-property name="heading">ident_number</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">trans_num</property>
+                    <text-property name="displayName">trans_num</text-property>
+                    <text-property name="heading">trans_num</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">contract_no</property>
+                    <text-property name="displayName">contract_no</text-property>
+                    <text-property name="heading">contract_no</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">contract_sign_date</property>
+                    <text-property name="displayName">contract_sign_date</text-property>
+                    <text-property name="heading">contract_sign_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_date</property>
+                    <text-property name="displayName">tran_date</text-property>
+                    <text-property name="heading">tran_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">business_type</property>
+                    <text-property name="displayName">business_type</text-property>
+                    <text-property name="heading">business_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_type</property>
+                    <text-property name="displayName">tran_type</text-property>
+                    <text-property name="heading">tran_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_price</property>
+                    <text-property name="displayName">tran_price</text-property>
+                    <text-property name="heading">tran_price</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bz</property>
+                    <text-property name="displayName">bz</text-property>
+                    <text-property name="heading">bz</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">credit_amount</property>
+                    <text-property name="displayName">credit_amount</text-property>
+                    <text-property name="heading">credit_amount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">pricing_strategy</property>
+                    <text-property name="displayName">pricing_strategy</text-property>
+                    <text-property name="heading">pricing_strategy</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">remark</property>
+                    <text-property name="displayName">remark</text-property>
+                    <text-property name="heading">remark</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">enclosure_name</property>
+                    <text-property name="displayName">enclosure_name</text-property>
+                    <text-property name="heading">enclosure_name</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">related_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">ident_number</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">trans_num</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">contract_no</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">contract_sign_date</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">tran_date</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">business_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">tran_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">tran_price</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">bz</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">credit_amount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">pricing_strategy</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">remark</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">enclosure_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var startTime = reportContext.getParameterValue("startTime"); //起始时间
+var endTime = reportContext.getParameterValue("endTime");//结束时间
+var related_tran_type = reportContext.getParameterValue("related_tran_type"); //关联交易类别
+var manage_org = reportContext.getParameterValue("manage_org");//机构
+//System.out.println("--------------------"+startTime+"---------"+endTime);
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	//this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+	this.queryText =this.queryText.replace("1=1", " approval_time >= '" + startTime + "'" +" AND (approval_time)<= '"+endTime+"'");
+	//System.out.println("--------------------"+this.queryText);
+	if(related_tran_type!=null &amp;&amp; related_tran_type != ""){
+		this.queryText =this.queryText.replace("2=2", " related_tran_type = '" + related_tran_type+"'");
+	}
+	if(manage_org!=null &amp;&amp; manage_org != ""){
+		this.queryText =this.queryText.replace("3=3", " manage_org = '" + manage_org+"'");
+	}
+	System.out.println("--------------------"+this.queryText);
+}else{
+this.queryText = this.queryText.replace("4=4", " TO_DAYS( NOW( ) ) - TO_DAYS(approval_time) <= 1");
+}]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">related_name</property>
+                    <property name="nativeName">related_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">ident_number</property>
+                    <property name="nativeName">ident_number</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">trans_num</property>
+                    <property name="nativeName">trans_num</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">contract_no</property>
+                    <property name="nativeName">contract_no</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">contract_sign_date</property>
+                    <property name="nativeName">contract_sign_date</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">tran_date</property>
+                    <property name="nativeName">tran_date</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">business_type</property>
+                    <property name="nativeName">business_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">tran_type</property>
+                    <property name="nativeName">tran_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">tran_price</property>
+                    <property name="nativeName">tran_price</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">bz</property>
+                    <property name="nativeName">bz</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">credit_amount</property>
+                    <property name="nativeName">credit_amount</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">pricing_strategy</property>
+                    <property name="nativeName">pricing_strategy</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">remark</property>
+                    <property name="nativeName">remark</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">enclosure_name</property>
+                    <property name="nativeName">enclosureName</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT btc.related_name AS related_name,-- 法人名称/自然人姓名
+btc.ident_number AS ident_number,-- 统一社会信用代码/证件号码
+btc.trans_num AS trans_num, -- 授信编号
+btc.contract_no AS contract_no,-- 合同编号
+btc.contract_sign_date AS contract_sign_date, -- 合同签署日期
+btc.tran_date AS tran_date, -- 交易发生日期
+btc.business_type AS business_type, -- 交易类型
+btc.tran_type AS tran_type, -- 授信类型
+btc.tran_price AS tran_price, -- 交易价格
+btc.bz AS bz, -- 交易单位
+btc.credit_amount AS credit_amount, -- 交易金额
+btc.pricing_strategy AS pricing_strategy, -- 定价政策
+btc. remark AS remark,-- 备注
+be.enclosureName AS enclosure_name-- 附件
+FROM 
+(
+SELECT
+GROUP_CONCAT(
+DISTINCT (bte.related_name) SEPARATOR "---"
+) AS enclosureName
+FROM
+bus_tra_enclosure bte
+LEFT JOIN bus_tra_credit bc ON bc.pid = bte.enclosure_pid
+WHERE
+1=1
+AND 
+2=2
+AND
+3=3
+AND 
+4=4
+AND bc.is_del = 1
+AND bte.DELFLAG_ = 1
+AND bc.business_type = bte.business_type
+) AS be, 
+bus_tra_credit btc 
+WHERE
+1=1
+AND 
+2=2
+AND
+3=3
+AND 
+4=4
+AND btc.is_del =1
+GROUP BY btc.related_name]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>related_name</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>20</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>related_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>related_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ident_number</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>100</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ident_number</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ident_number</design:label>
+            <design:formattingHints>
+              <design:displaySize>100</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>trans_num</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>100</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>trans_num</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>trans_num</design:label>
+            <design:formattingHints>
+              <design:displaySize>100</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>contract_no</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>contract_no</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>contract_no</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>contract_sign_date</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>11</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>contract_sign_date</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>contract_sign_date</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_date</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_date</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_date</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>business_type</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>business_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>business_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_type</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_price</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>16</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_price</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_price</design:label>
+            <design:formattingHints>
+              <design:displaySize>16</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>bz</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>16</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>bz</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>bz</design:label>
+            <design:formattingHints>
+              <design:displaySize>16</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>credit_amount</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>credit_amount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>credit_amount</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>pricing_strategy</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1204</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>pricing_strategy</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>pricing_strategy</design:label>
+            <design:formattingHints>
+              <design:displaySize>1204</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>remark</design:name>
+              <design:position>13</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>remark</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>remark</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>enclosureName</design:name>
+              <design:position>14</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>1024</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>enclosure_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>enclosure_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>1024</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="NewStyle" id="124">
+            <property name="fontFamily">"@微软雅黑"</property>
+            <property name="fontSize">15pt</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+            <property name="verticalAlign">middle</property>
+        </style>
+        <style name="NewStyle1" id="132">
+            <property name="fontFamily">"@微软雅黑"</property>
+            <property name="fontWeight">lighter</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="NewSimpleMasterPage" id="131"/>
+    </page-setup>
+    <body>
+        <grid id="12">
+            <property name="marginLeft">0pt</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Time</property>
+                    <expression name="expression" type="javascript">if(  params["endTime"].value == null){&#13;
+"报送日期："&#13;
+}else{&#13;
+"报送日期：" + params["endTime"].value;&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">manage_org</property>
+                    <expression name="expression" type="javascript">if( params["manage_org"].value == null){&#13;
+"报送机构："&#13;
+}else{&#13;
+"报送机构：" + params["manage_org"].value;&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">related_tran_type</property>
+                    <expression name="expression" type="javascript">if( params["related_tran_type"].value == null){&#13;
+"关联交易类别："&#13;
+}else{&#13;
+"关联交易类别：" + params["related_tran_type"].value;&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="13"/>
+            <row id="16">
+                <cell id="17">
+                    <table id="40">
+                        <property name="fontFamily">fantasy</property>
+                        <property name="marginLeft">10%</property>
+                        <property name="marginRight">10%</property>
+                        <property name="numberAlign">left</property>
+                        <property name="width">80%</property>
+                        <property name="dataSet">report_singleCredit</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">related_name</property>
+                                <text-property name="displayName">related_name</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["related_name"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">ident_number</property>
+                                <text-property name="displayName">ident_number</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["ident_number"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">trans_num</property>
+                                <text-property name="displayName">trans_num</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["trans_num"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">contract_no</property>
+                                <text-property name="displayName">contract_no</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["contract_no"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">contract_sign_date</property>
+                                <text-property name="displayName">contract_sign_date</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["contract_sign_date"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">tran_date</property>
+                                <text-property name="displayName">tran_date</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["tran_date"]</expression>
+                                <property name="dataType">date-time</property>
+                            </structure>
+                            <structure>
+                                <property name="name">business_type</property>
+                                <text-property name="displayName">business_type</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["business_type"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">tran_type</property>
+                                <text-property name="displayName">tran_type</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["tran_type"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">tran_price</property>
+                                <text-property name="displayName">tran_price</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["tran_price"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">bz</property>
+                                <text-property name="displayName">bz</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["bz"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">credit_amount</property>
+                                <text-property name="displayName">credit_amount</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["credit_amount"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">pricing_strategy</property>
+                                <text-property name="displayName">pricing_strategy</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["pricing_strategy"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">remark</property>
+                                <text-property name="displayName">remark</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["remark"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">enclosure_name</property>
+                                <text-property name="displayName">enclosure_name</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["enclosure_name"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Time</property>
+                                <expression name="expression" type="javascript">if(  params["endTime"].value == null){&#13;
+"报送日期："&#13;
+}else{&#13;
+"报送日期：" + params["endTime"].value;&#13;
+}</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">manage_org</property>
+                                <expression name="expression" type="javascript">if( params["manage_org"].value == null){&#13;
+"报送机构："&#13;
+}else{&#13;
+"报送机构：" + params["manage_org"].value;&#13;
+}</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">related_tran_type</property>
+                                <expression name="expression" type="javascript">if( params["related_tran_type"].value == null){&#13;
+"关联交易类别："&#13;
+}else{&#13;
+"关联交易类别：" + params["related_tran_type"].value;&#13;
+}</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="repeatHeader">true</property>
+                        <column id="128"/>
+                        <column id="83"/>
+                        <column id="84"/>
+                        <column id="85"/>
+                        <column id="86"/>
+                        <column id="87"/>
+                        <column id="88"/>
+                        <column id="89"/>
+                        <column id="90"/>
+                        <column id="91"/>
+                        <column id="92"/>
+                        <column id="93"/>
+                        <column id="94"/>
+                        <column id="95"/>
+                        <header>
+                            <row id="41">
+                                <cell id="125">
+                                    <property name="colSpan">14</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="style">NewStyle</property>
+                                    <text id="129">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[单笔授信关联交易]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                            <row id="173">
+                                <property name="style">NewStyle1</property>
+                                <cell id="174">
+                                    <property name="colSpan">4</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="style">NewStyle</property>
+                                    <data id="205">
+                                        <property name="resultSetColumn">Time</property>
+                                    </data>
+                                </cell>
+                                <cell id="178">
+                                    <property name="colSpan">5</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="style">NewStyle</property>
+                                    <data id="189">
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">manage_org</property>
+                                    </data>
+                                </cell>
+                                <cell id="183">
+                                    <property name="colSpan">5</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="style">NewStyle</property>
+                                    <data id="190">
+                                        <property name="resultSetColumn">related_tran_type</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="96">
+                                <property name="style">NewStyle1</property>
+                                <cell id="126">
+                                    <property name="style">NewStyle</property>
+                                    <text id="130">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[法人名称/自然人姓名]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="97">
+                                    <property name="style">NewStyle</property>
+                                    <text id="111">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[统一社会信用代码/证件号码]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="98">
+                                    <property name="style">NewStyle</property>
+                                    <text id="112">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[授信编号]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="99">
+                                    <property name="style">NewStyle</property>
+                                    <text id="113">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[合同编号]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="100">
+                                    <property name="style">NewStyle</property>
+                                    <text id="114">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[合同签署日期]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="101">
+                                    <property name="style">NewStyle</property>
+                                    <text id="115">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[交易发生日期]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="102">
+                                    <property name="style">NewStyle</property>
+                                    <text id="116">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[交易类型]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="103">
+                                    <property name="style">NewStyle</property>
+                                    <text id="117">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[授信类型]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="104">
+                                    <property name="style">NewStyle</property>
+                                    <text id="118">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[交易价格]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="105">
+                                    <property name="style">NewStyle</property>
+                                    <text id="119">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[交易单位]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="106">
+                                    <property name="style">NewStyle</property>
+                                    <text id="120">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[交易金额]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="107">
+                                    <property name="style">NewStyle</property>
+                                    <text id="121">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[定价政策]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="108">
+                                    <property name="style">NewStyle</property>
+                                    <text id="122">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[备注]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="109">
+                                    <property name="style">NewStyle</property>
+                                    <text id="123">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[附件]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="55">
+                                <cell id="127">
+                                    <property name="style">NewStyle</property>
+                                    <data id="191">
+                                        <property name="resultSetColumn">related_name</property>
+                                    </data>
+                                </cell>
+                                <cell id="56">
+                                    <property name="style">NewStyle</property>
+                                    <data id="192">
+                                        <property name="resultSetColumn">ident_number</property>
+                                    </data>
+                                </cell>
+                                <cell id="57">
+                                    <property name="style">NewStyle</property>
+                                    <data id="193">
+                                        <property name="resultSetColumn">trans_num</property>
+                                    </data>
+                                </cell>
+                                <cell id="58">
+                                    <property name="style">NewStyle</property>
+                                    <data id="194">
+                                        <property name="resultSetColumn">contract_no</property>
+                                    </data>
+                                </cell>
+                                <cell id="59">
+                                    <property name="style">NewStyle</property>
+                                    <data id="195">
+                                        <property name="resultSetColumn">contract_sign_date</property>
+                                    </data>
+                                </cell>
+                                <cell id="60">
+                                    <property name="style">NewStyle</property>
+                                    <data id="196">
+                                        <property name="resultSetColumn">tran_date</property>
+                                    </data>
+                                </cell>
+                                <cell id="61">
+                                    <property name="style">NewStyle</property>
+                                    <data id="197">
+                                        <property name="resultSetColumn">business_type</property>
+                                    </data>
+                                </cell>
+                                <cell id="62">
+                                    <property name="style">NewStyle</property>
+                                    <data id="198">
+                                        <property name="resultSetColumn">tran_type</property>
+                                    </data>
+                                </cell>
+                                <cell id="63">
+                                    <property name="style">NewStyle</property>
+                                    <data id="199">
+                                        <property name="resultSetColumn">tran_price</property>
+                                    </data>
+                                </cell>
+                                <cell id="64">
+                                    <property name="style">NewStyle</property>
+                                    <data id="200">
+                                        <property name="resultSetColumn">bz</property>
+                                    </data>
+                                </cell>
+                                <cell id="65">
+                                    <property name="style">NewStyle</property>
+                                    <data id="201">
+                                        <property name="resultSetColumn">credit_amount</property>
+                                    </data>
+                                </cell>
+                                <cell id="66">
+                                    <property name="style">NewStyle</property>
+                                    <data id="202">
+                                        <property name="resultSetColumn">pricing_strategy</property>
+                                    </data>
+                                </cell>
+                                <cell id="67">
+                                    <property name="style">NewStyle</property>
+                                    <data id="203">
+                                        <property name="resultSetColumn">remark</property>
+                                    </data>
+                                </cell>
+                                <cell id="68">
+                                    <property name="style">NewStyle</property>
+                                    <data id="204">
+                                        <property name="resultSetColumn">enclosure_name</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

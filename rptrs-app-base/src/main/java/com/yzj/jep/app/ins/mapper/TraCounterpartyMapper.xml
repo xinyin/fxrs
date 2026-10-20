@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.ins.mapper.TraCounterpartyMapper">
+
+    <resultMap type="com.yzj.jep.app.ins.model.TraCounterparty" id="baseResultMap">
+        <result property="pid" column="PID" jdbcType="INTEGER"/>
+        <result property="relId" column="REL_ID" jdbcType="INTEGER"/>
+        <result property="relType" column="REL_TYPE" jdbcType="VARCHAR"/>
+        <result property="relName" column="REL_NAME" jdbcType="VARCHAR"/>
+        <result property="relNumber" column="REL_NUMBER" jdbcType="VARCHAR"/>
+        <result property="tranDate" column="TRAN_DATE" jdbcType="TIMESTAMP"/>
+        <result property="majorTrade" column="MAJOR_TRADE" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="VARCHAR"/>
+        <result property="tradeAmount" column="TRADE_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="transNum" column="TRANS_NUM" jdbcType="VARCHAR"/>
+        <result property="delflag" column="DELFLAG_" jdbcType="VARCHAR"/>
+        <result property="version" column="VERSION_" jdbcType="INTEGER"/>
+        <result property="traSubName" column="Tra_sub_Name" jdbcType="VARCHAR"/>
+        <result property="majorType" column="Major_Type" jdbcType="VARCHAR"/>
+        <result property="contractAmount" column="Contract_Amount" jdbcType="NUMERIC"/>
+        <result property="certType" column="CERT_TYPE" jdbcType="VARCHAR"/>
+        <result property="pracTradeAmount" column="PRAC_TRADE_AMOUNT" jdbcType="VARCHAR"/>
+        <result property="relTradeAmount" column="REL_TRADE_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="totalAssets" column="TOTAL_ASSETS" jdbcType="NUMERIC"/>
+        <result property="totalNotCleanTradeAmount" column="TOTAL_NOT_CLEAN_TRADE_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="isTradeAgreement" column="IS_TRADE_AGREEMENT" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!-- 累计清零，清除交易对手本笔关联交易以及自身历史关联交易数据-->
+    <update id="grandTradeZeroNew" parameterType="java.util.Map">
+        UPDATE ins_tra_counterparty
+        SET IS_ACCUMULATED = '1'
+        WHERE
+        DELFLAG_ = '1'
+        AND (STATUS = '6' or STATUS = '2')
+        AND (IS_ACCUMULATED != '1')
+        AND (Major_Type != 1 )
+        AND (IS_TRADE_AGREEMENT != 1 )
+
+        <if test="year != null and year != ''">
+            AND DATE_FORMAT(TRAN_DATE, '%Y')=#{year}
+        </if>
+        <if test="traSubName != null">
+            AND Tra_sub_Name = #{traSubName}
+        </if>
+
+        <if test="'02' == tranType and 'ORG' == relType">
+            and REL_NUMBER IN (
+            SELECT unisc_code FROM bus_rel_org WHERE mem_group = (SELECT mem_group FROM bus_rel_org WHERE unisc_code = #{relNumber}) )
+        </if>
+        <if test="'02' != tranType || 'ORG' != relType">
+            AND  trans_num in (
+            SELECT t.TRANS_NUM from (SELECT c.TRANS_NUM FROM `ins_tra_counterparty` c where c.REL_NUMBER =#{relNumber}) t
+            )
+        </if>
+
+    </update>
+    <!-- 通过交易编号更新交易对手表状态-->
+    <update id="updataCounterpartyStatusByTransNum" parameterType="com.yzj.jep.app.ins.model.TraCounterparty">
+        UPDATE ins_tra_counterparty
+        SET STATUS = #{status}
+        WHERE
+        TRANS_NUM = #{transNum}
+    </update>
+    <update id="updataCounterpartyByTransNum">
+        update ins_tra_counterparty
+        set REL_TRADE_AMOUNT = #{relTrandeAmount},PRAC_TRADE_AMOUNT = #{relTrandeAmount},TRAN_DATE = #{contractDate},STATUS = #{Status},TOTAL_NOT_CLEAN_TRADE_AMOUNT=#{bigDecimalOld}
+         WHERE
+        TRANS_NUM = #{transNum}
+    </update>
+    <!-- 关联交易对手在途数据查询-->
+    <select id="queryInRoadTransList" resultMap="baseResultMap">
+        select
+        PID,
+        REL_ID,
+        REL_TYPE,
+        REL_NAME,
+        REL_NUMBER,
+        TOTAL_TRADE_AMOUNT,
+        TRADE_AMOUNT
+        TRANS_NUM,
+        TENANT_ID_,
+        Tra_sub_Name,
+        STATUS,
+        TRAN_DATE,
+        REL_TRADE_AMOUNT,
+        MAJOR_TRADE,
+        DELFLAG_,
+        Major_Type,
+        CERT_TYPE,
+        TOTAL_NOT_CLEAN_TRADE_AMOUNT
+        from
+        ins_tra_counterparty
+        where
+        STATUS in ('1','3','4')
+        AND (IS_ACCUMULATED = '0')
+        and DELFLAG_ = '1'
+        <if test="param.year!=null">
+            AND CREATED_TIME_ like #{param.year}
+        </if>
+        <if test="param.relId != null">
+            AND REL_ID = #{param.relId}
+        </if>
+        <if test="param.traSubName != null">
+            AND Tra_sub_Name = #{param.traSubName}
+        </if>
+    </select>
+
+    <!--查询清零后的全部累计金额结果集，按照从大到小排序-->
+    <select id="sumAfterCleanAmount" resultMap="baseResultMap">
+      <!--  SELECT
+        a.REL_NUMBER ,
+        a.REL_NAME ,
+        a.totalAmount REL_TRADE_AMOUNT,
+        a.CERT_TYPE
+        FROM
+        (
+        SELECT
+        IFNULL( sum( IFNULL( REL_TRADE_AMOUNT, 0 ) ), 0 ) totalAmount,
+        REL_NUMBER,
+        REL_NAME,
+        TENANT_ID_,
+        CERT_TYPE
+        FROM
+        ins_tra_counterparty
+        WHERE
+        DELFLAG_ = '1'
+        AND STATUS IN ( '6', '2','7','8' )
+        AND ( IS_ACCUMULATED = '0' )
+        AND ( MAJOR_TRADE = '0' )
+        AND ( IS_TRADE_AGREEMENT = '0' )
+        <if test="param.year != null and param.year != ''">
+            AND DATE_FORMAT(TRAN_DATE, '%Y')=#{param.year}
+        </if>
+        AND REL_TYPE = 'ORG'
+        GROUP BY
+        REL_NUMBER
+        ) a
+        WHERE
+        a.totalAmount > 0
+        ORDER BY
+        a.totalAmount DESC-->
+        SELECT a.REL_NUMBER,
+        a.REL_NAME,
+        a.totalAmount REL_TRADE_AMOUNT,
+        a.CERT_TYPE
+        FROM (SELECT IFNULL(sum(IFNULL(REL_TRADE_AMOUNT, 0)), 0) totalAmount,
+        REL_NUMBER,
+        REL_NAME,
+        TENANT_ID_,
+        CERT_TYPE
+        FROM ins_tra_funds
+        WHERE DELFLAG_ = '1'
+        AND STATUS IN ('6', '7', '8')
+        AND (IS_ACCUMULATED = '0')
+        AND (MAJOR_TRADE = '0')
+        AND DATE_FORMAT(TRAN_DATE, '%Y') = #{param.year}
+        GROUP BY REL_NUMBER
+        UNION ALL
+        SELECT IFNULL(sum(IFNULL(REL_TRADE_AMOUNT, 0)), 0) totalAmount,
+        REL_NUMBER,
+        REL_NAME,
+        TENANT_ID_,
+        CERT_TYPE
+        FROM ins_tra_business
+        WHERE DELFLAG_ = '1'
+        AND STATUS IN ('6', '7', '8')
+        AND (IS_ACCUMULATED = '0')
+        AND (MAJOR_TRADE = '0')
+        AND (IS_TRADE_AGREEMENT = '0')
+        AND SUBSTR(contract_Date, 1, 4) = #{param.year}
+        GROUP BY REL_NUMBER
+        UNION ALL
+        SELECT IFNULL(sum(IFNULL(REL_TRADE_AMOUNT, 0)), 0) totalAmount,
+        REL_NUMBER,
+        REL_NAME,
+        TENANT_ID_,
+        CERT_TYPE
+        FROM ins_tra_interest
+        WHERE DELFLAG_ = '1'
+        AND STATUS IN ('6', '7', '8')
+        AND (IS_ACCUMULATED = '0')
+        AND (MAJOR_TRADE = '0')
+        AND DATE_FORMAT(TRAN_DATE, '%Y') = #{param.year}
+        GROUP BY REL_NUMBER
+        UNION ALL
+        SELECT IFNULL(sum(IFNULL(REL_TRADE_AMOUNT, 0)), 0) totalAmount,
+        REL_NUMBER,
+        REL_NAME,
+        TENANT_ID_,
+        CERT_TYPE
+        FROM ins_tra_service
+        WHERE DELFLAG_ = '1'
+        AND STATUS IN ('6', '7', '8')
+        AND (IS_ACCUMULATED = '0')
+        AND (MAJOR_TRADE = '0')
+        AND (IS_TRADE_AGREEMENT = '0')
+        AND SUBSTR(contract_Date, 1, 4) = #{param.year}
+        GROUP BY REL_NUMBER) A
+        WHERE A.TOTALAMOUNT > 0
+        ORDER BY A.TOTALAMOUNT DESC
+
+
+
+    </select>
+</mapper>
+

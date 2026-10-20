@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.OrgSuspectMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.OrgSuspect" id="busSuspectMap">
+        <result property="orgName" column="org_name"/>
+        <result property="identifyType" column="identify_type"/>
+        <result property="identifyNumber" column="identify_number"/>
+        <result property="uniscCode" column="unisc_code"/>
+        <result property="shareholdingRatio" column="shareholding_ratio"/>
+        <result property="dutyCode" column="duty_code"/>
+        <result property="sex" column="sex"/>
+        <result property="relation" column="relation"/>
+        <result property="name" column="name_"/>
+        <result property="pid" column="pid"/>
+        <result property="fromPid" column="from_pid"/>
+        <result property="toPid" column="to_pid"/>
+        <result property="relCategory" column="rel_category"/>
+        <result property="fromMemo" column="from_memo"/>
+        <result property="toMemo" column="to_memo"/>
+        <result column="domestic_or_foreign" property="domesticOrForeign" jdbcType="VARCHAR"/>
+
+    </resultMap>
+    <!--   查询自然人信息  含员工和自然人股东-->
+    <select id="queryOrgSubInfo" resultMap="busSuspectMap" parameterType="integer">
+        SELECT
+        b.pid,
+        b.to_pid,
+        b.from_pid,
+        a.name_,
+        a.sex,
+        a.identify_type,
+        a.identify_number,
+        b.shareholding_ratio,
+        b.rel_category,
+        b.rel_category_sub AS relCategorySub
+        FROM
+        bus_rel_psn a
+        LEFT JOIN bus_rel b ON a.pid = b.from_pid
+
+        WHERE
+        b.to_pid = #{pid}
+        AND b.from_type = 'PSN'
+        AND b.to_type = 'SUSORG'
+        AND b.DELFLAG_='1'
+
+    </select>
+    <!--暂时失效-->
+    <select id="getOrgShareOrg" resultMap="busSuspectMap" parameterType="integer">
+        select
+        b.pid,b.to_pid,b.from_pid,a.org_name,a.identify_type,a.unisc_code,b.shareholding_ratio,b.rel_category,b.from_memo,b.to_memo
+        from bus_rel_org_suspect a
+        left join
+        bus_rel_suspect b
+        on a.pid=b.from_pid
+        and b.from_type='ORG'
+        and b.to_type='ORG'
+        -- and b.to_pid_shareholders='1'
+        where b.to_pid=#{pid}
+        union
+        select
+        b.pid,b.to_pid,b.from_pid,a.name_,a.identify_type,a.identify_number,b.shareholding_ratio,b.rel_category,b.from_memo,b.to_memo
+        from bus_rel_psn_suspect a
+        left join
+        bus_rel_suspect b
+        on a.pid=b.from_pid
+        -- and b.to_pid_shareholders='1'
+        and b.from_type='PSN'
+        and b.to_type='ORG'
+        left join
+        bus_rel_psn c
+        on c.pid=b.to_pid
+        where b.to_pid=#{pid}
+    </select>
+    <!--  查询机构关联信息   指  被投资或投资-->
+    <select id="getOrgInvest" resultMap="busSuspectMap" parameterType="integer">
+        select
+        b.pid,b.to_pid,b.from_pid,a.org_name,a.identify_type,a.unisc_code,b.shareholding_ratio,b.rel_category,b.rel_category_sub
+        as relCategorySub
+        from bus_rel_org a
+        left join
+        bus_rel b
+        on a.pid=b.from_pid
+        and b.to_type='SUSORG'
+        and b.from_type='ORG'
+        where b.to_pid=#{pid}
+    </select>
+</mapper>

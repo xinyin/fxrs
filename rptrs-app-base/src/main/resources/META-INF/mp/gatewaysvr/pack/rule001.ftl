@@ -1,0 +1,9 @@
+{
+  "BODY":{
+    "CODE":"${busCode}"
+  },
+  "SYSHEAD":{
+    "RSP_CODE":"${code}"
+    "RSP_MSG":"${msg}"
+  }
+}

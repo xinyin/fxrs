@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RootOrgInfoMapper">
+    <select id="selectRootInfo" resultType="com.yzj.jep.app.bus.model.RootOrgInfo">
+        SELECT net_captial netCaptial, total_capital totalCapital
+        FROM bus_root_org_info
+        WHERE delflag_ = '1'
+          AND years = #{year}
+          AND quarter = #{quarter}
+    </select>
+
+</mapper>
+

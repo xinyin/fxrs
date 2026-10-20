@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+    <mappings>
+        <mapping xpath="$.BODY.PKGID" field="PKGID" must="not"/>
+        <mapping xpath="$.BODY.PKGID2" field="PKGID2" must="not"/>
+        <mapping xpath="$.BODY.tranType" field="tranType" must="not"/>
+        <mapping xpath="$.BODY.relatedName" field="relatedName" must="not"/>
+        <mapping xpath="$.BODY.identifyType" field="identifyType" must="not"/>
+        <mapping xpath="$.BODY.identNumber" field="identNumber" must="not"/>
+        <mapping xpath="$.BODY.isCredit" field="isCredit" must="not"/>
+        <mapping xpath="$.BODY.tradeAmount" field="tradeAmount" must="not"/>
+        <mapping xpath="$.BODY.securitDeposit" field="securitDeposit" must="not"/>
+        <mapping xpath="$.BODY.nationalDebt" field="nationalDebt" must="not"/>
+        <mapping xpath="$.BODY.bankDeposit" field="bankDeposit" must="not"/>
+        <mapping xpath="$.BODY.productName" field="productName" must="not"/>
+        <mapping xpath="$.BODY.id" field="id" must="not"/>
+        <mapping xpath="$.BODY.type" field="type" must="not"/>
+
+        <mapping xpath="$.BODY.creditAmount" field="creditAmount" must="not"/>
+        <mapping xpath="$.BODY.internalApplyNo" field="internalApplyNo" must="not"/>
+        <mapping xpath="$.BODY.relType" field="relType" must="not"/>
+        <mapping xpath="$.BODY.regulatorOth1" field="regulatorOth1" must="not"/>
+        <mapping xpath="$.BODY.traApproveTime" field="traApproveTime" must="not"/>
+        <mapping xpath="$.BODY.creditPlan" field="creditPlan" must="not"/>
+        <mapping xpath="$.BODY.relId" field="relId" must="not"/>
+        <mapping xpath="$.BODY.productName" field="productName" must="not"/>
+
+    </mappings>
+</config>

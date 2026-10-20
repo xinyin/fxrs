@@ -1,0 +1,20 @@
+{
+    "BODY":{
+        "fileList":[<#list fileList as p>
+                        {
+                         "serialNo":"${p.serialNo}",
+                         "fileName":"${p.fileName}",
+                         "fileType":"${p.fileType}",
+                         "filePid":"${p.filePid}",
+                         "fileCreatUser":"${p.fileCreatUser}",
+                         "fileCreatTime":"${p.fileCreatTime}"
+                        }
+                    </#list>]
+    },
+    "SYSHEAD":{
+        "msg":"${msg}",
+        "resultCode":"${resultCode}",
+        "TRANS_CODE":"${TRANS_CODE}",
+        "CHNL_ID":"${CHNL_ID}"
+    }
+}

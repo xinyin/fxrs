@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="naturalPersonSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="naturalPersons" var="naturalPerson"
+              varType="com.yzj.jep.app.bus.model.NaturalPerson">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">naturalPerson.pid</mapping>
+                <mapping cell="B2">naturalPerson.regCode</mapping>
+                <mapping cell="C2">naturalPerson.orignalOrg</mapping>
+                <mapping cell="D2">naturalPerson.orignalOrgName</mapping>
+                <mapping cell="E2">naturalPerson.name</mapping>
+                <mapping cell="F2">naturalPerson.sex</mapping>
+                <mapping cell="G2">naturalPerson.nationality</mapping>
+                <mapping cell="H2">naturalPerson.domesticOrForeign</mapping>
+                <mapping cell="I2">naturalPerson.race</mapping>
+                <mapping cell="J2">naturalPerson.identifyType</mapping>
+                <mapping cell="K2">naturalPerson.identifyNumber</mapping>
+                <mapping cell="L2">naturalPerson.birthdate</mapping>
+                <mapping cell="M2">naturalPerson.mobile</mapping>
+                <mapping cell="N2">naturalPerson.email</mapping>
+                <mapping cell="O2">naturalPerson.reportVersion</mapping>
+                <mapping cell="P2">naturalPerson.dutyCode</mapping>
+                <mapping cell="Q2">naturalPerson.validStatus</mapping>
+                <mapping cell="R2">naturalPerson.isReported</mapping>
+                <mapping cell="S2">naturalPerson.activeTime</mapping>
+                <mapping cell="T2">naturalPerson.invalidTime</mapping>
+                <!--<mapping cell="U2">naturalPerson.oldUseDate</mapping>-->
+                <!--<mapping cell="V2">naturalPerson.scrapDate</mapping>-->
+                <!--<mapping cell="W2">naturalPerson.leftAmt</mapping>-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+    <worksheet name="naturalInviolableRightsSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="naturalInviolableRightss" var="naturalInviolableRights"
+              varType="com.yzj.jep.app.bus.model.NaturalInviolableRights">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">naturalInviolableRights.pid</mapping>
+                <mapping cell="B2">naturalInviolableRights.naturalPid</mapping>
+                <mapping cell="C2">naturalInviolableRights.naturalRegCode</mapping>
+                <mapping cell="D2">naturalInviolableRights.companyName</mapping>
+                <mapping cell="E2">naturalInviolableRights.position</mapping>
+                <mapping cell="F2">naturalInviolableRights.investee</mapping>
+                <mapping cell="G2">naturalInviolableRights.holderScale</mapping>
+                <mapping cell="H2">naturalInviolableRights.activeTime</mapping>
+                <mapping cell="I2">naturalInviolableRights.invalidTime</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+    <worksheet name="naturalRelSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="naturalRels" var="naturalRel"
+              varType="com.yzj.jep.app.bus.model.NaturalRel">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">naturalRel.pid</mapping>
+                <mapping cell="B2">naturalRel.naturalId</mapping>
+                <mapping cell="C2">naturalRel.relNaturalId</mapping>
+                <mapping cell="D2">naturalRel.name</mapping>
+                <mapping cell="E2">naturalRel.sex</mapping>
+                <mapping cell="F2">naturalRel.identifyType</mapping>
+                <mapping cell="G2">naturalRel.identifyNumber</mapping>
+                <mapping cell="H2">naturalRel.relation</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

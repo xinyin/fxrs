@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	http://www.springframework.org/schema/cache 
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<description>mybatis</description>
+    
+    <bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+    	<property name="properties">
+	    	<props>
+	            <prop key="DB2">db2</prop>
+	            <prop key="Oracle">oracle</prop>
+	            <prop key="MySQL">mysql</prop>
+	        </props>
+        </property>
+    </bean>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="databaseIdProvider" ref="databaseIdProvider"/>
+		<property name="mapperLocations" value="classpath*:/com/yzj/**/mapper/*.xml" />
+		<property name="plugins">
+			<list>
+				<bean class="com.yzj.jep.orm.mybatis.plugins.PerformanceInterceptor"/>
+				<bean class="com.yzj.jep.orm.mybatis.plugins.IdentityInterceptor"/>
+				<bean id="pagehelper" class="com.github.pagehelper.PageInterceptor">
+				    	<property name="properties">
+				    		<value>
+				    			<!-- oracle 配置 -->
+<!--				    			helperDialect=oracle-->
+				    			<!-- mysql 配置 -->
+				    				helperDialect=mysql
+				    			reasonable=true
+				    			rowBoundsWithCount=false
+				    		</value>
+				    	</property>
+				</bean>
+			</list>
+		</property>
+		<!-- oracle 配置 -->
+<!--		<property  name="configLocation"  value="classpath:/spring/mybatis-cfg.xml"/>-->
+		<!-- mysql 配置 -->
+		 <property name="configurationProperties">
+			<props>
+	            <prop key="jdbcTypeForNull">NULL</prop>
+	            <prop key="callSettersOnNulls">true</prop>
+	        </props>
+		</property>
+	</bean>
+	
+	<bean name="sqlSessionTemplate" id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean class="com.yzj.jep.orm.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yzj" />
+		<property name="annotationClass" value="com.yzj.jep.orm.mybatis.annotation.MyBatisMapper"/>
+		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+		<property name="properties">
+			<value>
+				UUID=@com.yzj.jep.commons.DateUtils@formatCurrentDateTimeShort() + @java.util.UUID@randomUUID().toString().replaceAll("-", "").toUpperCase()
+				<!-- mysql 配置 -->
+				IDENTITY=select uuid()
+				<!-- oracle 配置 -->
+<!--				IDENTITY=select sys_guid()  from dual-->
+				ORDER=BEFORE
+			</value>
+		</property>
+	</bean>
+	
+</beans>

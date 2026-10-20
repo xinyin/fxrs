@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.yzj.dao.Report_serviceMapper">
+    <select id="selectByAll" resultType="com.yzj.beans.Report_service">
+	SELECT
+	i.REL_NAME,
+	i.REL_NUMBER,
+	CASE i.MAJOR_TRADE WHEN '1' THEN '是' WHEN '0' THEN '否' ELSE '否' END AS MAJOR_TRADE,
+	i.CONTRACT_NO,
+	DATE(i.TRAN_DATE) AS TRAN_DATE,
+	i.BUS_START_TIME,
+	i.BUS_END_TIME,
+	-- i.BUS_TYPE,
+	(
+		SELECT
+			sdi.ITEM_LABEL_
+		FROM
+			sys_dict_item sdi
+		WHERE
+			sdi.DICT_CODE_ = 'INT-InsBusinessType'
+		AND sdi.ITEM_VALUE_ = BUS_TYPE
+		LIMIT 1
+	) AS BUS_TYPE,
+	i.TRADE_OCCUR,
+	-- 交易金额
+	i.TRADE_AMOUNT,
+	i.TRADE_PRICE,
+	i.TRADE_SUBJECT,
+	i.PRICING_POLICY,
+	i.REMARK
+FROM
+	ins_tra_service i
+WHERE
+BUS_START_TIME &gt; #{param1} AND  BUS_START_TIME &lt; #{param2} AND DELFLAG_ = 1 
+<if test="param3 != null and param3 != '' ">
+AND TENANT_ID_ = #{param3}
+</if>
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.TraCreditBzrMapper">
+
+
+    <select id="queryMaxID" resultType="java.lang.Integer">
+        SELECT MAX(btc.pid) as pid FROM bus_tra_credit_bzr btc ;
+
+    </select>
+
+    <!-- <update id="del" parameterType="java.lang.Integer">
+
+         update bus_tra_credit set delflag_ = 0 where pid = #{pid}
+     </update>-->
+
+</mapper>
+

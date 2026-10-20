@@ -1,0 +1,4 @@
+{
+	"sourceSysCode":"${sourceSysCode}",
+	"result":"${result}"
+}			

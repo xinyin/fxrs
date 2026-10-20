@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelProMapper">
+    <resultMap id="BaseResultMap" type="com.yzj.jep.app.bus.model.RelPro">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="pro_code" property="proCode" jdbcType="VARCHAR"/>
+        <result column="pro_name" property="proName" jdbcType="VARCHAR"/>
+        <result column="asset_desc" property="assetDesc" jdbcType="VARCHAR"/>
+        <result column="pro_type" property="proType" jdbcType="VARCHAR"/>
+        <result column="pro_provider" property="proProvider" jdbcType="VARCHAR"/>
+        <result column="pro_reg_org" property="proRegOrg" jdbcType="VARCHAR"/>
+        <result column="ad_pid" property="adPid" jdbcType="VARCHAR"/>
+        <result column="ad_name" property="adName" jdbcType="VARCHAR"/>
+        <result column="ad_credit_code" property="adCreditCode" jdbcType="VARCHAR"/>
+        <result column="care_pid" property="carePid" jdbcType="VARCHAR"/>
+        <result column="care_name" property="careName" jdbcType="VARCHAR"/>
+        <result column="care_credit_code" property="careCreditCode" jdbcType="VARCHAR"/>
+        <result column="data_source" property="dataSource" jdbcType="VARCHAR"/>
+        <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR"/>
+        <result column="status_comment" property="statusComment" jdbcType="REAL"/>
+        <result column="alig_code" property="aligCode" jdbcType="VARCHAR"/>
+        <result column="AMEND_ID" property="amendId" jdbcType="VARCHAR"/>
+        <result column="AMEND_NAME" property="amendName" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectRelProOrg" resultType="com.yzj.jep.app.bus.model.RelProVo">
+        SELECT
+        b.pro_name proName,
+        b.pro_provider proProvider,
+        b.pid,
+        r.shareholding_ratio shareholdingRatio,
+        r.pid relId,
+        r.rel_category relCategory,
+        r.rel_category_sub relCategorySub,
+        r.rel_status relStatus,
+        r.regulator regulator,
+        r.isValid,
+        r.effectiveDate,
+        r.ineffectiveDate,
+        r.relStatement
+        FROM
+        bus_rel_pro b
+        JOIN bus_rel_pro_psnandorg r ON r.from_pid = b.pid
+        WHERE
+        r.from_type = 'PRO'
+        AND r.to_type = 'ORG'
+        AND r.DELFLAG_ = '1'
+        AND r.to_pid = #{pid}
+        ORDER BY
+        r.MODIFIED_TIME_ DESC
+    </select>
+    <select id="selectDownRelProOrg" resultType="com.yzj.jep.app.bus.model.RelProVo">
+        SELECT
+        b.pro_name proName,
+        b.pro_provider proProvider,
+        b.pid,
+        r.shareholding_ratio shareholdingRatio,
+        r.pid relId,
+        r.rel_category relCategory,
+        r.rel_category_sub relCategorySub,
+        r.rel_status relStatus,
+        r.regulator regulator,
+        r.isValid,
+        r.effectiveDate,
+        r.ineffectiveDate,
+        r.relStatement
+        FROM
+        bus_rel_pro b
+        JOIN
+        bus_rel_pro_psnandorg r
+        ON r.to_pid = b.pid
+        WHERE r.from_type = 'ORG' AND r.to_type = 'PRO' AND r.DELFLAG_ = '1' AND b.DELFLAG_='1' AND r.rel_status='00'
+        AND r.from_pid = #{pid}
+        Order BY r.MODIFIED_TIME_ DESC
+    </select>
+    <update id="updateIsIterateByPid">
+        update bus_rel_pro set is_Iterate=#{isIterate} where pid=#{pid}
+    </update>
+
+    <select id="selectProRelByToPid" parameterType="String" resultType="com.yzj.jep.app.bus.model.RelProVo">
+        select pro.PID as pid ,pro.PRO_NAME as proName ,rel.PID as relId,rel.SHAREHOLDING_STRAND as holdings ,rel .REL_CATEGORY_SUB as relCategorySub
+        from bus_rel rel
+                 left join bus_rel_pro as pro on pro.PID = rel.FROM_PID
+        where rel.TO_PID  = #{pid} and rel.DELFLAG_= '1';
+    </select>
+    <select id="selectProByRelFromPid" parameterType="String"  resultType="com.yzj.jep.app.bus.model.RelProVo">
+        select pro.PID as pid ,pro.PRO_NAME as proName ,rel.TO_PID ,rel.FROM_PID ,rel.PID as relId,rel.SHAREHOLDING_STRAND as holdings ,rel .REL_CATEGORY_SUB as relCategorySub
+        from bus_rel rel
+                 left join bus_rel_pro pro on rel.to_pid = pro.PID
+        where rel.FROM_PID  = #{pid} and rel.DELFLAG_= '1';
+    </select>
+    <select id="selectRelPro" resultMap="BaseResultMap">
+        SELECT c1.*
+        FROM bus_rel_pro c1
+                 JOIN (SELECT pro_provider, MAX(CREATED_TIME_) AS max_date
+                       FROM bus_rel_pro
+                       GROUP BY pro_provider) c2
+                      ON c1.pro_provider = c2.pro_provider AND c1.CREATED_TIME_ = c2.max_date;
+    </select>
+</mapper>
+

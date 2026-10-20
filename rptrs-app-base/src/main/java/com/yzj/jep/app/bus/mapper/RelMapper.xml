@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelMapper">
+    <resultMap id="BaseResultMap" type="com.yzj.jep.app.bus.model.Rel">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="to_pid" property="toPid" jdbcType="VARCHAR"/>
+        <result column="from_pid" property="fromPid" jdbcType="VARCHAR"/>
+        <result column="rel_category" property="relCategory" jdbcType="VARCHAR"/>
+        <result column="rel_category_sub" property="relCategorySub" jdbcType="VARCHAR"/>
+        <result column="from_type" property="fromType" jdbcType="VARCHAR"/>
+        <result column="to_type" property="toType" jdbcType="VARCHAR"/>
+        <result column="from_memo" property="fromMemo" jdbcType="VARCHAR"/>
+        <result column="to_memo" property="toMemo" jdbcType="VARCHAR"/>
+        <result column="rel_sort" property="relSort" jdbcType="VARCHAR"/>
+        <result column="position" property="position" jdbcType="VARCHAR"/>
+        <result column="relation" property="relation" jdbcType="VARCHAR"/>
+        <result column="shareholding_strand" property="shareholdingStrand" jdbcType="VARCHAR"/>
+        <result column="shareholding_ratio" property="shareholdingRatio" jdbcType="REAL"/>
+        <result column="to_pid_shareholders" property="toPidShareholders" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+        <result column="from_name" property="fromName" jdbcType="VARCHAR"/>
+        <result column="to_name" property="toName" jdbcType="VARCHAR"/>
+        <result column="rel_type" property="relType" jdbcType="VARCHAR"/>
+        <result column="suspect_type" property="suspectType" jdbcType="VARCHAR"/>
+        <result column="suspect_pid" property="suspectPid" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="lift_reason" property="liftReason" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+        <result column="rel_predicate" property="relPredicate" jdbcType="VARCHAR"/>
+        <result column="RELATION_TYPE" property="relationType" jdbcType="VARCHAR"/>
+        <result column="failure_status" property="failureStatus" jdbcType="VARCHAR"/>
+        <result column="item_description" property="itemDescription" jdbcType="VARCHAR"/>
+        <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR"/>
+        <result column="from_identify_number" property="fromIdentifyNumber" jdbcType="VARCHAR"/>
+        <result column="to_identify_number" property="toIdentifyNumber" jdbcType="VARCHAR"/>
+        <result column="equity_share" property="equityShare" jdbcType="VARCHAR"/>
+        <result column="rel_psn_org" property="relPsnOrg" jdbcType="VARCHAR"/>
+        <result column="isValid" property="isValid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryOrgForOrgFrom" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.org_name as name,b.identify_type,b.unisc_code as identify_number,b.shareholders_code from bus_rel a
+         INNER JOIN bus_rel_org b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='ORG'
+         where a.from_pid =#{pid}
+    </select>
+
+    <select id="queryPsnForOrgFrom" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='PSN'
+         where a.from_pid =#{pid}
+    </select>
+
+    <select id="queryOrgForPsnFrom" parameterType="int" resultType="java.util.Map">
+        select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.org_name as name,b.identify_type,b.unisc_code as identify_number,b.shareholders_code from bus_rel a
+         INNER JOIN bus_rel_org b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='PSN'
+         and a.to_type='ORG'
+         where a.from_pid =#{pid}
+    </select>
+
+    <select id="queryPsnForPsnFrom" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='PSN'
+         and a.to_type='PSN'
+         where a.from_pid =#{pid}
+    </select>
+
+
+    <select id="querySusOrgForOrgFrom" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.org_name as name,b.identify_type,b.unisc_code as identify_number,b.shareholders_code from bus_rel a
+         INNER JOIN bus_rel_org b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='ORG'
+         where a.from_pid =#{pid}
+         union all
+         select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.org_name as name,b.identify_type,b.unisc_code as identify_number,b.shareholders_code from bus_rel a
+         INNER JOIN bus_rel_org_suspect b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='SUSORG'
+         where a.from_pid =#{pid}
+    </select>
+
+    <select id="querySusPsnForOrgFrom" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='PSN'
+         where a.from_pid =#{pid}
+         union all
+         select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn_suspect b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='SUSPSN'
+         where a.from_pid =#{pid}
+    </select>
+
+    <select id="querySusOrgForPsnFrom" parameterType="int" resultType="java.util.Map">
+        select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.org_name as name,b.identify_type,b.unisc_code as identify_number,b.shareholders_code from bus_rel a
+         INNER JOIN bus_rel_org b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='PSN'
+         and a.to_type='ORG'
+         where a.from_pid =#{pid}
+         union all
+         select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.org_name as name,b.identify_type,b.unisc_code as identify_number,b.shareholders_code from bus_rel a
+         INNER JOIN bus_rel_org_suspect b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and b.DELFLAG_=1
+         and a.from_type='PSN'
+         and a.to_type='SUSORG'
+         where a.from_pid =#{pid}
+    </select>
+
+    <select id="querySusPsnForPsnFrom" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='PSN'
+         and a.to_type='PSN'
+         where a.from_pid =#{pid}
+         union all
+         select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn_suspect b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and b.DELFLAG_=1
+         and a.from_type='PSN'
+         and a.to_type='SUSPSN'
+         where a.from_pid =#{pid}
+    </select>
+
+
+    <insert id="insertForMapper" parameterType="com.yzj.jep.app.bus.model.Rel">
+        <selectKey resultType="java.lang.Integer" keyProperty="pid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into bus_rel (pid, to_pid, from_pid,
+        rel_category, rel_category_sub, from_type,
+        to_type, from_memo, to_memo,
+        rel_sort, position, relation,
+        shareholding_strand, shareholding_ratio, to_pid_shareholders,
+        is_show, level_, from_name,
+        to_name, rel_type, TENANT_ID_,
+        CREATED_BY_ID_, CREATED_BY_NAME_, CREATED_TIME_,
+        DELFLAG_, lift_reason, DISPLAY_ORDER_,
+        MODIFIED_BY_ID_, MODIFIED_BY_NAME_, MODIFIED_TIME_,
+        VERSION_,item_Description)
+        values (#{pid,jdbcType=INTEGER}, #{toPid,jdbcType=VARCHAR}, #{fromPid,jdbcType=VARCHAR},
+        #{relCategory,jdbcType=VARCHAR}, #{relCategorySub,jdbcType=VARCHAR}, #{fromType,jdbcType=VARCHAR},
+        #{toType,jdbcType=VARCHAR}, #{fromMemo,jdbcType=VARCHAR}, #{toMemo,jdbcType=VARCHAR},
+        #{relSort,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR},
+        #{shareholdingStrand,jdbcType=VARCHAR}, #{shareholdingRatio,jdbcType=REAL},
+        #{toPidShareholders,jdbcType=VARCHAR},
+        #{isShow,jdbcType=VARCHAR}, #{level_,jdbcType=INTEGER}, #{fromName,jdbcType=VARCHAR},
+        #{toName,jdbcType=VARCHAR}, #{relType,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR},
+        #{createById,jdbcType=VARCHAR}, #{createByName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{delflag,jdbcType=VARCHAR}, #{liftReason,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER},
+        #{modifiedById,jdbcType=VARCHAR}, #{modifiedByName,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP},
+        #{version,jdbcType=INTEGER}), #{itemDescription,jdbcType=VARCHAR}
+    </insert>
+
+    <!--查询机构下的关联信息-->
+    <select id="getUpInfoOnOrg" parameterType="int" resultType="java.util.Map">
+       select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and a.is_show != 0
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='PSN'
+         where a.from_pid =#{pid}
+         union all
+         select a.pid as relPid,a.rel_category,a.rel_category_sub,a.to_type,a.shareholding_ratio,a.shareholding_strand,a.rel_type,b.pid,b.name_,b.identify_type,b.identify_number,b.shareholders_code from bus_rel a
+         inner join bus_rel_psn_suspect b
+         on a.to_pid = b.pid
+         and a.DELFLAG_=1
+         and b.DELFLAG_=1
+         and a.from_type='ORG'
+         and a.to_type='SUSPSN'
+         where a.from_pid =#{pid}
+    </select>
+    <select id="queryPsnOrOrg" parameterType="String" resultType="com.yzj.jep.app.bus.model.PsnAndOrgVo">
+        select
+          a.pid as psnId,
+          b.rel_category as relCategory,
+          b.rel_category_sub as relCategorySub
+        from bus_rel_psn a left join bus_rel b
+        on a.pid = b.to_pid
+        where b.to_pid = #{pid}
+      union
+        select
+          a.pid as orgId,
+          b.rel_category as relCategory,
+          b.rel_category_sub as relCategorySub
+        from bus_rel_org a left join bus_rel b
+        on a.pid = b.to_pid
+        where b.to_pid = #{pid}
+    </select>
+
+    <select id="getAllCloseRelatives" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select to_pid from bus_rel where DELFLAG_ = '1' and from_type = 'PSN' and to_type = 'PSN' and rel_category = 'A' and rel_category_sub in ('1','2','3','4') and from_pid = #{pid}
+        union
+        select from_pid from bus_rel where DELFLAG_ = '1' and from_type = 'PSN' and to_type = 'PSN' and rel_category = 'A' and rel_category_sub in ('1','2','3','4') and to_pid = #{pid}
+
+    </select>
+
+    <select id="getControllingShareholder" parameterType="java.util.Map" resultType="java.util.Map">
+        select to_pid as pid,to_type as type from bus_rel where DELFLAG_ = '1' and rel_category = 'C' and rel_category_sub in ('10','14') and from_pid = #{pid} and from_type = #{type}
+        union
+        select from_pid as pid,from_type as type from bus_rel where DELFLAG_ = '1' and rel_category = 'D' and rel_category_sub = '18' and to_pid = #{pid} and to_type = #{type}
+
+    </select>
+
+
+    <select id="selectByFormPid" resultMap="BaseResultMap" parameterType="java.lang.String">
+               SELECT * FROM  bus_rel  WHERE from_pid=#{fromPid}
+    </select>
+
+    <select id="selectByToPid" resultType="com.yzj.jep.app.bus.model.Rel" parameterType="java.lang.String">
+            SELECT * FROM  bus_rel  WHERE to_pid=#{toPid}
+    </select>
+    <select id="getToAlignCodeByFromPidAndAlign" parameterType="java.util.Map" resultType="java.util.Map">
+    select
+      r.pid as relPid,r.to_pid as toPid,r.to_type as toType,a.ch_alig_code as toChAlignCode
+    from
+      bus_rel r join bus_alig_map a
+    on
+      r.from_alig_code=a.pa_alig_code
+        and
+        r.rel_category=a.rel_category_val
+        and
+        r.rel_category_sub=a.asso_type_val
+    where
+        r.from_pid=#{fromPid} and r.from_alig_code=#{fromAlignCode} and r.to_alig_code is null and r.from_type=#{type}
+    </select>
+    <update id="updateAlignCodeByPid">
+        update bus_rel set to_alig_code=#{toAlignCode},from_alig_code=#{fromAlignCode} where pid=#{pid}
+    </update>
+
+    <select id="selectByParam" parameterType="com.yzj.jep.app.bus.model.Rel" resultMap="BaseResultMap">
+        select * from bus_rel r
+        where 1=1
+        <if test="fromMemo != null">
+            and r.from_memo = #{fromMemo}
+        </if>
+        <if test="fromIdentifyNumber != null">
+            and r.from_identify_number = #{fromIdentifyNumber}
+        </if>
+        <if test="relPsnOrg != null">
+            and r.rel_psn_org = #{relPsnOrg}
+        </if>
+        <if test="toMemo != null">
+            and r.to_Memo = #{toMemo}
+        </if>
+        <if test="toIdentifyNumber != null">
+            and r.to_identify_number = #{toIdentifyNumber}
+        </if>
+        <if test="approvalStatus != null">
+            and r.approval_status = #{approvalStatus}
+        </if>
+        <if test="isValid != null">
+            and r.isValid = #{isValid}
+        </if>
+        <if test="itemDescription != null">
+            and r.item_description = #{itemDescription}
+        </if>
+        <if test="toType != null">
+            and r.to_type = #{toType}
+        </if>
+        <if test="toPid != null">
+            and r.to_pid = #{toPid}
+        </if>
+        <if test="delflag != null">
+            and r.DELFLAG_ = #{delflag}
+        </if>
+        ORDER BY MODIFIED_TIME_ DESC,CREATED_TIME_ DESC
+    </select>
+    <select id="getRelPsnOrg" parameterType="String" resultType="com.yzj.jep.app.bus.model.RelPsnOrg">
+        select
+            pid as pid,
+            org_name as fromMemo,
+            'ORG' as fromType,
+            unisc_code as identifyNumber
+            from bus_rel_org
+            where approval_status = '6'
+            and DELFLAG_ = '1'
+            union all
+            select
+            pid as pid,
+            name_ as fromMemo,
+            'PSN' as fromType,
+            identify_number as identifyNumber
+            from bus_rel_psn
+            where status = '6'
+            and DELFLAG_ = '1'
+            union all
+            select
+            pid as pid,
+            pro_name as fromMemo,
+            'PRO' as fromType,
+            pro_provider as identifyNumber
+            from bus_rel_pro
+            where approval_status = '6'
+            and DELFLAG_ = '1'
+    </select>
+    <insert id="save" parameterType="com.yzj.jep.app.bus.model.Rel">
+        insert
+        into bus_rel(from_pid,to_pid,from_memo,to_memo,from_identify_number,
+                    to_identify_number,from_type,to_type,rel_psn_org,equity_share,
+                    shareholding_ratio,pledge_ratio,isValid,active_time,
+                    invalid_time,relStatement,RELATION_TYPE,approval_status,failure_status,item_description,record_number)
+        values(#{fromPid},#{toPid},#{fromMemo},#{toMemo},#{fromIdentifyNumber},#{toIdentifyNumber},
+                #{fromType},#{toType},#{relPsnOrg},#{equityShare},#{shareholdingRatio},#{pledgeRatio},
+                #{isValid},#{activeTime},#{invalidTime},#{relStatement},#{relationType},#{approvalStatus},#{failureStatus},#{itemDescription},#{recordNumber})
+    </insert>
+    <select id="selectSavePsnOrg" parameterType="String" resultMap="BaseResultMap">
+        select * from bus_rel
+            where from_identify_number = #{fromIdentifyNumber}
+                and to_identify_number = #{toIdentifyNumber}
+                and DELFLAG_ = '1'
+    </select>
+    <select id="getRelPsnOrgByNameOrNum" resultType="com.yzj.jep.app.bus.model.RelPsnOrg">
+        select
+            pid as pid,
+            org_name as fromMemo,
+            'ORG' as fromType,
+            unisc_code as identifyNumber
+            from bus_rel_org
+            where approval_status = '6'
+            and DELFLAG_ = '1'
+            <if test="name!=null and name!=''">
+                and org_name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="code!=null and code!=''">
+                and unisc_code like concat(concat('%',#{code}),'%')
+            </if>
+            union all
+            select
+            pid as pid,
+            name_ as fromMemo,
+            'PSN' as fromType,
+            identify_number as identifyNumber
+            from bus_rel_psn
+            where status = '6'
+            and DELFLAG_ = '1'
+            <if test="name!=null and name!=''">
+                and name_ like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="code!=null and code!=''">
+                and identify_number like concat(concat('%',#{code}),'%')
+            </if>
+            union all
+            select
+            pid as pid,
+            pro_name as fromMemo,
+            'PRO' as fromType,
+            pro_provider as identifyNumber
+            from bus_rel_pro
+            where approval_status = '6'
+            and DELFLAG_ = '1'
+            <if test="name!=null and name!=''">
+                and pro_name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="code!=null and code!=''">
+                and pro_provider like concat(concat('%',#{code}),'%')
+            </if>
+    </select>
+
+    <select id="getRelPsnOrgByNameOrNumFront" resultType="com.yzj.jep.app.bus.model.RelPsnOrg">
+        select
+        pid as pid,
+        org_name as fromMemo,
+        'ORG' as fromType,
+        unisc_code as identifyNumber
+        from bus_rel_org
+        where approval_status = '6'
+        and effect_relation = '1'
+        and DELFLAG_ = '1'
+        <if test="name!=null and name!=''">
+            and org_name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="code!=null and code!=''">
+            and unisc_code like concat(concat('%',#{code}),'%')
+        </if>
+        union all
+        select
+        pid as pid,
+        name_ as fromMemo,
+        'PSN' as fromType,
+        identify_number as identifyNumber
+        from bus_rel_psn
+        where status = '6'
+        and effect_relation = '1'
+        and DELFLAG_ = '1'
+        <if test="name!=null and name!=''">
+            and name_ like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="code!=null and code!=''">
+            and identify_number like concat(concat('%',#{code}),'%')
+        </if>
+        union all
+        select
+        pid as pid,
+        pro_name as fromMemo,
+        'PRO' as fromType,
+        pro_provider as identifyNumber
+        from bus_rel_pro
+        where approval_status = '6'
+        and DELFLAG_ = '1'
+        and effect_relation = '1'
+        <if test="name!=null and name!=''">
+            and pro_name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="code!=null and code!=''">
+            and pro_provider like concat(concat('%',#{code}),'%')
+        </if>
+    </select>
+
+    <select id="getRelPsnOrgFront" parameterType="String" resultType="com.yzj.jep.app.bus.model.RelPsnOrg">
+        select
+            pid as pid,
+            org_name as fromMemo,
+            'ORG' as fromType,
+            unisc_code as identifyNumber
+            from bus_rel_org
+            where approval_status = '6'
+            and effect_relation = '1'
+            and DELFLAG_ = '1'
+            union all
+            select
+            pid as pid,
+            name_ as fromMemo,
+            'PSN' as fromType,
+            identify_number as identifyNumber
+            from bus_rel_psn
+            where status = '6'
+            and effect_relation = '1'
+            and DELFLAG_ = '1'
+            union all
+            select
+            pid as pid,
+            pro_name as fromMemo,
+            'PRO' as fromType,
+            pro_provider as identifyNumber
+            from bus_rel_pro
+            where approval_status = '6'
+            and DELFLAG_ = '1'
+            and effect_relation = '1'
+    </select>
+
+    <select id="checkRel" parameterType="String" resultType="java.lang.Integer">
+        <if test="type=='PSN'">
+            select count(1)
+            from bus_rel_psn
+            where status = '6'
+            and DELFLAG_ = '1'
+            and identify_number =#{code}
+        </if>
+        <if test="type=='ORG'">
+            select count(1)
+            from bus_rel_org
+            where approval_status = '6'
+            and DELFLAG_ = '1'
+            and unisc_code = #{code}
+        </if>
+    </select>
+
+    <!--查询关联关系-->
+    <resultMap id="relInfoVo" type="com.yzj.jep.app.design.model.RelInfoVo">
+        <result column="PID" property="pid"/>
+        <result column="PID_UNIQUE" property="pidUnique"/>
+        <result column="TO_PID" property="toPid"/>
+        <result column="TO_TYPE" property="toType"/>
+        <result column="TO_NAME" property="toName"/>
+        <result column="FROM_PID" property="fromPid"/>
+        <result column="FROM_TYPE" property="fromType"/>
+        <result column="FROM_NAME" property="fromName"/>
+        <result column="HOLDINGS" property="holdings"/>
+        <result column="REL_CATEGORY_SUB" property="relCategorySub"/>
+    </resultMap>
+
+    <select id="queryRelationsByParams" resultMap="relInfoVo">
+        SELECT
+        rel.PID ,
+        rel.PID_UNIQUE,
+        rel.TO_PID ,
+        rel.TO_TYPE ,
+        toInfo.REL_NAME TO_NAME,
+        rel.FROM_PID,
+        rel.FROM_TYPE,
+        fromInfo.REL_NAME FROM_NAME,
+        rel.SHAREHOLDING_RATIO ,
+        rel.REL_CATEGORY_SUB
+        FROM
+        (
+        SELECT
+        br.PID ,
+        'A' || br.pid PID_UNIQUE,
+        br.TO_PID ,
+        br.TO_TYPE ,
+        br.FROM_PID,
+        br.FROM_TYPE,
+        br.SHAREHOLDING_RATIO ,
+        br.REL_PSN_ORG REL_CATEGORY_SUB
+        FROM
+        BUS_REL br
+        WHERE
+        br.APPROVAL_STATUS = '6'
+        AND DELFLAG_ = '1'
+        ) rel
+        INNER JOIN
+        (
+        SELECT
+        brp.PID ,
+        'PSN' REL_TYPE,
+        brp.NAME_ REL_NAME,
+        brp.IDENTIFY_NUMBER
+        FROM
+        BUS_REL_PSN brp
+        WHERE
+        brp.DELFLAG_ = '1'
+        UNION
+        SELECT
+        bro.PID ,
+        'ORG' REL_TYPE,
+        bro.ORG_NAME REL_NAME,
+        bro.UNISC_CODE IDENTIFY_NUMBER
+        FROM
+        BUS_REL_ORG bro
+        WHERE
+        bro.DELFLAG_ = '1'
+        UNION
+        SELECT
+        brp.PID ,
+        'PRO' REL_TYPE,
+        brp.PRO_NAME REL_NAME,
+        brp.PRO_PROVIDER IDENTIFY_NUMBER
+        FROM
+        BUS_REL_PRO brp
+        WHERE
+        brp.DELFLAG_ = '1'
+        ) toInfo ON
+        toInfo.PID = rel.TO_PID
+        AND toInfo.REL_TYPE = rel.TO_TYPE
+        INNER JOIN
+        (
+        SELECT
+        brp.PID ,
+        'PSN' REL_TYPE,
+        brp.NAME_ REL_NAME,
+        brp.IDENTIFY_NUMBER
+        FROM
+        BUS_REL_PSN brp
+        WHERE
+        brp.DELFLAG_ = '1'
+        UNION
+        SELECT
+        bro.PID ,
+        'ORG' REL_TYPE,
+        bro.ORG_NAME REL_NAME,
+        bro.UNISC_CODE IDENTIFY_NUMBER
+        FROM
+        BUS_REL_ORG bro
+        WHERE
+        bro.DELFLAG_ = '1'
+        UNION
+        SELECT
+        brp.PID ,
+        'PRO' REL_TYPE,
+        brp.PRO_NAME REL_NAME,
+        brp.PRO_PROVIDER IDENTIFY_NUMBER
+        FROM
+        BUS_REL_PRO brp
+        WHERE
+        brp.DELFLAG_ = '1'
+        ) fromInfo ON
+        fromInfo.PID = rel.FROM_PID
+        AND fromInfo.REL_TYPE = rel.FROM_TYPE
+        <where>
+            <if test="param.toPid != null" >
+                and rel.TO_PID = #{param.toPid}
+            </if>
+            <if test="param.toType != null" >
+                and rel.TO_TYPE = #{param.toType}
+            </if>
+            <if test="param.fromPid != null" >
+                and rel.FROM_PID = #{param.fromPid}
+            </if>
+            <if test="param.fromType != null" >
+                and rel.FROM_TYPE = #{param.fromType}
+            </if>
+        </where>
+    </select>
+
+    <select id="isRecordNumber" resultType="java.lang.String">
+        SELECT distinct
+        record_number
+        FROM bus_rel
+        WHERE record_number is NOT NULL and record_number like concat('%',#{param,jdbcType=VARCHAR},'%')
+        ORDER BY record_number DESC
+    </select>
+
+    <select id="recordNumber" resultType="java.lang.String">
+         SELECT distinct
+        record_number
+        FROM bus_rel
+        WHERE record_number is NOT NULL
+        ORDER BY record_number DESC
+    </select>
+</mapper>

@@ -1,0 +1,26 @@
+{
+    "BODY":{
+        "tranType":"${tranType}",
+        "tenantId":"${tenantId}",
+        "contractNo":"${contractNo}",
+        "majorTrade":"${majorTrade}",
+        "majorType":"${majorType}",
+        "relList":[<#list relList as r>
+            {
+                "tradeAmount":"${r.tradeAmount}",
+                "relName":"${r.relName}",
+                "relType":"${r.relType}",
+                "certType":"${r.certType}",
+                "relNumber":"${r.relNumber}",
+                "majorTrade":"${r.majorTrade}",
+                "majorType":"${r.majorType}"
+            }
+         </#list>]
+    },
+    "SYSHEAD":{
+        "msg":"${msg}",
+        "resultCode":"${resultCode}",
+        "TRANS_CODE":"${TRANS_CODE}",
+        "CHNL_ID":"${CHNL_ID}"
+    }
+}

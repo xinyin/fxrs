@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:cache="http://www.springframework.org/schema/cache" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+    <description>Shiro Configuration</description>
+    <!-- shiroFilter工厂 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 构建securityManager环境 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 用户没有认证通过返回的地址 -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 拦截成功地址 -->
+        <property name="successUrl" value="/login"/>
+        <!-- 没有权限返回的地址 （拒绝访问路径）-->
+        <property name="unauthorizedUrl" value="/login"/>
+        <property name="filterChainDefinitions">
+            <value>
+                /RptrsSso = anon
+                /contract/** = anon
+                /login/ = anon
+                /login/logout = anon
+                /login/verification = anon
+                /login/signinForThree = anon
+                /login/queryStaff = anon
+                /static/** = anon
+                /error/** = anon
+                /workflow/client/** = anon
+                /workflow/server/** = anon
+                /workflow/shortcut/** = anon
+                /workflow/process/existProcDef = anon
+                /workflow/process/edit = anon
+                /workflow/process/save = anon
+                /workflow/process/saveAndStart = anon
+                /workflow/process/runingList = anon
+                /workflow/process/draftList = anon
+                /workflow/process/submit = anon
+                /workflow/process/queryData = anon
+                /workflow/process/queryHistory = anon
+                /workflow/process/view = anon
+                /workflow/process/editDraftProcInst = anon
+                /workflow/workflowData/** = anon
+                /workflow/form/metadata = anon
+                /workflow/diagram/exedFlowImage/** = anon
+                /workflow/procLog/runLog/** = anon
+                /schedule/rest/server/** = anon
+                /schedule/rest/client/** = anon
+                /sys/notify/countNotifyByType = anon
+                /sys/tenant/queryList = anon
+                /pub/file/downLoad/** = anon
+                /pub/file/isConnected = anon
+                <!--   -->
+                /bus/docFile/**= anon
+                /bus/docForOutside/**= anon
+                /bus/docForInner/**= anon
+                /rule/creditRule/** = anon
+                /bus/relPsn/history/getRecordNumber = anon
+                /bus/relOrg/history/getRecordNumber = anon
+                /bus/rel/history/getRecordNumber = anon
+                PsnSuspect/**= anon
+                /WF/test/**= anon
+                /WF/test/gateway= anon
+                /bus/tree/**= anon
+                /bus/limit/**= anon
+
+                <!--字典项-->
+                /sys/dictItem/** = anon
+                /fixedDict/** = anon
+                /sch/** = anon
+                /rul/** = anon
+                /sys/unit/selectAllUnit = anon
+                /sys/unit/selectUnit = anon
+                /sys/staffGroup/queryAll = anon
+                /sys/role/queryAll = anon
+                /sys/roleGroup/queryAll = anon
+                /workflow/approve/** = anon
+                /design/equityFigure/** = anon
+
+                /** = authc
+
+            </value>
+        </property>
+    </bean>
+    <!-- securityManager -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--调用自定义realm -->
+        <property name="realm" ref="jepRealm"/>
+    </bean>
+    <bean id="jepRealm" class="com.yzj.jep.app.web.security.realm.JepLocalAuthorizingRealm">
+        <!--配置加密算法-->
+        <property name="credentialsMatcher">
+            <!--shiro加密策略MD5-->
+            <!--<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">-->
+            <bean class="com.yzj.jep.app.web.security.realm.RetryLimitHashedCredentialsMatcher">
+                <!--加密的策略-->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!--加密的次数-->
+                <property name="hashIterations" value="1"/>
+                <property name="hashSalted" value="true"/>
+                <property name="storedCredentialsHexEncoded" value="true"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

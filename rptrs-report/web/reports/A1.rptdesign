@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.3.1.v201309091055 Build &lt;4.3.1.v20130917-1035></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">risk.rptlibrary</property>
+            <property name="namespace">risk</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="mOrgCode" id="38" extends="risk.mOrgCode"/>
+        <scalar-parameter name="mOrgName" id="39" extends="risk.mOrgName"/>
+        <scalar-parameter name="yearStr" id="40">
+            <property name="hidden">true</property>
+            <text-property name="promptText">评估年度</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="assessCode" id="70">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="mDak" id="71" extends="risk.mDak"/>
+        <scalar-parameter name="mUnitHierarchy" id="86" extends="risk.mUnitHierarchy"/>
+        <scalar-parameter name="pStartDate" id="139">
+            <text-property name="promptText">起始时间</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="pEndDate" id="140">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dsRisk" id="87"
+ extends="risk.dsRisk"/>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="dsA1" id="8">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ASSESS_UNIT_</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ASSESS_UNIT_</text-property>
+                    <text-property name="heading">ASSESS_UNIT_</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ASSESS_UNITNAME_</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ASSESS_UNITNAME_</text-property>
+                    <text-property name="heading">ASSESS_UNITNAME_</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ASSESS_DEPT_</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ASSESS_DEPT_</text-property>
+                    <text-property name="heading">ASSESS_DEPT_</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ASSESS_DEPTNAME_</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ASSESS_DEPTNAME_</text-property>
+                    <text-property name="heading">ASSESS_DEPTNAME_</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ADDED_CTRL_NUM</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">ADDED_CTRL_NUM</text-property>
+                    <text-property name="heading">ADDED_CTRL_NUM</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ADDED_RISK_NUM</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">ADDED_RISK_NUM</text-property>
+                    <text-property name="heading">ADDED_RISK_NUM</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ASSESS_UNIT_</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">ASSESS_UNITNAME_</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">ASSESS_DEPT_</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">ASSESS_DEPTNAME_</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">ADDED_CTRL_NUM</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">ADDED_RISK_NUM</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.java.text);
+importPackage(Packages.org.apache.commons.lang);
+
+
+//获取评估年度
+//var nowYear = reportContext.getParameterValue("yearStr");
+//this.queryText = StringUtils.replace(this.queryText,"_now_year_", nowYear);
+
+var pStartDate = reportContext.getParameterValue("pStartDate");
+var pEndDate = reportContext.getParameterValue("pEndDate");
+this.queryText = StringUtils.replace(this.queryText,"_pStartDate_", pStartDate);
+this.queryText = StringUtils.replace(this.queryText, "_pEndDate_", pEndDate);
+
+
+//限制查询数据的部门
+var celassessCode = reportContext.getParameterValue("assessCode");
+var assessCode = new StringBuffer();
+if(StringUtils.isNotBlank(celassessCode)){
+	var array = new Array();
+	array = celassessCode.split(',');
+	for(var i=0;i<array.length;i++){
+		if(array[i]=='0200'){
+			array[i] = '02';
+		}
+		if(i > 0) assessCode.append(',');
+		assessCode.append('\'' + array[i] + '\'');
+	}
+	this.queryText=StringUtils.replace(this.queryText,"2=2","a.assess_dept_ in ("+assessCode+")");
+}
+//数据权限控制
+var unitId = reportContext.getParameterValue("mDak");
+this.queryText = StringUtils.replace(this.queryText,"1=0", "a.assess_dept_ in (" + unitId + ")" );	
+
+//机构
+var mOrgCode = reportContext.getParameterValue("mOrgCode");
+this.queryText = StringUtils.replace(this.queryText,"_current_org_", mOrgCode);	
+
+//机构层级
+var mUnitHierarchy = reportContext.getParameterValue("mUnitHierarchy");
+if(mUnitHierarchy == 30){
+	this.queryText = StringUtils.replace(this.queryText,"_HEAD_", "HEAD" );	
+}else{
+	this.queryText = StringUtils.replace(this.queryText,"_HEAD_", "BRANCH" );
+}
+
+
+System.out.println(this.queryText);
+]]></method>
+            <property name="dataSource">dsRisk</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ASSESS_UNIT_</property>
+                    <property name="nativeName">ASSESS_UNIT_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">ASSESS_UNITNAME_</property>
+                    <property name="nativeName">ASSESS_UNITNAME_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">ASSESS_DEPT_</property>
+                    <property name="nativeName">ASSESS_DEPT_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">ASSESS_DEPTNAME_</property>
+                    <property name="nativeName">ASSESS_DEPTNAME_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">ADDED_CTRL_NUM</property>
+                    <property name="nativeName">ADDED_CTRL_NUM</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">ADDED_RISK_NUM</property>
+                    <property name="nativeName">ADDED_RISK_NUM</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[with t1 as
+ (select distinct b.assess_unit_,
+                  b.assess_unitname_,
+                  b.assess_dept_,
+                  b.assess_deptname_,
+                  b.process_id_,
+                  b.process_name_,
+                  c.ctrl_code_,
+                  c.ctrl_desc_
+    from bpa_process_info b, bpa_process_ctrl_info c
+   where /*to_char(b.audit_date_, 'YYYY') = '_now_year_'*/
+     b.audit_date_ between to_date('_pStartDate_', 'yyyy-mm-dd') and (case when '_pEndDate_' is null or '_pEndDate_' = '' then sysdate else to_date('_pEndDate_', 'yyyy-mm-dd') end)
+     and b.process_head_branch_ = '_HEAD_'
+     and b.assess_unit_ = '_current_org_'
+     and b.version_status_ in ('C')
+     and c.process_id_ = b.process_id_
+     and c.ctrl_code_ in
+         (select g.ctrl_code_
+            from bpa_process_info f, bpa_process_ctrl_info g
+           where /*to_char(f.audit_date_, 'yyyy') < '_now_year_'*/
+             f.audit_date_ between to_date('_pStartDate_', 'yyyy-mm-dd') and (case when '_pEndDate_' is null or '_pEndDate_' = '' then sysdate else to_date('_pEndDate_', 'yyyy-mm-dd') end)
+             /*and f.process_head_branch_ = '_HEAD_'
+             and f.assess_unit_ = '_current_org_'*/
+             and f.version_status_ in ('C')
+             and f.process_id_ = g.process_id_)),
+t2 as
+ (select distinct b.assess_unit_,
+                  b.assess_unitname_,
+                  b.assess_dept_,
+                  b.assess_deptname_,
+                  b.process_id_,
+                  b.process_name_,
+                  c.step_code_,
+                  c.step_name_,
+                  c.risk_code_,
+                  c.risk_desc_
+    from bpa_process_info b, bpa_process_risk_info c
+   where /*to_char(b.audit_date_, 'YYYY') = '_now_year_'*/
+   b.audit_date_ between to_date('_pStartDate_', 'yyyy-mm-dd') and (case when '_pEndDate_' is null or '_pEndDate_' = '' then sysdate else to_date('_pEndDate_', 'yyyy-mm-dd') end)
+     and b.process_head_branch_ = '_HEAD_'
+     and b.assess_unit_ = '_current_org_'
+     and b.version_status_ in ('C')
+     and c.process_id_ = b.process_id_
+     and c.risk_code_ in
+         (select g.risk_code_
+            from bpa_process_info f, bpa_process_risk_info g
+           where /*to_char(f.audit_date_, 'yyyy') < '_now_year_'*/
+           f.audit_date_ between to_date('_pStartDate_', 'yyyy-mm-dd') and (case when '_pEndDate_' is null or '_pEndDate_' = '' then sysdate else to_date('_pEndDate_', 'yyyy-mm-dd') end)
+             /*and f.process_head_branch_ = '_HEAD_'
+             and f.assess_unit_ = '_current_org_'*/
+             and f.version_status_ in ('C')
+             and f.process_id_ = g.process_id_))
+select 
+       assess_unit_,
+       assess_unitname_,
+       assess_dept_,
+       assess_deptname_,
+       sum(added_ctrl_num) added_ctrl_num,
+       sum(added_risk_num) added_risk_num
+from( 
+select  a.assess_unit_,
+        a.assess_unitname_,
+        a.assess_dept_,
+        a.assess_deptname_,
+        count(distinct t1.ctrl_code_) added_ctrl_num,
+        count(distinct t2.risk_code_) added_risk_num 
+from bpa_process_info a
+left join t1 on t1.process_id_ = a.process_id_ and t1.assess_unit_ = a.assess_unit_ and t1.assess_dept_ = a.assess_dept_
+left join t2 on t2.process_id_ = a.process_id_ and t2.assess_unit_ = a.assess_unit_ and t2.assess_dept_ = a.assess_dept_
+where 1=0 /*数据权限*/
+    and 2=2 /*限制查询出数据部门*/
+  group by a.assess_unit_, a.assess_unitname_,a.assess_dept_,a.assess_deptname_,a.process_id_
+  having count(distinct t1.ctrl_code_) > 0 or count(distinct t2.risk_code_) > 0
+) group by assess_unit_, assess_unitname_, assess_dept_, assess_deptname_]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ASSESS_UNIT_</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ASSESS_UNIT_</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ASSESS_UNIT_</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ASSESS_UNITNAME_</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ASSESS_UNITNAME_</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ASSESS_UNITNAME_</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ASSESS_DEPT_</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ASSESS_DEPT_</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ASSESS_DEPT_</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ASSESS_DEPTNAME_</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ASSESS_DEPTNAME_</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ASSESS_DEPTNAME_</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>PROCESS_ID_</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PROCESS_ID_</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PROCESS_ID_</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>PROCESS_NAME_</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>256</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PROCESS_NAME_</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PROCESS_NAME_</design:label>
+            <design:formattingHints>
+              <design:displaySize>256</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ADDED_CTRL_NUM</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>0</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ADDED_CTRL_NUM</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ADDED_CTRL_NUM</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ADDED_RISK_NUM</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>2</design:nativeDataTypeCode>
+            <design:precision>0</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ADDED_RISK_NUM</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ADDED_RISK_NUM</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="dsUnits" id="129">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">UNIT_CODE_</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">UNIT_CODE_</text-property>
+                    <text-property name="heading">UNIT_CODE_</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">UNIT_NAME_</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">UNIT_NAME_</text-property>
+                    <text-property name="heading">UNIT_NAME_</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">UNIT_CODE_</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">UNIT_NAME_</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+
+//获取机构
+var assessCodes = reportContext.getParameterValue("assessCode");
+
+if(StringUtils.isBlank(assessCodes)){//默认：全选
+	;
+}else if(StringUtils.indexOf(assessCodes, ",") > -1){//多选
+	this.queryText = StringUtils.replace(this.queryText,"全选", '多选');	
+}else{//单选
+	this.queryText = StringUtils.replace(this.queryText,"\'全选\'", '');
+	this.queryText = StringUtils.replace(this.queryText,"1 = 1", "unit_code_=\'" + assessCodes + "\'");
+	//System.out.println(this.queryText);
+}
+
+
+]]></method>
+            <property name="dataSource">dsRisk</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">UNIT_CODE_</property>
+                    <property name="nativeName">UNIT_CODE_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">UNIT_NAME_</property>
+                    <property name="nativeName">UNIT_NAME_</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select unit_code_, unit_name_ from (
+select row_number () over() as rn, 'all' unit_code_, '全选' unit_name_ from sys_unit)
+ a where 1 = 1 and rn <= 1]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>UNIT_NAME</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>UNIT_NAME</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>UNIT_NAME</design:label>
+            <design:formattingHints>
+              <design:displaySize>2</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="topMargin">0in</property>
+            <property name="leftMargin">0in</property>
+            <property name="bottomMargin">0in</property>
+            <property name="rightMargin">0in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="25">
+            <property name="borderBottomColor">#C0C0C0</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1px</property>
+            <property name="borderLeftColor">#C0C0C0</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1px</property>
+            <property name="borderRightColor">#C0C0C0</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1px</property>
+            <property name="borderTopColor">#C0C0C0</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1px</property>
+            <column id="26">
+                <property name="width">33%</property>
+            </column>
+            <column id="27">
+                <property name="width">33%</property>
+            </column>
+            <column id="28">
+                <property name="width">33%</property>
+            </column>
+            <row id="29">
+                <property name="backgroundColor">#F2F2F2</property>
+                <property name="borderBottomColor">#C0C0C0</property>
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">1px</property>
+                <property name="borderLeftColor">#C0C0C0</property>
+                <property name="borderLeftStyle">solid</property>
+                <property name="borderLeftWidth">1px</property>
+                <property name="borderRightColor">#C0C0C0</property>
+                <property name="borderRightStyle">solid</property>
+                <property name="borderRightWidth">1px</property>
+                <property name="borderTopColor">#C0C0C0</property>
+                <property name="borderTopStyle">solid</property>
+                <property name="borderTopWidth">1px</property>
+                <property name="textAlign">center</property>
+                <property name="height">40px</property>
+                <cell id="30">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="fontSize">larger</property>
+                    <property name="fontWeight">bold</property>
+                    <property name="borderBottomColor">#C0C0C0</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#C0C0C0</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#C0C0C0</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#C0C0C0</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="37">
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[新增风险与控制统计表]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="33">
+                <property name="verticalAlign">middle</property>
+                <property name="height">33px</property>
+                <cell id="34">
+                    <table id="130">
+                        <property name="dataSet">dsUnits</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">UNIT_NAME_</property>
+                                <text-property name="displayName">UNIT_NAME_</text-property>
+                                <expression name="expression" type="javascript">"部门：" + dataSetRow["UNIT_NAME_"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <column id="137"/>
+                        <detail>
+                            <row id="133">
+                                <cell id="134">
+                                    <data id="138">
+                                        <property name="resultSetColumn">UNIT_NAME_</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+                <cell id="35">
+                    <data id="141">
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">pStartDate</property>
+                                <expression name="expression" type="javascript">importPackage(Packages.org.apache.commons.lang);&#13;
+var pEndDate = params["pEndDate"];&#13;
+var c = (StringUtils.isNotBlank(pEndDate)) ? pEndDate :Formatter.format(new Date(), 'yyyy-MM-dd');&#13;
+c = "期间：" + params["pStartDate"] + " - " + c;</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">pStartDate</property>
+                    </data>
+                </cell>
+                <cell id="36">
+                    <text-data id="43">
+                        <expression name="valueExpr">"生成日期：" + Formatter.format(new Date(), "yyyy-MM-dd")</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
+            </row>
+        </grid>
+        <table id="44">
+            <property name="verticalAlign">middle</property>
+            <property name="dataSet">dsA1</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ASSESS_UNIT_</property>
+                    <text-property name="displayName">ASSESS_UNIT_</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ASSESS_UNIT_"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ASSESS_UNITNAME_</property>
+                    <text-property name="displayName">ASSESS_UNITNAME_</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ASSESS_UNITNAME_"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ASSESS_DEPT_</property>
+                    <text-property name="displayName">ASSESS_DEPT_</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ASSESS_DEPT_"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ASSESS_DEPTNAME_</property>
+                    <text-property name="displayName">ASSESS_DEPTNAME_</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ASSESS_DEPTNAME_"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ADDED_CTRL_NUM</property>
+                    <text-property name="displayName">ADDED_CTRL_NUM</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ADDED_CTRL_NUM"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">ADDED_RISK_NUM</property>
+                    <text-property name="displayName">ADDED_RISK_NUM</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["ADDED_RISK_NUM"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["ADDED_RISK_NUM"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_1</property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["ADDED_CTRL_NUM"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="83">
+                <property name="width">8%</property>
+            </column>
+            <column id="57">
+                <property name="width">25%</property>
+            </column>
+            <column id="58">
+                <property name="width">33%</property>
+            </column>
+            <column id="75">
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">true</expression>
+                    </structure>
+                </list-property>
+                <property name="width">33%</property>
+            </column>
+            <column id="59">
+                <property name="width">33%</property>
+            </column>
+            <header>
+                <row id="45">
+                    <property name="backgroundColor">#F2F2F2</property>
+                    <property name="verticalAlign">middle</property>
+                    <property name="height">27px</property>
+                    <cell id="80">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <label id="84">
+                            <text-property name="text">序号</text-property>
+                        </label>
+                    </cell>
+                    <cell id="46">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <label id="60">
+                            <text-property name="text">部门名称</text-property>
+                        </label>
+                    </cell>
+                    <cell id="47">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <label id="61">
+                            <text-property name="text">新增风险数量</text-property>
+                        </label>
+                    </cell>
+                    <cell id="72">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <label id="76">
+                            <text-property name="text">ASSESS_DEPT_</text-property>
+                        </label>
+                    </cell>
+                    <cell id="48">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <label id="62">
+                            <text-property name="text">新增控制数量</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="49">
+                    <cell id="81">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#C0C0C0</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="85">
+                            <property name="textAlign">center</property>
+                            <method name="onPrepare"><![CDATA[i = 1;]]></method>
+                            <method name="onCreate"><![CDATA[this.text = i;
+i++;]]></method>
+                            <method name="onRender"><![CDATA[i = 1;]]></method>
+                        </label>
+                    </cell>
+                    <cell id="50">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#C0C0C0</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="63">
+                            <property name="marginLeft">3pt</property>
+                            <property name="resultSetColumn">ASSESS_DEPTNAME_</property>
+                        </data>
+                    </cell>
+                    <cell id="51">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#C0C0C0</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <property name="textAlign">center</property>
+                        <data id="64">
+                            <method name="onCreate"><![CDATA[var t  = this.getRowData().getColumnValue("ADDED_RISK_NUM");
+
+if( t == "0"){
+	this.setAction(this.createAction());
+}]]></method>
+                            <property name="resultSetColumn">ADDED_RISK_NUM</property>
+                            <list-property name="action">
+                                <structure>
+                                    <property name="linkType">drill-through</property>
+                                    <property name="reportName">A1Z1.rptdesign</property>
+                                    <property name="targetWindow">_blank</property>
+                                    <property name="targetFileType">report-design</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">deptCode</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">row["ASSESS_DEPT_"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">pStartDate</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">params["pStartDate"].value</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">pEndDate</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">params["pEndDate"].value</value>
+                                            </simple-property-list>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                            </list-property>
+                        </data>
+                    </cell>
+                    <cell id="73">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#C0C0C0</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <property name="textAlign">center</property>
+                        <data id="77">
+                            <property name="resultSetColumn">ASSESS_DEPT_</property>
+                        </data>
+                    </cell>
+                    <cell id="52">
+                        <property name="borderBottomColor">#C0C0C0</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#C0C0C0</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#C0C0C0</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#C0C0C0</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <property name="textAlign">center</property>
+                        <data id="65">
+                            <method name="onCreate"><![CDATA[var t  = this.getRowData().getColumnValue("ADDED_CTRL_NUM");
+
+if( t == "0"){
+	this.setAction(this.createAction());
+}]]></method>
+                            <property name="resultSetColumn">ADDED_CTRL_NUM</property>
+                            <list-property name="action">
+                                <structure>
+                                    <property name="linkType">drill-through</property>
+                                    <property name="reportName">A1Z2.rptdesign</property>
+                                    <property name="targetWindow">_blank</property>
+                                    <property name="targetFileType">report-design</property>
+                                    <list-property name="paramBindings">
+                                        <structure>
+                                            <property name="paramName">deptCode</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">row["ASSESS_DEPT_"]</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">pStartDate</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">params["pStartDate"].value</value>
+                                            </simple-property-list>
+                                        </structure>
+                                        <structure>
+                                            <property name="paramName">pEndDate</property>
+                                            <simple-property-list name="expression">
+                                                <value type="javascript">params["pEndDate"].value</value>
+                                            </simple-property-list>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                            </list-property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>

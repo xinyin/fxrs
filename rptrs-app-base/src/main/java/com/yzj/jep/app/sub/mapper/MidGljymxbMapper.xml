@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.jep.app.sub.mapper.MidGljymxbMapper">
+
+
+<select id="selectTraDetails" parameterType="string" resultType="com.yzj.jep.app.sub.model.MidGljymxb">
+    select
+        pid,
+        payment_id as payment,
+        CONTRACT_NO as HTBH,
+        REL_NUMBER as GLFDM,
+        REL_NAME as GLFMC,
+        TRANS_NUM as JYBH,
+        TRAN_TYPE as GLJYLX,
+        bus_type as GLJYYWLX,
+        null as JYFX,
+        TRADE_SUBJECT as JYBD,
+        currency_code as JYBZ,
+        PRAC_TRADE_AMOUNT as JYBJYJE,
+        FUNDS_FLOW_NUMBER as JYBJYJEZJLSBH,
+        null as JYBJYJEJYLSBH,
+        PRAC_TRADE_AMOUNT as BWBJYJE,
+        TRAN_DATE as JYRQ,
+        TRAN_NAME as JYGS,
+        FINANCIAL_ASSSTS_NAME as JRCPMC,
+        FINANCIAL_ASSSTS_NUM as JRCPBH,
+        PROTOCOL_TRANSACTION_SYMBOL as XYJYBZ
+    from
+        ins_tra_funds itf
+    where  DATE_FORMAT(TRAN_DATE, '%Y-%m-%d') between #{startTime} and #{endTime}
+      and itf.DELFLAG_ ='1'
+      and itf.STATUS ='6'
+      AND data_version = 'E2.0'
+    union all
+    select
+        pid,
+        payment_id as payment,
+        CONTRACT_NO as HTBH,
+        REL_NUMBER as GLFDM,
+        REL_NAME as GLFMC,
+        TRANS_NUM as JYBH,
+        TRAN_TYPE as GLJYLX,
+        bus_type as GLJYYWLX,
+        null as JYFX,
+        TRADE_SUBJECT as JYBD,
+        currency_code as JYBZ,
+        PRAC_TRADE_AMOUNT as JYBJYJE,
+        null as JYBJYJEZJLSBH,
+        FUNDS_FLOW_NUMBER as JYBJYJEJYLSBH,
+        PRAC_TRADE_AMOUNT as BWBJYJE,
+        contract_Date as JYRQ,
+        TRAN_NAME as JYGS,
+        null as JRCPMC,
+        null as JRCPBH,
+        PROTOCOL_TRANSACTION_SYMBOL as XYJYBZ
+    from
+        ins_tra_business itb
+    where  DATE_FORMAT(contract_Date, '%Y-%m-%d') between #{startTime} and #{endTime}
+      and itb.DELFLAG_ ='1'
+      and itb.STATUS ='6'
+      and itb.source_module in ('新保','续保')
+      AND data_version = 'E2.0'
+    union all
+    select
+        pid,
+        payment_id as payment,
+        CONTRACT_NO as HTBH,
+        REL_NUMBER as GLFDM,
+        REL_NAME as GLFMC,
+        TRANS_NUM as JYBH,
+        TRAN_TYPE as GLJYLX,
+        bus_type as GLJYYWLX,
+        Trading_direction as JYFX,
+        TRADE_SUBJECT as JYBD,
+        currency_code as JYBZ,
+        PRAC_TRADE_AMOUNT as JYBJYJE,
+        null as JYBJYJEZJLSBH,
+        FUNDS_FLOW_NUMBER as JYBJYJEJYLSBH,
+        PRAC_TRADE_AMOUNT as BWBJYJE,
+        contract_Date as JYRQ,
+        TRAN_NAME as JYGS,
+        null as JRCPMC,
+        null as JRCPBH,
+        PROTOCOL_TRANSACTION_SYMBOL as XYJYBZ
+    from
+        ins_tra_interest iti
+    where  DATE_FORMAT(contract_Date, '%Y-%m-%d') between #{startTime} and #{endTime}
+      and iti.DELFLAG_ ='1'
+      and iti.STATUS ='6'
+      AND data_version = 'E2.0'
+    union all
+    select
+        pid,
+        payment_id as payment,
+        CONTRACT_NO as HTBH,
+        REL_NUMBER as GLFDM,
+        REL_NAME as GLFMC,
+        TRANS_NUM as JYBH,
+        TRAN_TYPE as GLJYLX,
+        bus_type as GLJYYWLX,
+        Trading_direction as JYFX,
+        TRADE_SUBJECT as JYBD,
+        currency_code as JYBZ,
+        PRAC_TRADE_AMOUNT as JYBJYJE,
+        null as JYBJYJEZJLSBH,
+        FUNDS_FLOW_NUMBER as JYBJYJEJYLSBH,
+        PRAC_TRADE_AMOUNT as BWBJYJE,
+        contract_Date as JYRQ,
+        TRAN_NAME as JYGS,
+        null as JRCPMC,
+        null as JRCPBH,
+        PROTOCOL_TRANSACTION_SYMBOL as XYJYBZ
+    from
+        ins_tra_service its
+    where  DATE_FORMAT(contract_Date, '%Y-%m-%d') between #{startTime} and #{endTime}
+      and its.DELFLAG_ ='1'
+      and its.STATUS ='6'
+      AND data_version = 'E2.0'
+
+</select>
+
+</mapper>

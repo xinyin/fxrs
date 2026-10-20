@@ -1,0 +1,2269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <parameters>
+        <scalar-parameter name="startTime" id="6">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["startTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endTime" id="425">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["endTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.246:3306/rptrs</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">MTIzNDU2</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="5">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">tran_type</property>
+                    <property name="alias">tran_type</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">tran_type</text-property>
+                    <text-property name="heading">tran_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appQuant</property>
+                    <property name="alias">appQuant</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <text-property name="heading">appQuant</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">applicaNum</property>
+                    <property name="alias">applicaNum</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <text-property name="heading">applicaNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">apprRateFac</property>
+                    <property name="alias">apprRateFac</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <text-property name="heading">apprRateFac</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tranAmount</property>
+                    <property name="alias">tranAmount</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <text-property name="heading">tranAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appliPro</property>
+                    <property name="alias">appliPro</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <text-property name="heading">appliPro</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">tran_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">tran_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">appQuant</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">applicaNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">apprRateFac</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">tranAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">appliPro</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[//importPackage(Packages.org.apache.commons.lang);
+//var orgId = reportContext.getParameterValue("tranType");
+//var tranType = params["tranType"].value; 
+
+var tranType = reportContext.getParameterValue("tranType");  
+if( tranType !=null &amp;&amp; !tranType.equals("")){
+this.queryText = this.queryText + " and tran_type = '"+tranType+"'";
+}else{
+this.queryText = this.queryText;
+}]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">tran_type</property>
+                    <property name="nativeName">tran_type</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">tran_name</property>
+                    <property name="nativeName">tran_name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">appQuant</property>
+                    <property name="nativeName">appQuant</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">applicaNum</property>
+                    <property name="nativeName">applicaNum</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">apprRateFac</property>
+                    <property name="nativeName">apprRateFac</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">tranAmount</property>
+                    <property name="nativeName">tranAmount</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">appliPro</property>
+                    <property name="nativeName">appliPro</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *
+from report_sumtra where 1=1]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_type</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appQuant</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appQuant</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appQuant</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>applicaNum</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>applicaNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>applicaNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>apprRateFac</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>apprRateFac</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>apprRateFac</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tranAmount</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>39</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appliPro</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appliPro</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appliPro</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="report_traCredit" id="135">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">tran_type</property>
+                    <text-property name="displayName">tran_type</text-property>
+                    <text-property name="heading">tran_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">approval_time</property>
+                    <text-property name="displayName">approval_time</text-property>
+                    <text-property name="heading">approval_time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <text-property name="heading">tran_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <text-property name="heading">appQuant</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <text-property name="heading">applicaNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <text-property name="heading">apprRateFac</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <text-property name="heading">tranAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <text-property name="heading">appliPro</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">tran_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">approval_time</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">tran_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">appQuant</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">applicaNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">apprRateFac</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">tranAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">appliPro</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[var startTime = reportContext.getParameterValue("startTime"); 
+var endTime = reportContext.getParameterValue("endTime");
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+}else{
+this.queryText = this.queryText;
+}
+]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">tran_type</property>
+                    <property name="nativeName">tran_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">approval_time</property>
+                    <property name="nativeName">approval_time</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">tran_name</property>
+                    <property name="nativeName">tran_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">appQuant</property>
+                    <property name="nativeName">appQuant</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">applicaNum</property>
+                    <property name="nativeName">applicaNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">apprRateFac</property>
+                    <property name="nativeName">apprRateFac</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">tranAmount</property>
+                    <property name="nativeName">tranAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">appliPro</property>
+                    <property name="nativeName">appliPro</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *
+from report_tracredit where 1=1]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_type</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>approval_time</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>approval_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>approval_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_name</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appQuant</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appQuant</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appQuant</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>applicaNum</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>applicaNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>applicaNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>apprRateFac</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>apprRateFac</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>apprRateFac</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tranAmount</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>39</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appliPro</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appliPro</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appliPro</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="report_traAsset" id="136">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">tran_type</property>
+                    <text-property name="displayName">tran_type</text-property>
+                    <text-property name="heading">tran_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <text-property name="heading">tran_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">approval_time</property>
+                    <text-property name="displayName">approval_time</text-property>
+                    <text-property name="heading">approval_time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <text-property name="heading">appQuant</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <text-property name="heading">applicaNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <text-property name="heading">apprRateFac</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <text-property name="heading">tranAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <text-property name="heading">appliPro</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">tran_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">tran_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">approval_time</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">appQuant</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">applicaNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">apprRateFac</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">tranAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">appliPro</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[var startTime = reportContext.getParameterValue("startTime"); 
+var endTime = reportContext.getParameterValue("endTime");
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+}else{
+this.queryText = this.queryText;
+}
+]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">tran_type</property>
+                    <property name="nativeName">tran_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">tran_name</property>
+                    <property name="nativeName">tran_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">approval_time</property>
+                    <property name="nativeName">approval_time</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">appQuant</property>
+                    <property name="nativeName">appQuant</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">applicaNum</property>
+                    <property name="nativeName">applicaNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">apprRateFac</property>
+                    <property name="nativeName">apprRateFac</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">tranAmount</property>
+                    <property name="nativeName">tranAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">appliPro</property>
+                    <property name="nativeName">appliPro</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select  *
+from report_traasset where 1=1]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_type</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>approval_time</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>approval_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>approval_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appQuant</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appQuant</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appQuant</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>applicaNum</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>applicaNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>applicaNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>apprRateFac</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>apprRateFac</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>apprRateFac</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tranAmount</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>39</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appliPro</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appliPro</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appliPro</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="report_traService" id="137">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">tran_type</property>
+                    <text-property name="displayName">tran_type</text-property>
+                    <text-property name="heading">tran_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <text-property name="heading">tran_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">approval_time</property>
+                    <text-property name="displayName">approval_time</text-property>
+                    <text-property name="heading">approval_time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <text-property name="heading">appQuant</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <text-property name="heading">applicaNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <text-property name="heading">apprRateFac</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <text-property name="heading">tranAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <text-property name="heading">appliPro</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">tran_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">tran_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">approval_time</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">appQuant</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">applicaNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">apprRateFac</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">tranAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">appliPro</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[var startTime = reportContext.getParameterValue("startTime"); 
+var endTime = reportContext.getParameterValue("endTime");
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+}else{
+this.queryText = this.queryText;
+}
+]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">tran_type</property>
+                    <property name="nativeName">tran_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">tran_name</property>
+                    <property name="nativeName">tran_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">approval_time</property>
+                    <property name="nativeName">approval_time</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">appQuant</property>
+                    <property name="nativeName">appQuant</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">applicaNum</property>
+                    <property name="nativeName">applicaNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">apprRateFac</property>
+                    <property name="nativeName">apprRateFac</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">tranAmount</property>
+                    <property name="nativeName">tranAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">appliPro</property>
+                    <property name="nativeName">appliPro</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *
+from report_traservice where 1=1]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_type</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>approval_time</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>approval_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>approval_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appQuant</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appQuant</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appQuant</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>applicaNum</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>applicaNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>applicaNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>apprRateFac</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>apprRateFac</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>apprRateFac</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tranAmount</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>39</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appliPro</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appliPro</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appliPro</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="report_traOther" id="138">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">tran_type</property>
+                    <text-property name="displayName">tran_type</text-property>
+                    <text-property name="heading">tran_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <text-property name="heading">tran_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">approval_time</property>
+                    <text-property name="displayName">approval_time</text-property>
+                    <text-property name="heading">approval_time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <text-property name="heading">appQuant</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <text-property name="heading">applicaNum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <text-property name="heading">apprRateFac</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <text-property name="heading">tranAmount</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <text-property name="heading">appliPro</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">tran_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">tran_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">approval_time</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">appQuant</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">applicaNum</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">apprRateFac</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">tranAmount</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">appliPro</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[var startTime = reportContext.getParameterValue("startTime"); 
+var endTime = reportContext.getParameterValue("endTime");
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+}else{
+this.queryText = this.queryText;
+}
+]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">tran_type</property>
+                    <property name="nativeName">tran_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">tran_name</property>
+                    <property name="nativeName">tran_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">approval_time</property>
+                    <property name="nativeName">approval_time</property>
+                    <property name="dataType">date-time</property>
+                    <property name="nativeDataType">93</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">appQuant</property>
+                    <property name="nativeName">appQuant</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">applicaNum</property>
+                    <property name="nativeName">applicaNum</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">apprRateFac</property>
+                    <property name="nativeName">apprRateFac</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">tranAmount</property>
+                    <property name="nativeName">tranAmount</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">appliPro</property>
+                    <property name="nativeName">appliPro</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *
+from report_traother where 1=1]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_type</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tran_name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>128</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tran_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tran_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>128</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>approval_time</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>approval_time</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>approval_time</design:label>
+            <design:formattingHints>
+              <design:displaySize>19</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appQuant</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appQuant</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appQuant</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>applicaNum</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>21</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>applicaNum</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>applicaNum</design:label>
+            <design:formattingHints>
+              <design:displaySize>21</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>apprRateFac</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>apprRateFac</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>apprRateFac</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>tranAmount</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>39</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>tranAmount</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>tranAmount</design:label>
+            <design:formattingHints>
+              <design:displaySize>39</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>appliPro</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>27</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>appliPro</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>appliPro</design:label>
+            <design:formattingHints>
+              <design:displaySize>27</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <styles>
+        <style name="NewStyle" id="47">
+            <property name="backgroundPositionX">100%</property>
+            <property name="backgroundPositionY">100%</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle1" id="49">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle2" id="419">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle3" id="420">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle4" id="421">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0pt</property>
+            <property name="borderLeftStyle">none</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle5" id="422">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">0.2pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle6" id="423">
+            <property name="borderBottomStyle">none</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+        <style name="NewStyle7" id="424">
+            <property name="borderBottomStyle">none</property>
+            <property name="borderBottomWidth">0pt</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">0.2pt</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">0.2pt</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">0.2pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="258">
+            <property name="dataSet">report_traCredit</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tran_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["applicaNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appQuant"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appliPro"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["apprRateFac"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tranAmount"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="280"/>
+            <column id="281"/>
+            <column id="282"/>
+            <column id="283"/>
+            <column id="284"/>
+            <column id="285"/>
+            <header>
+                <row id="293">
+                    <cell id="294">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle6</property>
+                        <label id="300">
+                            <text-property name="text">各关联交易统计情况</text-property>
+                        </label>
+                    </cell>
+                </row>
+                <row id="286">
+                    <cell id="287">
+                        <property name="style">NewStyle6</property>
+                        <text id="301">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[交易类型]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="288">
+                        <property name="style">NewStyle6</property>
+                        <text id="302">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[申请笔数]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="289">
+                        <property name="style">NewStyle6</property>
+                        <text id="303">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[申请通过笔数]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="290">
+                        <property name="style">NewStyle6</property>
+                        <text id="304">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[申请通过率]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="291">
+                        <property name="style">NewStyle6</property>
+                        <text id="305">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[关联交易金额占总体业务比例]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="292">
+                        <property name="style">NewStyle6</property>
+                        <text id="306">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[关联交易笔数占总体业务比例]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+                <row id="259">
+                    <cell id="260">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle6</property>
+                        <grid id="426">
+                            <column id="427"/>
+                            <row id="428">
+                                <cell id="429">
+                                    <text id="430">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[授信类]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="266">
+                    <cell id="267">
+                        <property name="style">NewStyle6</property>
+                        <data id="395">
+                            <property name="resultSetColumn">tran_name</property>
+                        </data>
+                    </cell>
+                    <cell id="268">
+                        <property name="style">NewStyle6</property>
+                        <data id="396">
+                            <property name="resultSetColumn">applicaNum</property>
+                        </data>
+                    </cell>
+                    <cell id="269">
+                        <property name="style">NewStyle6</property>
+                        <data id="397">
+                            <property name="resultSetColumn">appQuant</property>
+                        </data>
+                    </cell>
+                    <cell id="270">
+                        <property name="style">NewStyle6</property>
+                        <data id="399">
+                            <property name="resultSetColumn">apprRateFac</property>
+                        </data>
+                    </cell>
+                    <cell id="271">
+                        <property name="style">NewStyle6</property>
+                        <data id="400">
+                            <property name="resultSetColumn">tranAmount</property>
+                        </data>
+                    </cell>
+                    <cell id="272">
+                        <property name="style">NewStyle6</property>
+                        <data id="398">
+                            <property name="resultSetColumn">appliPro</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <table id="308">
+            <property name="dataSet">report_traAsset</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tran_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["applicaNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appliPro"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appQuant"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["apprRateFac"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tranAmount"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="330"/>
+            <column id="331"/>
+            <column id="332"/>
+            <column id="333"/>
+            <column id="334"/>
+            <column id="335"/>
+            <header>
+                <row id="309">
+                    <cell id="310">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle7</property>
+                        <grid id="446">
+                            <column id="447"/>
+                            <row id="448">
+                                <cell id="449">
+                                    <text id="450">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[资产转移类]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="316">
+                    <cell id="317">
+                        <property name="style">NewStyle7</property>
+                        <data id="401">
+                            <property name="resultSetColumn">tran_name</property>
+                        </data>
+                    </cell>
+                    <cell id="318">
+                        <property name="style">NewStyle7</property>
+                        <data id="402">
+                            <property name="resultSetColumn">applicaNum</property>
+                        </data>
+                    </cell>
+                    <cell id="319">
+                        <property name="style">NewStyle7</property>
+                        <data id="404">
+                            <property name="resultSetColumn">appQuant</property>
+                        </data>
+                    </cell>
+                    <cell id="320">
+                        <property name="style">NewStyle7</property>
+                        <data id="405">
+                            <property name="resultSetColumn">apprRateFac</property>
+                        </data>
+                    </cell>
+                    <cell id="321">
+                        <property name="style">NewStyle7</property>
+                        <data id="406">
+                            <property name="resultSetColumn">tranAmount</property>
+                        </data>
+                    </cell>
+                    <cell id="322">
+                        <property name="style">NewStyle7</property>
+                        <data id="403">
+                            <property name="resultSetColumn">appliPro</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <table id="337">
+            <property name="dataSet">report_traService</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tran_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["applicaNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appliPro"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appQuant"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["apprRateFac"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tranAmount"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="359"/>
+            <column id="360"/>
+            <column id="361"/>
+            <column id="362"/>
+            <column id="363"/>
+            <column id="364"/>
+            <header>
+                <row id="338">
+                    <cell id="339">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle4</property>
+                        <grid id="436">
+                            <column id="437"/>
+                            <row id="438">
+                                <cell id="439">
+                                    <text id="440">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[提供服务类]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="345">
+                    <cell id="346">
+                        <property name="style">NewStyle4</property>
+                        <data id="407">
+                            <property name="resultSetColumn">tran_name</property>
+                        </data>
+                    </cell>
+                    <cell id="347">
+                        <property name="style">NewStyle4</property>
+                        <data id="408">
+                            <property name="resultSetColumn">applicaNum</property>
+                        </data>
+                    </cell>
+                    <cell id="348">
+                        <property name="style">NewStyle4</property>
+                        <data id="410">
+                            <property name="resultSetColumn">appQuant</property>
+                        </data>
+                    </cell>
+                    <cell id="349">
+                        <property name="style">NewStyle4</property>
+                        <data id="411">
+                            <property name="resultSetColumn">apprRateFac</property>
+                        </data>
+                    </cell>
+                    <cell id="350">
+                        <property name="style">NewStyle4</property>
+                        <data id="412">
+                            <property name="resultSetColumn">tranAmount</property>
+                        </data>
+                    </cell>
+                    <cell id="351">
+                        <property name="style">NewStyle4</property>
+                        <data id="409">
+                            <property name="resultSetColumn">appliPro</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <table id="366">
+            <property name="dataSet">report_traOther</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">tran_name</property>
+                    <text-property name="displayName">tran_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tran_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">applicaNum</property>
+                    <text-property name="displayName">applicaNum</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["applicaNum"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">appliPro</property>
+                    <text-property name="displayName">appliPro</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appliPro"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">appQuant</property>
+                    <text-property name="displayName">appQuant</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["appQuant"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">apprRateFac</property>
+                    <text-property name="displayName">apprRateFac</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["apprRateFac"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">tranAmount</property>
+                    <text-property name="displayName">tranAmount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["tranAmount"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="388"/>
+            <column id="389"/>
+            <column id="390"/>
+            <column id="391"/>
+            <column id="392"/>
+            <column id="393"/>
+            <header>
+                <row id="367">
+                    <cell id="368">
+                        <property name="colSpan">6</property>
+                        <property name="rowSpan">1</property>
+                        <property name="style">NewStyle1</property>
+                        <grid id="441">
+                            <column id="442"/>
+                            <row id="443">
+                                <cell id="444">
+                                    <text id="445">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[其他类]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="374">
+                    <cell id="375">
+                        <property name="style">NewStyle1</property>
+                        <data id="413">
+                            <property name="resultSetColumn">tran_name</property>
+                        </data>
+                    </cell>
+                    <cell id="376">
+                        <property name="style">NewStyle1</property>
+                        <data id="414">
+                            <property name="resultSetColumn">applicaNum</property>
+                        </data>
+                    </cell>
+                    <cell id="377">
+                        <property name="style">NewStyle1</property>
+                        <data id="416">
+                            <property name="resultSetColumn">appQuant</property>
+                        </data>
+                    </cell>
+                    <cell id="378">
+                        <property name="style">NewStyle1</property>
+                        <data id="417">
+                            <property name="resultSetColumn">apprRateFac</property>
+                        </data>
+                    </cell>
+                    <cell id="379">
+                        <property name="style">NewStyle1</property>
+                        <data id="418">
+                            <property name="resultSetColumn">tranAmount</property>
+                        </data>
+                    </cell>
+                    <cell id="380">
+                        <property name="style">NewStyle1</property>
+                        <data id="415">
+                            <property name="resultSetColumn">appliPro</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>

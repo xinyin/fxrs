@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.SequenceMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.Sequence" id="busRelMap">
+        <result property="orgName" column="org_name"/>
+        <result property="identifyType" column="identify_type"/>
+        <result property="identifyNumber" column="identify_number"/>
+        <result property="uniscCode" column="unisc_code"/>
+        <result property="shareholdingRatio" column="shareholding_ratio"/>
+        <result property="dutyCode" column="duty_code"/>
+        <result property="sex" column="sex"/>
+        <result property="relation" column="relation"/>
+        <result property="name" column="name_"/>
+    </resultMap>
+    <select id="getOrgShareOrg" parameterType="integer" resultMap="busRelMap">
+        select a.org_name,a.identify_type,a.unisc_code,b.shareholding_ratio
+        from bus_rel_org_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.from_pid
+        and b.from_type='org'
+        and b.to_type='org'
+        and b.to_pid_shareholders='1'
+        where b.to_pid=#{pid}
+        union
+        select a.name_,a.identify_type,a.identify_number,b.shareholding_ratio
+        from bus_rel_psn_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.from_pid
+        and b.to_pid_shareholders='1'
+        and b.from_type='PSN'
+        and b.to_type='ORG'
+        left join
+        bus_rel_psn c
+        on c.pid=b.to_pid
+        where b.to_pid=#{pid}
+    </select>
+    <select id="getOrgSharePsn" parameterType="integer" resultMap="busRelMap">
+        select a.name_,a.identify_type,a.identify_number,b.shareholding_ratio
+        from bus_rel_psn_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.from_pid
+        and b.to_pid_shareholders='1'
+        and b.from_type='PSN'
+        and b.to_type='ORG'
+        left join
+        bus_rel_psn_bak c
+        on c.pid=b.to_pid
+        where b.to_pid=#{pid}
+    </select>
+    <select id="getOrgInvest" parameterType="integer" resultMap="busRelMap">
+        select a.org_name,a.identify_type,a.unisc_code,b.shareholding_ratio
+        from bus_rel_org_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.to_pid
+        and b.to_type='org'
+        and b.from_type='org'
+        and b.to_pid_shareholders='2'
+        where b.from_pid=#{pid}
+    </select>
+    <select id="getOrgSubsidiary" parameterType="integer" resultMap="busRelMap">
+        select a.name_,a.identify_type,a.identify_number,a.duty_code
+        from bus_rel_psn_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.from_pid
+        and b.to_pid_shareholders='0'
+        and b.from_type='PSN'
+        and b.to_type='ORG'
+        left join
+        bus_rel_psn_bak c
+        on c.pid=b.to_pid
+        where b.to_pid=#{pid}
+
+    </select>
+    <select id="getPsnInvest" parameterType="integer" resultMap="busRelMap">
+        select a.org_name,a.identify_type,a.unisc_code,b.shareholding_ratio,b.from_memo,b.to_memo
+        from bus_rel_org a
+        left join
+        bus_rel b
+        on a.pid=b.to_pid
+        and b.from_type='PSN'
+        and b.to_type='ORG'
+        and b.to_pid_shareholders='2'
+        left join
+        bus_rel_psn c
+        on c.pid=b.to_pid
+        where b.from_pid=#{pid}
+
+    </select>
+    <select id="getPsnRelation" parameterType="integer" resultMap="busRelMap">
+        select a.name_,a.identify_type,a.sex,a.identify_number,b.relation
+        from bus_rel_psn_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.to_pid
+        and b.from_type='PSN'
+        and b.to_type='PSN'
+        -- left join
+        -- bus_rel_psn_bak c
+        -- on c.pid=b.to_pid
+        where b.from_pid=#{pid}
+
+    </select>
+    <select id="getPsnUnit" parameterType="integer" resultMap="busRelMap">
+        select a.org_name,a.identify_type,a.unisc_code,b.shareholding_ratio,b.from_memo,b.to_memo
+        from bus_rel_org_bak a
+        left join
+        bus_rel_bak b
+        on a.pid=b.to_pid
+        and b.from_type='PSN'
+        and b.to_type='ORG'
+        and b.to_pid_shareholders='0'
+        left join
+        bus_rel_psn_bak c
+        on c.pid=b.to_pid
+        where b.from_pid=#{pid}
+    </select>
+</mapper>
+

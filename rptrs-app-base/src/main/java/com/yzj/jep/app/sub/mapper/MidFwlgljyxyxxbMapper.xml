@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzj.jep.app.sub.mapper.MidFwlgljyxyxxbMapper">
+
+    <resultMap id="BaseResultMap" type="com.yzj.jep.app.sub.model.MidFwlgljyxyxxb">
+            <result property="serialno" column="SERIALNO" jdbcType="VARCHAR"/>
+            <result property="batchno" column="BATCHNO" jdbcType="VARCHAR"/>
+            <result property="bussno" column="BUSSNO" jdbcType="VARCHAR"/>
+            <result property="makedate" column="MAKEDATE" jdbcType="TIMESTAMP"/>
+            <result property="bussdate" column="BUSSDATE" jdbcType="TIMESTAMP"/>
+            <result property="datasrc" column="DATASRC" jdbcType="VARCHAR"/>
+            <result property="othersign" column="OTHERSIGN" jdbcType="VARCHAR"/>
+            <result property="remark" column="REMARK" jdbcType="VARCHAR"/>
+            <result property="bxjgdm" column="BXJGDM" jdbcType="VARCHAR"/>
+            <result property="bxjgmc" column="BXJGMC" jdbcType="VARCHAR"/>
+            <result property="ywlx" column="YWLX" jdbcType="VARCHAR"/>
+            <result property="htbh" column="HTBH" jdbcType="VARCHAR"/>
+            <result property="htzt" column="HTZT" jdbcType="VARCHAR"/>
+            <result property="htqdrq" column="HTQDRQ" jdbcType="DATE"/>
+            <result property="ywqsrq" column="YWQSRQ" jdbcType="DATE"/>
+            <result property="ywjsrq" column="YWJSRQ" jdbcType="DATE"/>
+            <result property="hbdm" column="HBDM" jdbcType="VARCHAR"/>
+            <result property="jyjeyb" column="JYJEYB" jdbcType="DECIMAL"/>
+            <result property="jyjebwb" column="JYJEBWB" jdbcType="DECIMAL"/>
+            <result property="jyfx" column="JYFX" jdbcType="VARCHAR"/>
+            <result property="jyjg" column="JYJG" jdbcType="VARCHAR"/>
+            <result property="djzc" column="DJZC" jdbcType="VARCHAR"/>
+            <result property="jygs" column="JYGS" jdbcType="VARCHAR"/>
+            <result property="jybd" column="JYBD" jdbcType="VARCHAR"/>
+            <result property="glflx" column="GLFLX" jdbcType="VARCHAR"/>
+            <result property="glfmc" column="GLFMC" jdbcType="VARCHAR"/>
+            <result property="glfdm" column="GLFDM" jdbcType="VARCHAR"/>
+            <result property="dbgljylx" column="DBGLJYLX" jdbcType="VARCHAR"/>
+            <result property="ddzdgljydqx" column="DDZDGLJYDQX" jdbcType="VARCHAR"/>
+            <result property="qtsmsx" column="QTSMSX" jdbcType="VARCHAR"/>
+            <result property="tyjyxybz" column="TYJYXYBZ" jdbcType="VARCHAR"/>
+            <result property="bcxybz" column="BCXYBZ" jdbcType="VARCHAR"/>
+            <result property="zhtbh" column="ZHTBH" jdbcType="VARCHAR"/>
+            <result property="cjrq" column="CJRQ" jdbcType="DATE"/>
+            <result property="jgxqdm" column="JGXQDM" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        SERIALNO,BATCHNO,BUSSNO,
+        MAKEDATE,BUSSDATE,DATASRC,
+        OTHERSIGN,REMARK,BXJGDM,
+        BXJGMC,YWLX,HTBH,
+        HTZT,HTQDRQ,YWQSRQ,
+        YWJSRQ,HBDM,JYJEYB,
+        JYJEBWB,JYFX,JYJG,
+        DJZC,JYGS,JYBD,
+        GLFLX,GLFMC,GLFDM,
+        DBGLJYLX,DDZDGLJYDQX,QTSMSX,
+        TYJYXYBZ,BCXYBZ,ZHTBH,
+        CJRQ,JGXQDM
+    </sql>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.GdInfoMapper">
+    <select id="getAllGd" resultType="com.yzj.jep.app.bus.model.GdInfoVo"
+            parameterType="com.yzj.jep.app.bus.model.GdInfoVo">
+        <if test="type != 'ORG'">
+            select pid,shareholders_code as shareholdersCode,name_,'PSN' type,domestic_or_foreign as domesticOrForeign,
+            identify_type as identifyType,identify_number as identifyNumber,hole_share_amount as holeShareAmount,
+            shareholding_proportion as shareholdingProportion,case when dj_status is null then to_nchar('0') else
+            dj_status end as isDj,null stateOwned ,status ,status_comment as
+            statusComment,is_black as isBlack from bus_rel_psn
+            where is_shareholder = '1'
+            <if test="shareholdersCode != null and shareholdersCode != ''">
+                and shareholders_code = #{shareholdersCode}
+            </if>
+            <if test="domesticOrForeign != null and domesticOrForeign != ''">
+                and domestic_or_foreign like #{domesticOrForeign}
+            </if>
+            <if test="name_ != null and name_ != ''">
+                and name_ = #{name_}
+            </if>
+            <if test="shareholdingProportion != null and shareholdingProportion != ''">
+                and shareholding_proportion = #{shareholdingProportion}
+            </if>
+            <if test='stateOwned == "1"'>
+                and 1 != 1
+            </if>
+        </if>
+        <if test="type=='' or type == null">
+            union ALL
+        </if>
+        <if test="type != 'PSN'">
+            select pid,shareholders_code as shareholdersCode,org_name as name_,'ORG' as type,domestic_or_foreign as
+            domesticOrForeign,
+            identify_type as identifyType,unisc_code as identifyNumber ,hole_share_amount as holeShareAmount,
+            shareholding_proportion as shareholdingProportion,case when dj_status is null then to_nchar('0') else
+            dj_status end as isDj,state_owned as stateOwned ,status
+            ,status_comment as statusComment,is_black as isBlack from bus_rel_org
+            where is_shareholder = '1'
+            <if test="shareholdersCode != null and shareholdersCode != ''">
+                and shareholders_code = #{shareholdersCode}
+            </if>
+            <if test="domesticOrForeign != null and domesticOrForeign != ''">
+                and domestic_or_foreign like #{domesticOrForeign}
+            </if>
+            <if test="name_ != null and name_ != ''">
+                and org_name = #{name_}
+            </if>
+            <if test="shareholdingProportion != null and shareholdingProportion != ''">
+                and shareholding_proportion = #{shareholdingProportion}
+            </if>
+            <if test="stateOwned != null and stateOwned != ''">
+                and state_owned = #{stateOwned}
+            </if>
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.yzj.jep.app.pub.mapper.ArchManageMapper">
+
+    <select id="selectArchList" resultType="com.yzj.jep.app.pub.model.ArchManageVo">
+
+        select
+        pub_file_name as pubFileName,pub_subject as pubSubject,CREATED_BY_NAME_ as createdByName,ARCH_DATE as archDate
+        from pub_publog
+        where status = '1'
+
+    </select>
+
+</mapper>
+

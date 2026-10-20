@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="traInterestSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="InsTraInterest" var="interest"
+              varType="com.yzj.jep.app.ins.model.TraInterestVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">interest.fundsFlowNumber</mapping><!--交易流水编号（必填）-->
+                <mapping cell="B3">interest.tranName</mapping><!--交易概述（必填）-->
+                <mapping cell="C3">interest.relName</mapping><!--关联方名称（必填）-->
+                <mapping cell="D3">interest.relType</mapping><!--关联方类别（必填）-->
+                <mapping cell="E3">interest.relNumber</mapping><!--关联方代码（必填）-->
+
+                <mapping cell="F3">interest.busType</mapping><!--业务类型(必填)-->
+                <mapping cell="G3">interest.contractDateString</mapping><!--合同签订日期（必填）-->
+                <mapping cell="H3">interest.contractNo</mapping><!--合同编号（必填）-->
+                <mapping cell="I3">interest.originalCurrencyAmountString</mapping><!--原币交易金额（万元）【必填】-->
+                <mapping cell="J3">interest.currencyCode</mapping><!--交易币种（必填）-->
+
+                <mapping cell="K3">interest.relTradeAmountString</mapping><!--本位币交易金额（万元）【必填】-->
+                <mapping cell="L3">interest.busStartTimeString</mapping><!--业务起始日期（必填）-->
+                <mapping cell="M3">interest.busEndTimeString</mapping><!--业务结束日期（必填）-->
+                <mapping cell="N3">interest.tradingDirection</mapping><!--交易方向（必填）	-->
+                <mapping cell="O3">interest.guaranteeConditions</mapping><!--担保条件（业务类型为03.担保时必填）	-->
+
+                <mapping cell="P3">interest.tradePrice</mapping><!--交易价格（必填）	-->
+                <mapping cell="Q3">interest.pricingPolicy</mapping><!--定价政策（必填）	-->
+                <mapping cell="R3">interest.tradeSubject</mapping><!--交易标的（必填）	-->
+                <mapping cell="S3">interest.remark</mapping><!--其他事项说明-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

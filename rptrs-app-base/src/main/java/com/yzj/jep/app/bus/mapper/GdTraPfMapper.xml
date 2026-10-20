@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.GdTraPfMapper">
+
+    <resultMap id="gdTraPfMap" type="com.yzj.jep.app.bus.model.GdTraPf">
+        <id property="pid" column="pid"/>
+        <result property="name" column="name_"/>
+        <result property="year" column="year"/>
+        <result property="createTime" column="create_time"/>
+        <result property="totalShare" column="total_share"/>
+        <result property="allocationAmount" column="allocation_amount"/>
+        <result property="allocationProportion" column="allocation_proportion"/>
+        <result property="cashBonus" column="cash_bonus"/>
+        <result property="bonusIssue" column="bonus_issue"/>
+        <result property="status" column="status"/>
+        <result property="route" column="route"/>
+    </resultMap>
+
+
+    <!-- <select id="queryMaxID" resultType="java.lang.Integer" >
+         SELECT MAX(btc.pid) as pid  FROM bus_gd_tra_pf btc ;
+
+     </select>-->
+
+    <!--<select id="selectByID" parameterType="java.lang.Integer" resultMap="TranMap">
+        select * from   bus_gd_tra_pf   where   pid = #{pid};
+
+    </select>-->
+
+    <!--<update id="updateStatus" parameterType="java.lang.Integer" >
+        update bus_gd_tra_pf  set status = 'E'  where   pid = #{pid};
+
+    </update>-->
+
+    <update id="del" parameterType="java.lang.Integer">
+
+        update bus_gd_tra_pf set DELFLAG_ = 0 where pid = #{pid}
+    </update>
+
+    <!--导出时修改文件成时间字段-->
+    <update id="changeCreateTime">
+
+        update bus_gd_tra_pf set create_time =#{createTime} where year = #{year}
+    </update>
+
+    <select id="selectGdTraPfExprot" parameterType="java.lang.String" resultMap="gdTraPfMap">
+        SELECT
+        pf.name_,
+        pf.year,
+        pf.create_time ,
+        pf.total_share,
+        pf.allocation_amount,
+        pf.allocation_proportion,
+        pf.cash_bonus,
+        pf.bonus_issue,
+        pf.status
+        from bus_gd_tra_pf pf WHERE pf.year=#{year}
+
+    </select>
+
+</mapper>
+

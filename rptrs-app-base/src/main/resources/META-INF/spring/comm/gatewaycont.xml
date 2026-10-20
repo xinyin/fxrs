@@ -1,0 +1,26 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fPaaS1="http://www.fPaaS1.com/schema/fPaaS1/channel"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.fPaaS1.com/schema/fPaaS1/channel
+    http://www.fPaaS1.com/schema/fPaaS1/channel.xsd">
+
+    <fPaaS1:channel id="gatewaycont" type="client" async="false" charset="UTF-8" desc="设备信息查询客户端">
+        <fPaaS1:params>
+            <fPaaS1:param name="connecttimeout" value="15000"/>
+            <fPaaS1:param name="sotimeout" value="60000"/>
+        </fPaaS1:params>
+        <fPaaS1:urls balance="none">
+            <!--合同系统sit环境-->
+            <fPaaS1:url value="http://172.20.100.43:9080/contract/system/api/getContractFiles2Relate"/>
+            <!--合同系统uat环境-->
+<!--            <fPaaS1:url value="http://172.20.100.43/contract/system/api/getContractFiles2Relate"/>-->
+            <!--合同系统生产环境-->
+            <!--<fPaaS1:url value="http://172.20.0.27/contract/system/api/getContractFiles2Relate"/>-->
+        </fPaaS1:urls>
+        <fPaaS1:codec maxLength="8388608" lengthOffset="0" lengthDigit="6" radix="6"/>
+        <fPaaS1:message format="JSON" />
+        <fPaaS1:handler commServiceRef="httpClientCommClientHandler" />
+    </fPaaS1:channel>
+
+</beans>

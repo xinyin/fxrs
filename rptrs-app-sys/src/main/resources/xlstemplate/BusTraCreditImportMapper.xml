@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="traCreditSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="traCreditzs" var="traCredit"
+              varType="com.yzj.jep.app.bus.model.TraCredit">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">traCredit.relatedName</mapping>
+                <mapping cell="B2">traCredit.identifyType</mapping>
+                <mapping cell="C2">traCredit.identNumber</mapping>
+                <mapping cell="D2">traCredit.shareholdingProportion</mapping>
+                <mapping cell="E2">traCredit.voteProportion</mapping>
+                <mapping cell="F2">traCredit.productName</mapping>
+                <mapping cell="G2">traCredit.typeOneBus</mapping>
+                <mapping cell="H2">traCredit.typeTwoBus</mapping>
+                <mapping cell="I2">traCredit.typeThreeBus</mapping>
+                <mapping cell="J2">traCredit.typeFourBus</mapping>
+                <mapping cell="K2">traCredit.tableAttrBus</mapping>
+                <mapping cell="L2">traCredit.busLine</mapping>
+                <mapping cell="M2">traCredit.manageOrg</mapping>
+                <mapping cell="N2">traCredit.tranType</mapping>
+                <mapping cell="O2">traCredit.businessType</mapping>
+                <mapping cell="P2">traCredit.tranScope</mapping>
+                <mapping cell="Q2">traCredit.validityBalance</mapping>
+                <mapping cell="R2">traCredit.internalApplyNo</mapping>
+                <mapping cell="S2">traCredit.applyOverTime</mapping>
+                <mapping cell="T2">traCredit.applyTime</mapping>
+                <mapping cell="U2">traCredit.creditStartDate</mapping>
+
+                <mapping cell="W2">traCredit.isLetter</mapping>
+                <mapping cell="X2">traCredit.guaraMode</mapping>
+                <mapping cell="Y2">traCredit.guarantor</mapping>
+                <mapping cell="Z2">traCredit.bzrIdentifyType</mapping>
+                <mapping cell="AA2">traCredit.bzrIdentNumber</mapping>
+                <mapping cell="AB2">traCredit.securitDeposit</mapping>
+                <mapping cell="AC2">traCredit.marginRatio</mapping>
+                <mapping cell="AD2">traCredit.bankDeposit</mapping>
+                <mapping cell="AE2">traCredit.nationalDebt</mapping>
+                <mapping cell="AF2">traCredit.collateral</mapping>
+                <mapping cell="AG2">traCredit.creditPlan</mapping>
+                <mapping cell="AH2">traCredit.thisTraAmount</mapping>
+                <mapping cell="AI2">traCredit.traPriceType</mapping>
+                <mapping cell="AJ2">traCredit.traContractAmount</mapping>
+                <mapping cell="AK2">traCredit.rateType</mapping>
+                <mapping cell="AL2">traCredit.rate</mapping>
+                <mapping cell="AM2">traCredit.floatRateBench</mapping>
+                <mapping cell="AN2">traCredit.floatInterestRateSpread</mapping>
+                <mapping cell="AO2">traCredit.floatRateDiscountRate</mapping>
+
+                <mapping cell="AP2">traCredit.contractNo</mapping>
+                <mapping cell="AQ2">traCredit.contractSignDate</mapping>
+                <mapping cell="AR2">traCredit.validityContract</mapping>
+                <mapping cell="AS2">traCredit.thisTraBalance</mapping>
+
+
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

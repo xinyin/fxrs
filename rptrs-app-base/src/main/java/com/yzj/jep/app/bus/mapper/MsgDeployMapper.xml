@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.MsgDeployMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.MsgDeploy" id="MsgDeployMap">
+        <id column="PID" property="pid" jdbcType="INTEGER"/>
+        <result column="BUS_NAME" property="busName" jdbcType="VARCHAR"/>
+        <result column="BUS_WAY" property="busWay" jdbcType="VARCHAR"/>
+        <result column="BUS_MESSAGE" property="busMessage" jdbcType="VARCHAR"/>
+        <result column="release_type" property="releaseType" jdbcType="VARCHAR"/>
+        <result column="top_type" property="topType" jdbcType="VARCHAR"/>
+        <result column="release_time" property="releaseTime" jdbcType="TIMESTAMP"/>
+        <result column="top_time" property="topTime" jdbcType="TIMESTAMP"/>
+        <result column="img1" property="img1" jdbcType="VARCHAR"/>
+        <result column="img2" property="img2" jdbcType="VARCHAR"/>
+        <result column="img3" property="img3" jdbcType="VARCHAR"/>
+        <result column="img4" property="img4" jdbcType="VARCHAR"/>
+        <result column="img5" property="img5" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+        <result column="important_Msg" property="importantMsg" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectReleaseMsg" resultMap="MsgDeployMap">
+    select *
+    from  bus_msg_deploy
+     where  release_type='YFB'
+        order by  important_Msg, top_time desc
+       limit 5;
+    </select>
+
+    <select id="selectReleaseNews" resultMap="MsgDeployMap">
+    select *
+    from  bus_msg_deploy
+     where BUS_WAY='JYZX'
+        and release_type='YFB'
+        order by top_time desc
+       limit 5;
+    </select>
+</mapper>
+

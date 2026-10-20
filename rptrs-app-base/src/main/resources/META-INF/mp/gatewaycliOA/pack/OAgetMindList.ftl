@@ -1,0 +1,4 @@
+{
+	"methodType":"${postType}",
+	"id":"${id}"
+}			

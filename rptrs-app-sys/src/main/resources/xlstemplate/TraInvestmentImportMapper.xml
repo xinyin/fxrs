@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="traInvestmentSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="traInvestments" var="inv"
+              varType="com.yzj.jep.app.ins.model.TraInvestmentVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">inv.relType</mapping>
+                <mapping cell="B3">inv.relName</mapping>
+                <mapping cell="C3">inv.relNumber</mapping>
+                <mapping cell="D3">inv.investmentType</mapping>
+                <mapping cell="E3">inv.tranDateString</mapping>
+                <mapping cell="F3">inv.contractNo</mapping>
+                <mapping cell="G3">inv.tradeAmountStr</mapping>
+                <mapping cell="H3">inv.busStartTimeString</mapping>
+                <mapping cell="I3">inv.busEndTimeString</mapping>
+                <mapping cell="J3">inv.approvalNum</mapping>
+                <mapping cell="K3">inv.securitiesType</mapping>
+                <mapping cell="L3">inv.variableshareratio</mapping>
+                <mapping cell="M3">inv.shareNum</mapping>
+                <mapping cell="N3">inv.variableshareratioAfter</mapping>
+                <mapping cell="O3">inv.effectiveTimeString</mapping>
+                <mapping cell="P3">inv.isHoldingSubsidiary</mapping>
+                <mapping cell="Q3">inv.holdingSubsidiaryName</mapping>
+                <mapping cell="R3">inv.holdingSubsidiaryNumber</mapping>
+                <mapping cell="S3">inv.tradePrice</mapping>
+                <mapping cell="T3">inv.yield_</mapping>
+                <mapping cell="U3">inv.pricingPolicy</mapping>
+                <mapping cell="V3">inv.tradeSubject</mapping>
+                <mapping cell="W3">inv.isCashSubscript</mapping>
+                <mapping cell="X3">inv.financialImpact</mapping>
+                <mapping cell="Y3">inv.isDealPrice</mapping>
+                <mapping cell="AD3">inv.remark</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

@@ -1,0 +1,25 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fPaaS1="http://www.fPaaS1.com/schema/fPaaS1/channel"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.fPaaS1.com/schema/fPaaS1/channel
+    http://www.fPaaS1.com/schema/fPaaS1/channel.xsd">
+
+    <fPaaS1:channel id="gatewaycli" type="client" async="false" charset="UTF-8" desc="部门及员工信息同步接口">
+        <fPaaS1:params>
+            <fPaaS1:param name="connecttimeout" value="15000"/>
+            <fPaaS1:param name="sotimeout" value="60000"/>
+        </fPaaS1:params>
+        <fPaaS1:urls balance="none">
+            <!--<fPaaS1:url value="http://192.168.1.103:8090/relOrg/testGateway"/>-->
+            <!-- sit及uat测试环境 -->
+            <fPaaS1:url value="http://172.20.100.60:6700/cramc-article-poll/"/>
+            <!-- 生产环境 -->
+            <!--<fPaaS1:url value="http://172.20.0.25:6700/cramc-article-poll/"/>-->
+        </fPaaS1:urls>
+        <fPaaS1:codec maxLength="8388608" lengthOffset="0" lengthDigit="6" radix="6"/>
+        <fPaaS1:message format="JSON" />
+        <fPaaS1:handler commServiceRef="jsonHttpHandler" />
+    </fPaaS1:channel>
+    
+</beans>    

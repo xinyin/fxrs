@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.sub.mapper.SubmittedMapper">
+    <select id="getAll" resultType="com.yzj.jep.app.sub.vo.SubmittedVo">
+
+    select pid,rel_number as relNumber,rel_name as relName ,rel_type as relType,Contract_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,is_agreement as isAgreement , TRAN_TYPE as tranType from ins_tra_business  where  (MAJOR_TRADE ='0'or is_agreement='0') and status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '2')
+    union  all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,Contract_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,is_agreement as  isAgreement ,TRAN_TYPE as tranType from ins_tra_interest where (MAJOR_TRADE ='0' or is_agreement ='0') and status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '2')
+    union all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,Contract_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,is_agreement as  isAgreement , TRAN_TYPE as tranType from ins_tra_service where (MAJOR_TRADE ='0' or is_agreement ='0') and status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '2')
+    union all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,Contract_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,'1', TRAN_TYPE as tranType from ins_tra_funds where (MAJOR_TRADE ='0') and status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '2')
+    union all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,Contract_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,'1', TRAN_TYPE as tranType from ins_tra_investment where (MAJOR_TRADE='0') and status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '2')
+    union  all
+    select pid,rel_number as relNumber,rel_name as relName,rel_type as relType,Contract_Amount as contractAmount,MAJOR_TRADE as majorTrade,pricing_policy as pricingPolicy,'1' ,TRAN_TYPE as tranType from ins_tra_other where  (MAJOR_TRADE='0') and status in ('6','9','12') and  (Archiving_Status is NULL or Archiving_Status &lt;&gt;  '2');
+    </select>
+</mapper>
+

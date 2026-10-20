@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.yzj.jep.app.sub.mapper.CreditMapper">
+    <!--关联方类型-->
+    <select id="getType" parameterType="string" resultType="string">
+        select s.related_party_type from sub_credit s where s.related_party_certNo=#{no};
+
+    </select>
+
+    <!--保证金、银行存单、国债-->
+    <select id="getDepanddet"  resultType="java.math.BigDecimal">
+        SELECT sum(coalesce(s.SECURIT_DEPOSIT,0) + IFNULL(s.bank_deposit,0) + coalesce(s.national_debt,0)) FROM sub_credit s WHERE s.related_party_certNo =#{no} AND s.tran_date &gt;=#{start} AND s.tran_date &lt;= #{end};
+    </select>
+    <!--每一天的保证金、银行存单、国债-->
+    <select id="getDayOfDepanddet"  resultType="java.math.BigDecimal">
+        SELECT sum(coalesce(s.SECURIT_DEPOSIT,0) + IFNULL(s.bank_deposit,0) + coalesce(s.national_debt,0)) FROM sub_credit s WHERE s.related_party_certNo =#{no} AND s.tran_date &gt;=#{start} AND s.tran_date &lt;= #{end} group by TO_DAYS(s.tran_date);
+    </select>
+
+</mapper>
+

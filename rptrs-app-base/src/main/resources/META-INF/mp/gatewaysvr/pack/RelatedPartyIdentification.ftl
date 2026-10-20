@@ -1,0 +1,21 @@
+{
+"BODY":{
+"tenantId":"${tenantId}",
+"contractNo":"${contractNo}",
+"relList":[<#list relList as r>
+    {
+    "relName":"${r.relName}",
+    "relType":"${r.relType}",
+    "relNumber":"${r.relNumber}",
+    "certType":"${r.certType}",
+    "isRelParty":"${r.isRelParty}"
+    }
+</#list>]
+},
+"SYSHEAD":{
+"msg":"${msg}",
+"resultCode":"${resultCode}",
+"TRANS_CODE":"${TRANS_CODE}",
+"CHNL_ID":"${CHNL_ID}"
+}
+}

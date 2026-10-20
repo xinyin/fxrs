@@ -1,0 +1,9 @@
+{
+"BODY":{
+"CODE":"${code}"
+},
+"SYSHEAD":{
+"RSP_CODE":"${code}",
+"RSP_MSG":"${msg}"
+}
+}

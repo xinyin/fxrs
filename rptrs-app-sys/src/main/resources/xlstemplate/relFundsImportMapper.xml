@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="relFundsSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="relFunds" var="relFund"
+              varType="com.yzj.jep.app.sub.model.InsRelfunds">
+            <section startRow="1" endRow="1">
+                <mapping cell="A2">relFund.relName</mapping><!--关联方名称-->
+                <mapping cell="B2">relFund.relNumber</mapping><!--关联方证件号码-->
+                <mapping cell="C2">relFund.corpInvestFund</mapping><!--资金运用投资余额（万元)-->
+                <mapping cell="D2">relFund.relType</mapping><!--关联方类别-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

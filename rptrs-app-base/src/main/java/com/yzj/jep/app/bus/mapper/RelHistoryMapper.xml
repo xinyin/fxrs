@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelHistoryMapper">
+
+    <resultMap type="com.yzj.jep.app.bus.model.RelHistory" id="BusRelHistoryMap">
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="toPid" column="to_pid" jdbcType="VARCHAR"/>
+        <result property="fromPid" column="from_pid" jdbcType="VARCHAR"/>
+        <result property="relCategory" column="rel_category" jdbcType="VARCHAR"/>
+        <result property="relCategorySub" column="rel_category_sub" jdbcType="VARCHAR"/>
+        <result property="fromType" column="from_type" jdbcType="VARCHAR"/>
+        <result property="toType" column="to_type" jdbcType="VARCHAR"/>
+        <result property="suspectType" column="suspect_type" jdbcType="VARCHAR"/>
+        <result property="suspectPid" column="suspect_pid" jdbcType="VARCHAR"/>
+        <result property="fromMemo" column="from_memo" jdbcType="VARCHAR"/>
+        <result property="toMemo" column="to_memo" jdbcType="VARCHAR"/>
+        <result property="regulator" column="regulator" jdbcType="VARCHAR"/>
+        <result property="relSort" column="rel_sort" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="relation" column="relation" jdbcType="VARCHAR"/>
+        <result property="shareholdingStrand" column="shareholding_strand" jdbcType="VARCHAR"/>
+        <result property="shareholdingRatio" column="shareholding_ratio" jdbcType="VARCHAR"/>
+        <result property="toPidShareholders" column="to_pid_shareholders" jdbcType="VARCHAR"/>
+        <result property="isShow" column="is_show" jdbcType="VARCHAR"/>
+        <result property="level" column="level_" jdbcType="INTEGER"/>
+        <result property="fromName" column="from_name" jdbcType="VARCHAR"/>
+        <result property="toName" column="to_name" jdbcType="VARCHAR"/>
+        <result property="fromAligCode" column="from_alig_code" jdbcType="VARCHAR"/>
+        <result property="toAligCode" column="to_alig_code" jdbcType="VARCHAR"/>
+        <result property="paRelId" column="pa_rel_id" jdbcType="INTEGER"/>
+        <result property="relType" column="rel_type" jdbcType="VARCHAR"/>
+        <result property="relStatus" column="rel_status" jdbcType="VARCHAR"/>
+        <result property="relPredicate" column="rel_predicate" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+        <result property="createById" column="CREATED_BY_ID_" jdbcType="VARCHAR"/>
+        <result property="createByName" column="CREATED_BY_NAME_" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATED_TIME_" jdbcType="TIMESTAMP"/>
+        <result property="delflag" column="DELFLAG_" jdbcType="VARCHAR"/>
+        <result property="liftReason" column="lift_reason" jdbcType="VARCHAR"/>
+        <result property="displayOrder" column="DISPLAY_ORDER_" jdbcType="INTEGER"/>
+        <result property="modifiedById" column="MODIFIED_BY_ID_" jdbcType="VARCHAR"/>
+        <result property="modifiedByName" column="MODIFIED_BY_NAME_" jdbcType="VARCHAR"/>
+        <result property="modifiedTime" column="MODIFIED_TIME_" jdbcType="TIMESTAMP"/>
+        <result property="version" column="VERSION_" jdbcType="INTEGER"/>
+        <result property="isValid" column="isValid" jdbcType="VARCHAR"/>
+        <result property="relStatement" column="relStatement" jdbcType="VARCHAR"/>
+        <result property="effectiveDate" column="effectiveDate" jdbcType="VARCHAR"/>
+        <result property="ineffectiveDate" column="ineffectiveDate" jdbcType="VARCHAR"/>
+        <result property="activeTime" column="active_time" jdbcType="TIMESTAMP"/>
+        <result property="invalidTime" column="invalid_time" jdbcType="TIMESTAMP"/>
+        <result property="pledgeRatio" column="pledge_ratio" jdbcType="VARCHAR"/>
+        <result property="equityShare" column="equity_share" jdbcType="VARCHAR"/>
+        <result property="fromIdentifyNumber" column="from_identify_number" jdbcType="VARCHAR"/>
+        <result property="toIdentifyNumber" column="to_identify_number" jdbcType="VARCHAR"/>
+        <result property="relPsnOrg" column="rel_psn_org" jdbcType="VARCHAR"/>
+        <result property="approvalStatus" column="approval_status" jdbcType="VARCHAR"/>
+        <result property="transactionDep" column="TRANSACTION_DEP" jdbcType="VARCHAR"/>
+        <result property="operator" column="OPERATOR" jdbcType="VARCHAR"/>
+<!--        <result property="relationType" column="RELATION_TYPE" jdbcType="VARCHAR"/>-->
+        <result property="recordType" column="record_type" jdbcType="INTEGER"/>
+        <result property="procInstId" column="proc_inst_id" jdbcType="VARCHAR"/>
+        <result property="failureStatus" column="failure_status" jdbcType="VARCHAR"/>
+        <result property="itemDescription" column="item_description" jdbcType="VARCHAR"/>
+        <result property="recordNumber" column="record_number" jdbcType="VARCHAR"/>
+        <result property="sourceId" column="source_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      pid, to_pid, from_pid, rel_category, rel_category_sub, from_type, to_type, suspect_type, suspect_pid, from_memo, to_memo, regulator, rel_sort,
+      position, relation, shareholding_strand, shareholding_ratio, to_pid_shareholders, is_show, level_, from_name, to_name, from_alig_code, to_alig_code,
+      pa_rel_id, rel_type, rel_status, rel_predicate, TENANT_ID_, CREATED_BY_ID_, CREATED_BY_NAME_, CREATED_TIME_, DELFLAG_, lift_reason, DISPLAY_ORDER_,
+      MODIFIED_BY_ID_, MODIFIED_BY_NAME_, MODIFIED_TIME_, VERSION_, isValid, relStatement, effectiveDate, ineffectiveDate, active_time, invalid_time, pledge_ratio,
+      equity_share, from_identify_number, to_identify_number, rel_psn_org, approval_status, TRANSACTION_DEP, OPERATOR, record_type,
+      proc_inst_id, failure_status, item_description, record_number, source_id
+    </sql>
+
+    <sql id="Base_Column">
+        ANY_VALUE(pid),ANY_VALUE(to_pid),ANY_VALUE(from_pid),ANY_VALUE(rel_category),ANY_VALUE(rel_category_sub),ANY_VALUE(from_type),ANY_VALUE(to_type),ANY_VALUE(suspect_type),ANY_VALUE(suspect_pid),ANY_VALUE(from_memo),ANY_VALUE(to_memo),ANY_VALUE(regulator),ANY_VALUE(rel_sort),ANY_VALUE(position),ANY_VALUE(relation),ANY_VALUE(shareholding_strand),ANY_VALUE(shareholding_ratio),ANY_VALUE(to_pid_shareholders),ANY_VALUE(is_show),ANY_VALUE(level_),ANY_VALUE(from_name),
+        ANY_VALUE(to_name),ANY_VALUE(from_alig_code),ANY_VALUE(to_alig_code),ANY_VALUE(pa_rel_id),ANY_VALUE(rel_type),ANY_VALUE(rel_status),ANY_VALUE(rel_predicate),ANY_VALUE(TENANT_ID_),ANY_VALUE(CREATED_BY_ID_),ANY_VALUE(CREATED_BY_NAME_),ANY_VALUE(CREATED_TIME_),ANY_VALUE(DELFLAG_),ANY_VALUE(lift_reason),ANY_VALUE(DISPLAY_ORDER_),ANY_VALUE(MODIFIED_BY_ID_),ANY_VALUE(MODIFIED_BY_NAME_),ANY_VALUE(MODIFIED_TIME_),ANY_VALUE(VERSION_),ANY_VALUE(isValid),ANY_VALUE(relStatement),
+        ANY_VALUE(effectiveDate),ANY_VALUE(ineffectiveDate),ANY_VALUE(active_time),ANY_VALUE(invalid_time),ANY_VALUE(pledge_ratio),ANY_VALUE(equity_share),ANY_VALUE(from_identify_number),ANY_VALUE(to_identify_number),ANY_VALUE(rel_psn_org),ANY_VALUE(approval_status),ANY_VALUE(TRANSACTION_DEP),ANY_VALUE(OPERATOR),ANY_VALUE(record_type),ANY_VALUE(proc_inst_id),ANY_VALUE(failure_status),ANY_VALUE(item_description),ANY_VALUE(record_number),ANY_VALUE(source_id)
+    </sql>
+
+    <select id="recordNumber" resultType="java.lang.String">
+        SELECT distinct
+        record_number
+        FROM bus_rel_history
+        WHERE record_number is NOT NULL
+        ORDER BY record_number DESC
+    </select>
+
+    <select id="queryRecordNumber" resultMap="BusRelHistoryMap">
+       SELECT *
+       FROM
+	   bus_rel_history
+	   where DELFLAG_ ='1' and
+	   record_number=#{recordNumber}
+        <if test="recordType != null">
+            AND  record_type = #{recordType}
+        </if>
+	   ORDER BY CREATED_TIME_ DESC
+    </select>
+
+    <select id="queryRecordNumberData" resultMap="BusRelHistoryMap">
+        SELECT h.*
+        FROM bus_rel_history h
+                 RIGHT JOIN
+             (SELECT h1.record_number,
+                     h1.from_identify_number,
+                     h1.to_identify_number,
+                     h1.PID
+              FROM (SELECT * FROM bus_rel_history ORDER BY CREATED_TIME_ DESC) h1,
+                   (SELECT record_number
+                    FROM bus_rel_history
+                    WHERE record_number IS NOT NULL
+                      AND date_format(CREATED_TIME_, '%Y-%m-%d') = #{createTime}
+                    GROUP BY record_number) queryNum
+              WHERE h1.record_number = queryNum.record_number
+                AND date_format(h1.CREATED_TIME_, '%Y-%m-%d') <![CDATA[ <= ]]> #{createTime}
+                AND h1.record_type != '3'
+        AND h1.PID
+        AND NOT EXISTS (
+        SELECT
+        h2.PID
+        FROM
+        bus_rel_history h2
+        LEFT JOIN (
+        SELECT
+        t1.record_number, t1.from_identify_number,t1.to_identify_number,MAX(t1.CREATED_TIME_) CREATED_TIME_
+        FROM
+        ( SELECT * FROM bus_rel_history h ORDER BY CREATED_TIME_ DESC ) t1,
+        ( SELECT record_number FROM bus_rel_history WHERE record_number IS NOT NULL AND date_format( CREATED_TIME_, '%Y-%m-%d' ) = #{createTime} GROUP BY record_number ) queryNum
+                  WHERE
+                  t1.record_number = queryNum.record_number
+                AND date_format( CREATED_TIME_
+                  , '%Y-%m-%d' ) <![CDATA[ <= ]]> #{createTime}
+                AND t1.record_type = '3'
+                  GROUP BY
+                  t1.record_number
+                  , t1.from_identify_number
+                  , t1.to_identify_number
+                  ) h3 ON h2.from_identify_number = h3.from_identify_number
+                and h2.to_identify_number = h3.to_identify_number
+                  WHERE
+                  h2.record_number = h3.record_number
+                AND h2.CREATED_TIME_  <![CDATA[ < ]]> h3.CREATED_TIME_
+                AND h1.pid = h2.PID
+                  )
+              GROUP BY
+                  h1.record_number,
+                  h1.from_identify_number, h1.to_identify_number) h4 ON h.PID = h4.PID
+    </select>
+
+</mapper>
+

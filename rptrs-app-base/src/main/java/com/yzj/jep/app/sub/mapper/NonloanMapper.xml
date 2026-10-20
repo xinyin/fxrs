@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.yzj.jep.app.sub.mapper.NonloanMapper">
+    <!--资产转移-->
+	<select id="getTransAmcount" resultType="java.math.BigDecimal">
+        SELECT sum(s.trans_amount) FROM `sub_nonloan` s WHERE s.trans_type='02' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--提供服务-->
+    <select id="getServiceAmcount" resultType="java.math.BigDecimal">
+         SELECT sum(s.trans_amount) FROM `sub_nonloan` s WHERE s.trans_type='03' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--其他关联交易金额-->
+    <select id="getOtherAmcount" resultType="java.math.BigDecimal">
+         SELECT sum(s.trans_amount) FROM `sub_nonloan` s WHERE s.trans_type='04' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end};
+    </select>
+    <!--每天的资产转移-->
+    <select id="getDayOfTransAmcount" resultType="java.math.BigDecimal">
+        SELECT sum(s.trans_amount) FROM `sub_nonloan` s WHERE s.trans_type='02' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end} group by s.trans_start_date;
+    </select>
+    <!--每天的提供服务-->
+    <select id="getDayOfServiceAmcount" resultType="java.math.BigDecimal">
+         SELECT sum(s.trans_amount) FROM `sub_nonloan` s WHERE s.trans_type='03' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end} group by s.trans_start_date;
+    </select>
+    <!--每天的其他关联交易金额-->
+    <select id="getDayOfOtherAmcount" resultType="java.math.BigDecimal">
+         SELECT sum(s.trans_amount) FROM `sub_nonloan` s WHERE s.trans_type='04' AND s.related_party_cert_no=#{no} AND s.trans_start_date &gt;=#{start} AND s.trans_start_date &lt;= #{end} group by s.trans_start_date;
+    </select>
+</mapper>
+

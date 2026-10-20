@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="traFundsSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="insTradeFunds" var="funds"
+              varType="com.yzj.jep.app.ins.model.TraFundsVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">funds.fundsFlowNumber</mapping><!--资金流水编号（必填）-->
+                <mapping cell="B3">funds.tranName</mapping><!--交易概述（必填）-->
+                <mapping cell="C3">funds.relType</mapping><!--关联方类型（必填）-->
+                <mapping cell="D3">funds.relName</mapping><!--关联方名称（必填）-->
+                <mapping cell="E3">funds.relNumber</mapping><!--关联方证件号码（必填）-->
+
+                <mapping cell="F3">funds.tranDateString</mapping><!--合同签订日期（必填）-->
+                <mapping cell="G3">funds.contractNo</mapping><!--合同编号（必填）-->
+                <mapping cell="J3">funds.originalCurrencyAmountString</mapping><!--原币交易金额（万元）【必填】-->
+                <mapping cell="I3">funds.currencyCode</mapping><!--交易币种（必填）-->
+                <mapping cell="H3">funds.relTradeAmountString</mapping><!--本位币交易金额（万元）【必填】-->
+
+                <mapping cell="K3">funds.busStartTimeString</mapping><!--业务起始日期（必填）-->
+                <mapping cell="L3">funds.busEndTimeString</mapping><!--业务结束日期（必填）-->
+                <mapping cell="M3">funds.busType</mapping><!--业务类型（必填）-->
+                <mapping cell="N3">funds.investmentMethod</mapping><!--投资方式（必填）-->
+                <mapping cell="O3">funds.financialAssstsName</mapping><!--金融产品名称（当投资类别为04 金融产品时必填）-->
+
+                <mapping cell="P3">funds.financialAssstsNum</mapping><!--产品批准/注册/备案号(当投资类别为04 金融产品时必填)-->
+                <mapping cell="Q3">funds.financialProRatio</mapping><!--投资金融产品份额占比（%）(当投资类别为04 金融产品时必填)-->
+                <mapping cell="R3">funds.isOverseasinvestment</mapping><!--是否境外投资（必填）-->
+                <mapping cell="S3">funds.tradePrice</mapping><!--交易价格（必填）-->
+                <mapping cell="T3">funds.pricingPolicy</mapping><!--定价政策（必填）-->
+
+                <mapping cell="U3">funds.tradeSubject</mapping><!--交易标的（必填）-->
+                <mapping cell="V3">funds.remark</mapping><!--其他事项说明-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

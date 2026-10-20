@@ -1,0 +1,189 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fPaaS1="http://www.fPaaS1.com/schema/fPaaS1"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.fPaaS1.com/schema/fPaaS1
+	http://www.fPaaS1.com/schema/fPaaS1.xsd">
+    <import resource="gatewaycli.xml"/>
+
+    <bean id="abstractClientFPaaS1Handler" class="com.jzr.fpaas.handl.fpaashandler.AbstractClientFPaaS1Handler"
+          abstract="true"/>
+
+    <bean id="jsonHttpHandler" class="com.jzr.fpaas.handl.jsonhandler.JsonHttpHandler" scope="prototype"/>
+
+    <bean id="httpClientCommClientHandler" class="com.yzj.jep.app.fPaas.client.HttpClientCommClientHandler"/>
+
+    <!--<bean id="SA_GAT_GatewayClientHandler" class="com.jzr.fpaas.impl.GatewayClientHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycliFlow"/>
+        <property name="channel" ref="gatewaycli"/>
+    </bean>
+
+    <bean id="GatewayClientHandler" class="com.yzj.jep.app.fPaas.client.GatewayClientHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycliFlow"/>
+        <property name="channel" ref="gatewaycli"/>
+    </bean>-->
+
+    <bean id="DeptsGatewayClientHandler" class="com.yzj.jep.app.fPaas.client.DeptsGatewayClientHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycliFlow"/>
+        <property name="channel" ref="gatewaycli"/>
+    </bean>
+
+    <bean id="StaffGatewayClientHandler" class="com.yzj.jep.app.fPaas.client.StaffGatewayClientHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycliFlow"/>
+        <property name="channel" ref="gatewaycli"/>
+    </bean>
+
+    <!--  3.4合同相关文件获取接口  -->
+    <bean id="ContractGatewayClientHandler" class="com.yzj.jep.app.fPaas.client.ContractGatewayClientHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycontFlow"/>
+        <property name="channel" ref="gatewaycont"/>
+    </bean>
+    <bean id="InformationAutoHandler" class="com.yzj.jep.app.fPaas.client.InformationAutoHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycontFlow"/>
+        <property name="channel" ref="gatewaycont"/>
+    </bean>
+
+
+    <bean id="OAContractGatewayClientHandler" class="com.yzj.jep.app.fPaas.client.OAContractGatewayClientHandler"
+          parent="abstractClientFPaaS1Handler">
+        <property name="flow" ref="SI_gatewaycliOAFlow"/>
+        <property name="channel" ref="gatewaycliOA"/>
+    </bean>
+
+
+    <bean id="abstractServerFPaaS1Handler"
+          class="com.fPaaS1.presys.cp.server.AbstractServerFPaaS1Handler"
+          abstract="true">
+        <property name="errorCodeName" value="errCode"/>
+        <property name="errorMsgName" value="errMsg"/>
+        <!-- 		<property name="errorCodeMapping"> -->
+        <!-- 			<map> -->
+        <!-- 				<entry key="0000000000" value="0000000000" /> -->
+        <!-- 				<entry key="*" value="9999" /> -->
+        <!-- 			</map> -->
+        <!-- 		</property> -->
+    </bean>
+
+    <bean id="defaultServerFPaaS1Handler"
+          class="com.fpaas.handl.GatewayServerHandler"
+          parent="abstractServerFPaaS1Handler">
+        <property name="serviceMapping">
+            <map>
+                <entry key="demo001" value="server1"/>
+                <entry key="rule001" value="rule"/>
+                <entry key="trade001" value="trade"/>
+                <entry key="relDistinguish" value="relDistinguish"/>
+                <entry key="selEtransaction" value="etransaction"/>
+                <entry key="ProportionalMonitoring"   value="ProportionalMonitoring"/>
+                <entry key="InformationPush" value="InformationPush"/>
+                <entry key="getRelTranSubmitFileInfo" value="getRelTranSubmitFileInfo"/>
+                <entry key="voidNotice" value="voidNotice"/>
+                <entry key="traUnSortOut" value="traUnSortOut"/>
+                <entry key="relatedQuery" value="relatedQuery"/>
+                <entry key="getRelTransactions" value="getRelTransactions"/>
+                <entry key="getRelTransaction" value="getRelTransaction"/>
+                <entry key="getRelList" value="getRelList"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="furServerFPaaS1Handler"
+          class="com.fpaas.handl.GatewayServerHandler"
+          parent="abstractServerFPaaS1Handler">
+        <property name="serviceMapping">
+            <map>
+                <entry key="demo001" value="server1"/>
+                <entry key="rule001" value="rule"/>
+                <entry key="trade001" value="trade"/>
+                <entry key="relDistinguish" value="relDistinguish"/>
+                <entry key="selEtransaction" value="etransaction"/>
+                <entry key="ProportionalMonitoring"   value="ProportionalMonitoring"/>
+                <entry key="InformationPush" value="InformationPush"/>
+                <entry key="getRelTranSubmitZipFile" value="getRelTranSubmitZipFile"/>
+                <entry key="voidNotice" value="voidNotice"/>
+                <entry key="traUnSortOut" value="traUnSortOut"/>
+                <entry key="relatedQuery" value="relatedQuery"/>
+                <entry key="getRelTransactions" value="getRelTransactions"/>
+                <entry key="getRelTransaction" value="getRelTransaction"/>
+                <entry key="getRelList" value="getRelList"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="confirmServerFPaaS1Handler"
+          class="com.fpaas.handl.GatewayServerHandler"
+          parent="abstractServerFPaaS1Handler">
+        <property name="serviceMapping">
+            <map>
+                <entry key="demo001" value="server1"/>
+                <entry key="rule001" value="rule"/>
+                <entry key="trade001" value="trade"/>
+                <entry key="relDistinguish" value="relDistinguish"/>
+                <entry key="selEtransaction" value="etransaction"/>
+                <entry key="ProportionalMonitoring"   value="ProportionalMonitoring"/>
+                <entry key="InformationPush" value="InformationPush"/>
+                <entry key="confirmRelTranApproval" value="confirmRelTranApproval"/>
+                <entry key="voidNotice" value="voidNotice"/>
+                <entry key="traUnSortOut" value="traUnSortOut"/>
+                <entry key="relatedQuery" value="relatedQuery"/>
+                <entry key="getRelTransactions" value="getRelTransactions"/>
+                <entry key="getRelTransaction" value="getRelTransaction"/>
+                <entry key="getRelList" value="getRelList"/>
+
+            </map>
+        </property>
+    </bean>
+
+    <bean id="server1" class="com.yzj.jep.app.fPaas.server.GatewayServerHandler"/>
+    <bean id="etransaction" class="com.yzj.jep.app.fPaas.server.SelEtransactionHandle"/>
+
+<!--    <bean id="rule" class="com.yzj.jep.app.fPaas.server.RuleServerHandler">-->
+<!--    <property name="docFileService" ref="docFileService" />-->
+<!--    &lt;!&ndash;<property name="packagesService" ref="packagesService" />-->
+<!--    <property name="chkLogService" ref="chkLogService" />&ndash;&gt;-->
+<!--    </bean>-->
+
+    <bean id="rule" class="com.yzj.jep.app.fPaas.server.RuleServerHandler"/>
+    <bean id="trade" class="com.yzj.jep.app.fPaas.server.JudgeImportantTradeHandler"/>
+    <bean id="relDistinguish" class="com.yzj.jep.app.fPaas.server.RelDistinguishHandler"/>
+    <bean id="getRelTranSubmitFileInfo" class="com.yzj.jep.app.fPaas.server.GetRelTranSubmitFileInfoHandler"/>
+    <bean id="getRelTranSubmitZipFile" class="com.yzj.jep.app.fPaas.server.GetRelTranSubmitZipFileHandler"/>
+    <bean id="confirmRelTranApproval" class="com.yzj.jep.app.fPaas.server.ConfirmRelTranApprovalHandler"/>
+    <bean id="ProportionalMonitoring" class="com.yzj.jep.app.fPaas.server.ProportionalMonitoringHandler"/>
+    <bean id="InformationPush" class="com.yzj.jep.app.fPaas.server.InformationPushHandler"/>
+    <bean id="voidNotice" class="com.yzj.jep.app.fPaas.server.VoidNoticehandler"/>
+    <!--  zy关联方识别接口  relDistinguish1-->
+    <bean id="relDistinguish1" class="com.yzj.jep.app.fPaas.server.RelDistinguishHandler1"/>
+
+    <bean id="traUnSortOut" class="com.yzj.jep.app.fPaas.server.TraUnSortOutHandler"/>
+
+    <bean id="relatedQuery" class="com.yzj.jep.app.fPaas.server.RelatedQueryHandler"/>
+
+    <!--阳光添加  开始-->
+    <!--关联方识别接口-->
+    <bean id="RelatedPartyIdentification" class="com.yzj.jep.app.fPaas.server.RelatedPartyIdentificationHandler"></bean>
+    <!--关联交易合规校验接口-->
+<!--    <bean id="RelatedPartyTradeVerifify" class="com.yzj.jep.app.fPaas.server.RelatedPartyTradeVerififyHandler"></bean>-->
+    <!--关联交易审批结果查询接口-->
+    <bean id="RelatedPartyQueryApproveStatus" class="com.yzj.jep.app.fPaas.server.RelatedPartyQueryApproveStatusHandler"></bean>
+    <!--OA用印申请审批信息回调处理接口-->
+    <bean id="RelatedPartyResultReceive" class="com.yzj.jep.app.fPaas.server.RelatedPartyResultReceiveHandler"></bean>
+
+    <!-- 关联交易数据获取 T+1-->
+    <bean id="getRelTransactions" class="com.yzj.jep.app.fPaas.server.RelatedPartyTransactions"></bean>
+    <!-- 关联交易数据获取 实时-->
+    <bean id="getRelTransaction" class="com.yzj.jep.app.fPaas.server.RealTimePushOa"></bean>
+    <!-- 获取关联方名单表接口-->
+    <bean id="getRelList" class="com.yzj.jep.app.fPaas.server.GetRelatedParties"></bean>
+
+    <!-- oa系统,交易废弃时，通过此接口同步废弃关联交易系统对应的交易-->
+    <bean id="delRelTransaction" class="com.yzj.jep.app.fPaas.server.DelRelTransaction"></bean>
+
+
+</beans>

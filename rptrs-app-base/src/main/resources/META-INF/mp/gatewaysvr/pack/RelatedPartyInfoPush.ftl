@@ -1,0 +1,20 @@
+{
+"BODY":{
+    "pushType":"${pushType}",
+    "tenantId":"${tenantId}",
+    "relList":[<#list relList as r>
+        {
+        "relName":"${r.relName}",
+        "relType":"${r.relType}",
+        "certType":"${r.certType}",
+        "relNumber":"${r.relNumber}"
+        }
+    </#list>]
+},
+"SYSHEAD":{
+"msg":"${msg}",
+"resultCode":"${resultCode}",
+"TRANS_CODE":"${TRANS_CODE}",
+"CHNL_ID":"${CHNL_ID}"
+}
+}

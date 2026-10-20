@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelSuspectMapper">
+    <resultMap id="BaseResultMap" type="com.yzj.jep.app.bus.model.RelSuspect">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="to_pid" property="toPid" jdbcType="VARCHAR"/>
+        <result column="from_pid" property="fromPid" jdbcType="VARCHAR"/>
+        <result column="rel_category" property="relCategory" jdbcType="VARCHAR"/>
+        <result column="rel_category_sub" property="relCategory" jdbcType="VARCHAR"/>
+        <result column="from_name" property="fromType" jdbcType="VARCHAR"/>
+        <result column="to_name" property="toType" jdbcType="VARCHAR"/>
+        <result column="from_type" property="fromType" jdbcType="VARCHAR"/>
+        <result column="to_type" property="toType" jdbcType="VARCHAR"/>
+        <result column="from_memo" property="fromMemo" jdbcType="VARCHAR"/>
+        <result column="to_memo" property="toMemo" jdbcType="VARCHAR"/>
+        <result column="relation" property="relation" jdbcType="VARCHAR"/>
+        <result column="shareholding_ratio" property="shareholdingRatio" jdbcType="REAL"/>
+        <result column="to_pid_shareholders" property="toPidShareholders" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="INTEGER"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="lift_reason" property="liftReason" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+        <result column="duty_code" property="dutyCode" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertForMapper" parameterType="com.yzj.jep.app.bus.model.RelSuspect">
+        <selectKey resultType="java.lang.Integer" keyProperty="pid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into bus_rel_suspect (pid, to_pid, from_pid,
+        rel_category, rel_category_sub, from_name, to_name, from_type, to_type,
+        from_memo, to_memo, relation,
+        shareholding_ratio, to_pid_shareholders, is_show,
+        level, TENANT_ID_, CREATED_BY_ID_,
+        CREATED_BY_NAME_, CREATED_TIME_, DELFLAG_,
+        lift_reason, DISPLAY_ORDER_, MODIFIED_BY_ID_,
+        MODIFIED_BY_NAME_, MODIFIED_TIME_, VERSION_,
+        duty_code)
+        values (#{pid,jdbcType=INTEGER}, #{toPid,jdbcType=VARCHAR}, #{fromPid,jdbcType=VARCHAR},
+        #{relCategory,jdbcType=VARCHAR}, #{relCategorySub,jdbcType=VARCHAR}, #{fromName,jdbcType=VARCHAR},
+        #{toName,jdbcType=VARCHAR},#{fromType,jdbcType=VARCHAR}, #{toType,jdbcType=VARCHAR},
+        #{fromMemo,jdbcType=VARCHAR}, #{toMemo,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR},
+        #{shareholdingRatio,jdbcType=REAL}, #{toPidShareholders,jdbcType=VARCHAR}, #{isShow,jdbcType=VARCHAR},
+        #{level,jdbcType=INTEGER}, #{tenantId,jdbcType=VARCHAR}, #{createById,jdbcType=VARCHAR},
+        #{createByName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{delflag,jdbcType=VARCHAR},
+        #{liftReason,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, #{modifiedById,jdbcType=VARCHAR},
+        #{modifiedByName,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER},
+        #{dutyCode,jdbcType=VARCHAR})
+    </insert>
+</mapper>
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="SusRelPsnSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="SusRelPsns" var="RelPsnSuspectVo"
+              varType="com.yzj.jep.app.bus.model.RelPsnSuspectVo">
+            <section startRow="1" endRow="1">
+                <!--疑似自然人基本信息-->
+                <mapping cell="A2">RelPsnSuspectVo.name</mapping><!--姓名-->
+                <mapping cell="B2">RelPsnSuspectVo.identifyType</mapping><!--证件类型-->
+                <mapping cell="C2">RelPsnSuspectVo.identifyNumber</mapping><!--证件号码-->
+                <mapping cell="D2">RelPsnSuspectVo.domesticOrForeign</mapping><!--境内外标识-->
+                <mapping cell="E2">RelPsnSuspectVo.sex</mapping><!--性别-->
+                <mapping cell="F2">RelPsnSuspectVo.birthdate</mapping><!--出生日期-->
+                <mapping cell="G2">RelPsnSuspectVo.mobile</mapping><!--移动电话-->
+                <mapping cell="H2">RelPsnSuspectVo.email</mapping><!--邮箱-->
+                <mapping cell="I2">RelPsnSuspectVo.workUnits</mapping><!--工作单位-->
+                <mapping cell="J2">RelPsnSuspectVo.unitsAddress</mapping><!--单位地址-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

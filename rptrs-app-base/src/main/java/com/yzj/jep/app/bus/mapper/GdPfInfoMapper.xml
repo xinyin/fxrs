@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.GdPfInfoMapper">
+    <resultMap type="com.yzj.jep.app.bus.model.GdPfInfo" id="TranMap">
+        <id column="pid" property="pid"/>
+        <result column="pf_pid" property="pfPid"/>
+        <result column="gd_pid" property="gdPid"/>
+        <result column="gd_type" property="gdType"/>
+        <result column="sharehold_code" property="shareholdCode"/>
+        <result column="trade_account" property="tradeAccount"/>
+        <result column="hole_share_amount" property="holeShareAmount"/>
+        <result column="shareholding_proportion" property="shareholdingProportion"/>
+        <result column="frozen_share_amount" property="frozenShareAmount"/>
+        <result column="pledged_share_amount" property="pledgedShareAmount"/>
+        <result column="cash_bonus" property="cashBonus"/>
+        <result column="bonus_issue" property="bonusIssue"/>
+    </resultMap>
+
+    <insert id="createNewPfInfo" parameterType="com.yzj.jep.app.bus.model.GdPfInfo">
+        insert into bus_gd_pf_info
+        (gd_pid,sharehold_code,gd_type,hole_share_amount,shareholding_proportion,gd_dj,trade_account,frozen_share_amount,
+        pledged_share_amount,cash_bonus, bonus_issue,pf_pid)
+        select * from(select pid as gd_pid,shareholders_code as sharehold_code,'PSN' gd_type,
+        hole_share_amount as hole_share_amount,shareholding_proportion as shareholding_proportion,dj_status as gd_dj,
+        trade_account as trade_account,frozen_share_amount as frozen_share_amount,pledged_share_amount as
+        pledged_share_amount,
+        #{cashBonus} as cash_bonus,#{bonusIssue} as bonus_issue,#{pfPid} as pf_pid
+        from bus_rel_psn
+        where is_shareholder = '1' and DELFLAG_ = '1' and status = '6'
+        union ALL
+        select pid as gd_pid,shareholders_code as sharehold_code,'ORG' as gd_type,hole_share_amount as
+        hole_share_amount,
+        shareholding_proportion as shareholding_proportion,dj_status as gd_dj,trade_account as
+        trade_account,frozen_share as frozen_share_amount,
+        pledged_share as pledged_share_amount,#{cashBonus} as cash_bonus,#{bonusIssue} as bonus_issue,#{pfPid} as pf_pid
+        from bus_rel_org
+        where is_shareholder = '1' and DELFLAG_ = '1' and status = '6') as allGdInfo
+    </insert>
+    <update id="changePfInfo" parameterType="com.yzj.jep.app.bus.model.GdPfInfo">
+        update bus_gd_pf_info set cash_bonus = #{cashBonus},bonus_issue = #{bonusIssue}
+        where
+        gd_pid = #{gdPid} and gd_type = #{gdType}
+    </update>
+    <select id="queryGdPfInfo" parameterType="com.yzj.jep.app.bus.model.GdPfInfoVo"
+            resultType="com.yzj.jep.app.bus.model.GdPfInfoVo">
+        select * from
+        (select a.pid as pid,a.pf_pid as pfPid,a.gd_pid as gdPid,a.gd_type as gdType,a.sharehold_code as
+        shareholdCode,a.trade_account as tradeAccount,
+        a.hole_share_amount as holeShareAmount,a.shareholding_proportion as shareholdingProportion,a.frozen_share_amount
+        as frozenShareAmount,a.pledged_share_amount as pledgedShareAmount,
+        a.cash_bonus as cashBonus,a.bonus_issue as bonusIssue,b.name_,null as stateOwned,b.identify_type as
+        identifyType,b.identify_number as identifyNumber,b.domestic_or_foreign as domesticOrForeign
+        from bus_gd_pf_info a join bus_rel_psn b on
+        a.sharehold_code = b.shareholders_code
+        where a.gd_type = 'PSN'
+        union ALL
+        select a.pid as pid,a.pf_pid as pfPid,a.gd_pid as gdPid,a.gd_type as gdType,a.sharehold_code as
+        shareholdCode,a.trade_account as tradeAccount,a.hole_share_amount as holeShareAmount,a.shareholding_proportion
+        as shareholdingProportion,a.frozen_share_amount as frozenShareAmount,
+        a.pledged_share_amount as pledgedShareAmount,a.cash_bonus as cashBonus,a.bonus_issue as bonusIssue,b.org_name as
+        name_,b.state_owned as stateOwned,b.identify_type as identifyType,
+        b.unisc_code as identifyNumber,b.domestic_or_foreign as domesticOrForeign
+        from bus_gd_pf_info a join bus_rel_org b on a.sharehold_code = b.shareholders_code where a.gd_type = 'ORG')
+        where 1=1 and pfPid = #{pfPid}
+        <if test="shareholdCode != null and shareholdCode != ''">
+            and shareholdCode = #{shareholdCode}
+        </if>
+        <if test="name_ != null and name_ != ''">
+            and name_ = #{name_}
+        </if>
+        <if test="domesticOrForeign != null and domesticOrForeign != ''">
+            and domesticOrForeign = #{domesticOrForeign}
+        </if>
+
+    </select>
+</mapper>
+

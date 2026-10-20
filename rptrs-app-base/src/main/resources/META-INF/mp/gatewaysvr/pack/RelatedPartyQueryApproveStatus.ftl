@@ -1,0 +1,24 @@
+{
+    "BODY":{
+        "tenantId":"${tenantId}",
+        "approveStatus":"${approveStatus}",
+        "tranType":"${tranType}",
+        "contractNo":"${contractNo}",
+        "isSame":"${isSame}",
+        "relList":[<#list relList as r>
+            {
+            "tradeAmount":"${r.tradeAmount}",
+            "relName":"${r.relName}",
+            "relType":"${r.relType}",
+            "certType":"${r.certType}",
+            "relNumber":"${r.relNumber}",
+            }
+        </#list>]
+    },
+    "SYSHEAD":{
+        "msg":"${msg}",
+        "resultCode":"${resultCode}",
+        "TRANS_CODE":"${TRANS_CODE}",
+        "CHNL_ID":"${CHNL_ID}"
+    }
+}

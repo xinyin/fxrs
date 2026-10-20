@@ -1,0 +1,1609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">120</property>
+    <parameters>
+        <scalar-parameter name="startTime" id="108">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["startTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endTime" id="109">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["endTime"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="manage_org" id="110">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="javascript">params["manage_org"].value</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
+            <property name="odaURL">jdbc:mysql://192.168.1.245:3306/rptrs</property>
+            <property name="odaUser">root</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">MTIzNDU2</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="106">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">identify_type</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">identify_type</text-property>
+                    <text-property name="heading">identify_type</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">identify_number</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">identify_number</text-property>
+                    <text-property name="heading">identify_number</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">credit</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">credit</text-property>
+                    <text-property name="heading">credit</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">jinrong</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">jinrong</text-property>
+                    <text-property name="heading">jinrong</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">licai</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">licai</text-property>
+                    <text-property name="heading">licai</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">xindai</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">xindai</text-property>
+                    <text-property name="heading">xindai</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">guding</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">guding</text-property>
+                    <text-property name="heading">guding</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">guanli</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">guanli</text-property>
+                    <text-property name="heading">guanli</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">zaibao</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">zaibao</text-property>
+                    <text-property name="heading">zaibao</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">fuwu</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">fuwu</text-property>
+                    <text-property name="heading">fuwu</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">daili</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">daili</text-property>
+                    <text-property name="heading">daili</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">jiaocha</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">jiaocha</text-property>
+                    <text-property name="heading">jiaocha</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">identify_type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">identify_number</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">credit</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">jinrong</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">licai</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">xindai</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">guding</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">guanli</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">zaibao</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">fuwu</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">daili</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">jiaocha</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <method name="beforeOpen"><![CDATA[importPackage(Packages.java.lang);
+importPackage(Packages.org.apache.commons.lang);
+var startTime = reportContext.getParameterValue("startTime"); //起始时间
+var endTime = reportContext.getParameterValue("endTime");//结束时间
+var related_tran_type = reportContext.getParameterValue("related_tran_type"); //关联交易类别
+var manage_org = reportContext.getParameterValue("manage_org");//机构
+//System.out.println("--------------------"+startTime+"---------"+endTime);
+if(startTime !=null &amp;&amp; !startTime.equals("") &amp;&amp; endTime!=null &amp;&amp; !endTime.equals("") ){
+	//this.queryText = this.queryText +" AND  (approval_time) >= '"+startTime+"'"+" AND (approval_time)<= '"+endTime+"'";
+	this.queryText =this.queryText.replace("1=1", " date(credit_start_date) >= '" + startTime + "'" +" AND date(credit_start_date)<= '"+endTime+"'");
+	this.queryText =this.queryText.replace("5=5", " date(business_start_time) >= '" + startTime + "'" +" AND date(business_start_time)<= '"+endTime+"'");
+	//System.out.println("--------------------"+this.queryText);
+	if(manage_org!=null &amp;&amp; manage_org != ""){
+		this.queryText =this.queryText.replace("3=3", " manage_org = '" + manage_org+"'");
+		this.queryText =this.queryText.replace("7=7", " manage_org = '" + manage_org+"'");
+	}
+	
+	System.out.println("--------------------"+this.queryText);
+}else{
+this.queryText = this.queryText.replace("4=4", " TO_DAYS( NOW( ) ) - TO_DAYS(credit_start_date) <= 1");
+this.queryText = this.queryText.replace("8=8", " TO_DAYS( NOW( ) ) - TO_DAYS(business_start_time) <= 1");
+}]]></method>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">identify_type</property>
+                    <property name="nativeName">identify_type</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">identify_number</property>
+                    <property name="nativeName">identify_number</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">credit</property>
+                    <property name="nativeName">credit</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">jinrong</property>
+                    <property name="nativeName">jinrong</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">licai</property>
+                    <property name="nativeName">licai</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">xindai</property>
+                    <property name="nativeName">xindai</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">guding</property>
+                    <property name="nativeName">guding</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">guanli</property>
+                    <property name="nativeName">guanli</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">zaibao</property>
+                    <property name="nativeName">zaibao</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">fuwu</property>
+                    <property name="nativeName">fuwu</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">daili</property>
+                    <property name="nativeName">daili</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">jiaocha</property>
+                    <property name="nativeName">jiaocha</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">3</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[(
+	SELECT
+		p.`name`,
+		p.identify_type,
+		p.identify_number,
+		(
+			-- 表内外授信
+			SELECT
+				SUM(
+					IFNULL(a.bus_tra_balance, 0)
+				)
+			FROM
+				bus_tra_credit a
+			WHERE
+				a.pid = c.pid
+			AND a.DELFLAG_ = 1
+		) AS credit,
+		(
+			SELECT
+				SUM(
+					IFNULL(b.tran_amount, 0)
+				)
+			FROM
+				bus_tra_other b
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INfinamarket&amp;derivatran'
+			AND b.rel_id = p.pid
+			AND b.DELFLAG_ = 1
+		) AS jinrong,
+		(
+			SELECT
+				SUM(IFNULL(bc.tran_amount, 0))
+			FROM
+				bus_tra_other bc
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INfinarrang'
+			AND bc.rel_id = p.pid
+			AND bc.DELFLAG_ = 1
+		) AS licai,
+		(
+			SELECT
+				SUM(IFNULL(d.tran_amount, 0))
+			FROM
+				bus_tra_other d
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INtransasset'
+			AND d.rel_id = p.pid
+			AND d.DELFLAG_ = 1
+		) AS xindai,
+		(
+			SELECT
+				SUM(IFNULL(e.tran_amount, 0))
+			FROM
+				bus_tra_other e
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INtranfixedeasset'
+			AND e.rel_id = p.pid
+			AND e.DELFLAG_ = 1
+		) AS guding,
+		(
+			SELECT
+				SUM(IFNULL(f.tran_amount, 0))
+			FROM
+				bus_tra_other f
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INmanagserplan'
+			AND f.rel_id = p.pid
+			AND f.DELFLAG_ = 1
+		) AS guanli,
+		(
+			SELECT
+				SUM(IFNULL(g.tran_amount, 0))
+			FROM
+				bus_tra_other g
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INreinsplan'
+			AND g.rel_id = p.pid
+			AND g.DELFLAG_ = 1
+		) AS zaibao,
+		(
+			SELECT
+				SUM(IFNULL(h.tran_amount, 0))
+			FROM
+				bus_tra_other h
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INservicecharge'
+			AND h.rel_id = p.pid
+			AND h.DELFLAG_ = 1
+		) AS fuwu,
+		(
+			SELECT
+				SUM(IFNULL(i.tran_amount, 0))
+			FROM
+				bus_tra_other i
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INAgencytransa'
+			AND i.rel_id = p.pid
+			AND i.DELFLAG_ = 1
+		) AS daili,
+		(
+			SELECT
+				SUM(IFNULL(j.tran_amount, 0))
+			FROM
+				bus_tra_other j
+			WHERE
+				5 = 5
+			AND 6 = 6
+			AND 7 = 7
+			AND 8 = 8
+			AND tran_type = 'INcrosharehold'
+			AND j.rel_id = p.pid
+			AND j.DELFLAG_ = 1
+		) AS jiaocha
+	FROM
+		bus_tra_credit c
+	JOIN bus_rel_psn p ON p.pid = c.rel_id
+	LEFT JOIN bus_rel r ON p. NAME = r.from_memo
+	AND r.to_memo = '成都农商行'
+	WHERE
+		1 = 1
+	AND 2 = 2
+	AND 3 = 3
+	AND 4 = 4
+	AND c.rel_type = '1'
+	AND c.is_insider = 1
+	AND r.DELFLAG_ = '1'
+	AND p.DELFLAG_ = '1'
+	GROUP BY
+		c.related_name,
+		c.ident_number
+)
+UNION ALL
+	(
+		SELECT
+			o.org_name,
+			o.identify_type,
+			o.unisc_code AS identify_number,
+			(
+				-- 表内外授信
+				SELECT
+					SUM(IFNULL(a.credit_amount, 0))
+				FROM
+					bus_tra_credit a
+				WHERE
+					a.pid = c.pid
+				AND a.DELFLAG_ = 1
+			) AS credit,
+			(
+				SELECT
+					SUM(IFNULL(b.tran_amount, 0))
+				FROM
+					bus_tra_other b
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INfinamarket&amp;derivatran'
+				AND b.rel_id = o.pid
+				AND b.DELFLAG_ = 1
+			) AS jinrong,
+			(
+				SELECT
+					SUM(IFNULL(bc.tran_amount, 0))
+				FROM
+					bus_tra_other bc
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INfinarrang'
+				AND bc.rel_id = o.pid
+				AND bc.DELFLAG_ = 1
+			) AS licai,
+			(
+				SELECT
+					SUM(IFNULL(d.tran_amount, 0))
+				FROM
+					bus_tra_other d
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INtransasset'
+				AND d.rel_id = o.pid
+				AND d.DELFLAG_ = 1
+			) AS xindai,
+			(
+				SELECT
+					SUM(IFNULL(e.tran_amount, 0))
+				FROM
+					bus_tra_other e
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INtranfixedeasset'
+				AND e.rel_id = o.pid
+				AND e.DELFLAG_ = 1
+			) AS guding,
+			(
+				SELECT
+					SUM(IFNULL(f.tran_amount, 0))
+				FROM
+					bus_tra_other f
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INmanagserplan'
+				AND f.rel_id = o.pid
+				AND f.DELFLAG_ = 1
+			) AS guanli,
+			(
+				SELECT
+					SUM(IFNULL(g.tran_amount, 0))
+				FROM
+					bus_tra_other g
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INreinsplan'
+				AND g.rel_id = o.pid
+				AND g.DELFLAG_ = 1
+			) AS zaibao,
+			(
+				SELECT
+					SUM(IFNULL(h.tran_amount, 0))
+				FROM
+					bus_tra_other h
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INservicecharge'
+				AND h.rel_id = o.pid
+				AND h.DELFLAG_ = 1
+			) AS fuwu,
+			(
+				SELECT
+					SUM(IFNULL(i.tran_amount, 0))
+				FROM
+					bus_tra_other i
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INAgencytransa'
+				AND i.rel_id = o.pid
+				AND i.DELFLAG_ = 1
+			) AS daili,
+			(
+				SELECT
+					SUM(IFNULL(j.tran_amount, 0))
+				FROM
+					bus_tra_other j
+				WHERE
+					5 = 5
+				AND 6 = 6
+				AND 7 = 7
+				AND 8 = 8
+				AND tran_type = 'INcrosharehold'
+				AND j.rel_id = o.pid
+				AND j.DELFLAG_ = 1
+			) AS jiaocha
+		FROM
+			bus_tra_credit c
+		JOIN bus_rel_org o ON o.pid = c.rel_id
+		LEFT JOIN bus_rel r ON o.org_name = r.from_memo
+		AND r.to_memo = '成都农商行'
+		WHERE
+			1 = 1
+		AND 2 = 2
+		AND 3 = 3
+		AND 4 = 4
+		AND c.rel_type = '2'
+		AND c.is_insider = 1
+		AND r.DELFLAG_ = '1'
+		AND o.DELFLAG_ = '1'
+		GROUP BY
+			o.org_name,
+			o.unisc_code
+	);]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>500</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>500</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>identify_type</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>identify_type</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>identify_type</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>identify_number</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>64</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>identify_number</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>identify_number</design:label>
+            <design:formattingHints>
+              <design:displaySize>64</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>credit</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>22</design:precision>
+            <design:scale>31</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>credit</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>credit</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>jinrong</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>jinrong</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>jinrong</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>licai</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>licai</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>licai</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>xindai</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>xindai</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>xindai</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>guding</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>guding</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>guding</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>guanli</design:name>
+              <design:position>9</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>guanli</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>guanli</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>zaibao</design:name>
+              <design:position>10</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>zaibao</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>zaibao</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>fuwu</design:name>
+              <design:position>11</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>fuwu</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>fuwu</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>daili</design:name>
+              <design:position>12</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>daili</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>daili</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>jiaocha</design:name>
+              <design:position>13</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>3</design:nativeDataTypeCode>
+            <design:precision>32</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>jiaocha</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>jiaocha</design:label>
+            <design:formattingHints>
+              <design:displaySize>33</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a3</property>
+            <property name="orientation">landscape</property>
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="5">
+            <property name="fontFamily">"@微软雅黑"</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1px</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1px</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1px</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1px</property>
+            <property name="marginLeft">15pt</property>
+            <property name="marginRight">10pt</property>
+            <property name="dataSet">Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">name</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">identify_type</property>
+                    <text-property name="displayName">identify_type</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["identify_type"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">identify_number</property>
+                    <text-property name="displayName">identify_number</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["identify_number"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">credit</property>
+                    <text-property name="displayName">credit</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["credit"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">jinrong</property>
+                    <text-property name="displayName">jinrong</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["jinrong"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">licai</property>
+                    <text-property name="displayName">licai</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["licai"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">xindai</property>
+                    <text-property name="displayName">xindai</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["xindai"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">guding</property>
+                    <text-property name="displayName">guding</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["guding"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">guanli</property>
+                    <text-property name="displayName">guanli</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["guanli"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">zaibao</property>
+                    <text-property name="displayName">zaibao</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["zaibao"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">fuwu</property>
+                    <text-property name="displayName">fuwu</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["fuwu"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">daili</property>
+                    <text-property name="displayName">daili</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["daili"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">jiaocha</property>
+                    <text-property name="displayName">jiaocha</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["jiaocha"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">manage_org</property>
+                    <expression name="expression" type="javascript">if( params["manage_org"].value == null){&#13;
+"报送机构："&#13;
+}else{&#13;
+"报送机构：" + params["manage_org"].value;&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">time</property>
+                    <expression name="expression" type="javascript">if(  params["endTime"].value == null){&#13;
+"统计日期："&#13;
+}else{&#13;
+"统计日期：" + new Date().toLocaleString();&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">合计</property>
+                    <expression name="expression" type="javascript">dataSetRow["credit"]+dataSetRow["daili"]+dataSetRow["fuwu"]+dataSetRow["guanli"]+dataSetRow["guding"]+dataSetRow["jiaocha"]+dataSetRow["jinrong"]+dataSetRow["licai"]+dataSetRow["xindai"]+dataSetRow["zaibao"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">heji</property>
+                    <expression name="expression" type="javascript">dataSetRow["credit"]+dataSetRow["daili"]+dataSetRow["fuwu"]+dataSetRow["guanli"]+dataSetRow["guding"]+dataSetRow["jiaocha"]+dataSetRow["jinrong"]+dataSetRow["licai"]+dataSetRow["xindai"]+dataSetRow["zaibao"]</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">xuhao</property>
+                    <expression name="expression" type="javascript">row[0]+1</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="57"/>
+            <column id="58"/>
+            <column id="59"/>
+            <column id="60"/>
+            <column id="61"/>
+            <column id="62"/>
+            <column id="63"/>
+            <column id="64"/>
+            <column id="65"/>
+            <column id="66"/>
+            <column id="67"/>
+            <column id="68"/>
+            <column id="69"/>
+            <column id="70"/>
+            <column id="71"/>
+            <column id="72"/>
+            <header>
+                <row id="73">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <cell id="74">
+                        <property name="colSpan">16</property>
+                        <property name="rowSpan">1</property>
+                        <grid id="100">
+                            <column id="101"/>
+                            <row id="102">
+                                <cell id="103">
+                                    <text id="104">
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[内部交易信息统计表]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                        <grid id="90">
+                            <column id="91"/>
+                            <column id="92"/>
+                            <column id="93"/>
+                            <column id="94"/>
+                            <row id="95">
+                                <cell id="96">
+                                    <data id="140">
+                                        <property name="textAlign">left</property>
+                                        <property name="resultSetColumn">manage_org</property>
+                                    </data>
+                                </cell>
+                                <cell id="97">
+                                    <data id="141">
+                                        <property name="resultSetColumn">time</property>
+                                    </data>
+                                </cell>
+                                <cell id="98"/>
+                                <cell id="99">
+                                    <text id="105">
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[单位：亿元]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+                <row id="6">
+                    <cell id="7">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="117">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[序号]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="8">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="118">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[内部人名称]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="9">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="119">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[证件类型]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="10">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="120">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[证件号码]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="11">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="121">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[表内外授信类]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="12">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="122">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[金融市场与衍生交易]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="13">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="123">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[理财安排]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="14">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="124">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[信贷资产转让]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="15">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="125">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[固定资产、无形资产转让]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="16">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="126">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[管理和服务安排]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="17">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="127">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[再保险安排]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="18">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="128">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[服务收费]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="19">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="129">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[代理交易]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="20">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="130">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[交叉持股]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="21">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="131">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[合计]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="22">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="132">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[备注]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="23">
+                    <cell id="24">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="144">
+                            <property name="resultSetColumn">xuhao</property>
+                        </data>
+                    </cell>
+                    <cell id="25">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="111">
+                            <property name="resultSetColumn">name</property>
+                        </data>
+                    </cell>
+                    <cell id="26">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="112">
+                            <property name="resultSetColumn">identify_type</property>
+                        </data>
+                    </cell>
+                    <cell id="27">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="113">
+                            <property name="resultSetColumn">identify_number</property>
+                        </data>
+                    </cell>
+                    <cell id="28">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="114">
+                            <property name="resultSetColumn">credit</property>
+                        </data>
+                    </cell>
+                    <cell id="29">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="115">
+                            <property name="resultSetColumn">jinrong</property>
+                        </data>
+                    </cell>
+                    <cell id="30">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="116">
+                            <property name="resultSetColumn">licai</property>
+                        </data>
+                    </cell>
+                    <cell id="31">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="133">
+                            <property name="resultSetColumn">xindai</property>
+                        </data>
+                    </cell>
+                    <cell id="32">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="134">
+                            <property name="resultSetColumn">guding</property>
+                        </data>
+                    </cell>
+                    <cell id="33">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="135">
+                            <property name="resultSetColumn">guanli</property>
+                        </data>
+                    </cell>
+                    <cell id="34">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="136">
+                            <property name="resultSetColumn">zaibao</property>
+                        </data>
+                    </cell>
+                    <cell id="35">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="137">
+                            <property name="resultSetColumn">fuwu</property>
+                        </data>
+                    </cell>
+                    <cell id="36">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="138">
+                            <property name="resultSetColumn">daili</property>
+                        </data>
+                    </cell>
+                    <cell id="37">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="139">
+                            <property name="resultSetColumn">jiaocha</property>
+                        </data>
+                    </cell>
+                    <cell id="38">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="143">
+                            <property name="resultSetColumn">heji</property>
+                        </data>
+                    </cell>
+                    <cell id="39">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>

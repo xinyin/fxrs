@@ -1,0 +1,12 @@
+{
+  "BODY":{
+    "CODE":"${smRspcode}",
+    "MESSAGE":"${smMessage}",
+    "RISK_LEVEL":"${smRspRiskLevel}" 
+  },
+  "SYSHEAD":{
+    "TRANS_TIME":"${transTime}",
+    "RSP_CODE":"${outCode}",
+    "RSP_MSG":"${outMsg}"
+  }
+}

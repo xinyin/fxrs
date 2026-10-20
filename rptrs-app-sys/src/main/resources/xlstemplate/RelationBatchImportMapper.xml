@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="RelSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="rels" var="RelVo"
+              varType="com.yzj.jep.app.bus.model.RelVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">RelVo.fromMemo</mapping><!--本层关联方名称-->
+                <mapping cell="B3">RelVo.fromIdentifyNumber</mapping><!--本层关联方代码-->
+                <mapping cell="C3">RelVo.fromType</mapping><!--本层关联方类型-->
+                <mapping cell="D3">RelVo.toMemo</mapping><!--前一层关联方名称-->
+                <mapping cell="E3">RelVo.toIdentifyNumber</mapping><!--前一层关联方代码-->
+                <mapping cell="F3">RelVo.toType</mapping><!--前一层关联方类型-->
+                <mapping cell="G3">RelVo.relPsnOrg</mapping><!--与前一层关联关系-->
+                <mapping cell="H3">RelVo.equityShare</mapping><!--是否有权益份额-->
+                <mapping cell="I3">RelVo.shareholdingRatio</mapping><!--持有比例（%）-->
+                <mapping cell="J3">RelVo.pledgeRatio</mapping><!--质押股权比例-->
+                <mapping cell="K3">RelVo.relStatement</mapping><!--关联关系说明-->
+                <mapping cell="L3">RelVo.isValid</mapping><!--关系是否有效-->
+                <mapping cell="M3">RelVo.activeTime</mapping><!--生效日期-->
+                <mapping cell="N3">RelVo.invalidTime</mapping><!--失效日期-->
+                <mapping cell="O3">RelVo.relationType </mapping><!--关系类型-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

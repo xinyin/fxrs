@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.pub.mapper.PublogYearMapper">
+    <select id="getYearList" resultType="com.yzj.jep.app.pub.model.PublogRegularVo">
+        select  i.tran_type as tranType,
+            nvl((select sum(PRAC_TRADE_AMOUNT) from ins_tra_investment where   tran_date BETWEEN concat(#{year},'-01-01') and  #{endTime} ) ,0) as sumYear ,
+            nvl((select sum (PRAC_TRADE_AMOUNT) from ins_tra_investment where  (year_Arc_Status is NULL or  year_Arc_Status &lt;&gt;  '1') and tran_date BETWEEN #{startTime} and #{endTime} ),0) as sumQuarter
+         from ins_tra_investment i where   PRAC_TRADE_AMOUNT is not null and delflag_='1' group by tran_Type
+         union  all
+        select  i.tran_type as trabType,
+            nvl((select sum(PRAC_TRADE_AMOUNT) from ins_tra_funds where  tran_date BETWEEN concat(#{year},'-01-01') and #{endTime}) ,0) as sumYear ,
+            nvl((select sum (PRAC_TRADE_AMOUNT) from ins_tra_funds where  (year_Arc_Status is NULL or year_Arc_Status &lt;&gt;  '1') and tran_date BETWEEN #{startTime} and #{endTime} ),0) as sumQuarter
+         from ins_tra_funds i where   PRAC_TRADE_AMOUNT is not null  and delflag_='1' group by tran_Type
+         union  all
+        select  i.tran_type as tranType,
+            nvl((select sum(PRAC_TRADE_AMOUNT) from ins_tra_business where  tran_date BETWEEN concat(#{year},'-01-01') and #{endTime} ,0) as sumYear ,
+            nvl((select sum (PRAC_TRADE_AMOUNT) from ins_tra_business where  (year_Arc_Status is NULL or year_Arc_Status &lt;&gt;  '1') and tran_date BETWEEN #{startTime} and #{endTime} ),0) as sumQuarter
+         from ins_tra_business i where   PRAC_TRADE_AMOUNT is not null and is_Agreement_Impl ='0'  and delflag_='1'  group by tran_Type
+         union  all
+        select  i.tran_type as tranType,
+            nvl((select sum(PRAC_TRADE_AMOUNT) from ins_tra_interest where  tran_date BETWEEN concat(#{year},'-01-01') and #{endTime} ,0) as sumYear ,
+            nvl((select sum (PRAC_TRADE_AMOUNT) from ins_tra_interest where  (year_Arc_Status is NULL or year_Arc_Status &lt;&gt;  '1') and tran_date BETWEEN #{startTime} and #{endTime} ),0) as sumQuarter
+         from ins_tra_interest i where   totol_Trade_Amount is not null and is_Agreement_Impl ='0'  and delflag_='1'  group by tran_Type
+         union  all
+        select  i.tran_type as tranType,
+            nvl((select sum(PRAC_TRADE_AMOUNT) from ins_tra_interest where  tran_date BETWEEN concat(#{year},'-01-01') and #{endTime} ,0) as sumYear ,
+            nvl((select sum (PRAC_TRADE_AMOUNT) from ins_tra_interest where  (year_Arc_Status is NULL or year_Arc_Status &lt;&gt;  '1') and tran_date BETWEEN #{startTime} and #{endTime} ),0) as sumQuarter
+         from ins_tra_service i where   actual_Total is not null and is_Agreement_Impl ='0'  and delflag_='1'  group by tran_Type
+         union  all
+        select  i.tran_type as tranType,
+            nvl((select sum(PRAC_TRADE_AMOUNT) from ins_tra_other where tran_date BETWEEN concat(#{year},'-01-01') and #{endTime} ,0) as sumYear ,
+            nvl((select sum (PRAC_TRADE_AMOUNT) from ins_tra_other where  (year_Arc_Status is NULL or year_Arc_Status &lt;&gt;  '1')  and delflag_='1'  and tran_date BETWEEN #{startTime} and #{endTime} ),0) as sumQuarter
+         from ins_tra_other i where   actual_Total is not null group by tran_Type
+    </select>
+</mapper>
+

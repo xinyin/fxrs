@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.SubmissionFileMapper">
+    <select id="queryByCon" parameterType="java.util.Map" resultType="com.yzj.jep.app.bus.mapper.SubmissionFileMapper">
+        select * from bus_submission_file bsf
+
+        <if test="paramsMap.beginDate != null and paramsMap.beginDate != '' ">
+            where bsf.rep_time <![CDATA[>=]]>'#{beginDate}'
+        </if>
+        <if test="paramsMap.endDate != null and paramsMap.endDate != '' ">
+            or bsf.rep_time <![CDATA[<=]]> '#{endDate}'
+        </if>
+        <if test="paramsMap.file_type != null and paramsMap.file_type != '' ">
+            or bsf.file_type = '#{file_type}'
+        </if>
+        <if test="paramsMap.submission_status != null and paramsMap.submission_status != '' ">
+            or bsf.submission_status = #{submission_status}
+        </if>
+    </select>
+
+    <select id="queryByID" parameterType="java.lang.Integer"
+            resultType="com.yzj.jep.app.bus.mapper.SubmissionFileMapper">
+        select * from bus_submission_file
+        <if test="pids != null and pids!= ''">
+            where pid =#{pid}
+        </if>
+
+    </select>
+
+</mapper>
+

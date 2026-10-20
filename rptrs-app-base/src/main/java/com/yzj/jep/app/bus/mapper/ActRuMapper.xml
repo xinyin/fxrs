@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.ActRuMapper">
+
+
+
+    <!-- 删除ACT_RU_TASK 表-->
+    <delete id="deleteRuTask" parameterType="java.lang.String">
+        DELETE FROM
+            ACT_RU_TASK
+        WHERE
+            ACT_RU_TASK.ID_ = #{taskId}
+    </delete>
+    <!-- 删除ACT_RU_IDENTITYLINK 表-->
+    <delete id="deleteRuIdentitylink" parameterType="java.lang.String">
+        DELETE FROM
+            ACT_RU_IDENTITYLINK
+        WHERE
+            ACT_RU_IDENTITYLINK.TASK_ID_ = #{taskId}
+    </delete>
+
+    <!-- 删除ACT_RU_TASK 表-->
+<!--    <delete id="deleteRuTaskForProcInstId" parameterType="java.lang.String">
+        DELETE FROM
+            ACT_RU_TASK
+        WHERE
+            ACT_RU_TASK.PROC_INST_ID_ = #{procInstId}
+    </delete>-->
+    <!-- 删除ACT_RU_IDENTITYLINK 表-->
+<!--    <delete id="deleteRuIdentitylinkForProcInstId" parameterType="java.lang.String">
+        DELETE FROM
+            ACT_RU_IDENTITYLINK
+        WHERE
+            ACT_RU_IDENTITYLINK.PROC_INST_ID_ = #{procInstId}
+    </delete>-->
+
+
+
+</mapper>
+

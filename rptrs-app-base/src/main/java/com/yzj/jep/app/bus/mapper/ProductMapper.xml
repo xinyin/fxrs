@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.ProductMapper">
+    <resultMap id="ProductMap" type="com.yzj.jep.app.bus.model.Product">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="pro_id" property="proId" jdbcType="VARCHAR"/>
+        <result column="pro_name" property="proName" jdbcType="VARCHAR"/>
+        <result column="pa_pro_id" property="paProId" jdbcType="INTEGER"/>
+        <result column="pa_pro_name" property="paProName" jdbcType="VARCHAR"/>
+
+        <result column="max_amount" property="maxAmount" jdbcType="VARCHAR"/>
+        <result column="min_amount" property="minAmount" jdbcType="VARCHAR"/>
+
+        <result column="pro_path" property="proPath" jdbcType="VARCHAR"/>
+        <result column="bus_level" property="busLevel" jdbcType="VARCHAR"/>
+        <result column="tran_org" property="tranOrg" jdbcType="VARCHAR"/>
+        <result column="bus_depart" property="busDepart" jdbcType="VARCHAR"/>
+        <result column="tradeType" property="tradeType" jdbcType="VARCHAR"/>
+        <result column="businessType" property="businessType" jdbcType="VARCHAR"/>
+        <result column="is_pro" property="isPro" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="is_limit" property="isLimit" jdbcType="VARCHAR"/>
+        <result column="pre_limit_currency" property="preLimitCurrency" jdbcType="VARCHAR"/>
+        <result column="pre_limit" property="preLimit" jdbcType="VARCHAR"/>
+        <result column="pas_limit" property="pasLimit" jdbcType="VARCHAR"/>
+        <result column="rem_limit" property="remLimit" jdbcType="VARCHAR"/>
+        <result column="limit_rate" property="limitRate" jdbcType="INTEGER"/>
+        <result column="warn_leve" property="warnLeve" jdbcType="INTEGER"/>
+        <result column="active_time" property="activeTime" jdbcType="DATE"/>
+        <result column="expiry_time" property="expiryTime" jdbcType="DATE"/>
+        <result column="is_active" property="isActive" jdbcType="INTEGER"/>
+        <result column="approve_status" property="approveStatus" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="DATE"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="DATE"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="findNameAmt" parameterType="java.lang.String" resultType="java.lang.Double">
+        select sum(sumAmt) amt from (
+        select sum(a.validity_balance) sumAmt from bus_tra_credit a
+        WHERE 1=1
+
+        AND a.product_name = #{proname}
+
+        union all
+        select sum(b.tran_amount) sumAmt from bus_tra_asset b
+        WHERE 1=1
+
+        AND b.product_name = #{proname}
+
+        union all
+        select sum(c.tran_amount) sumAmt from bus_tra_service c
+        WHERE 1=1
+
+        AND c.product_name = #{proname}
+
+        union all
+        select sum(d.tran_amount) sumAmt from bus_tra_other d
+        WHERE 1=1
+
+        AND d.product_name = #{proname}
+
+        ) x
+    </select>
+
+
+</mapper>
+

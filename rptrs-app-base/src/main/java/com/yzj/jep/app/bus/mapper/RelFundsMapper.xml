@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelFundsMapper">
+    <resultMap id="BaseResultMap" type="com.yzj.jep.app.bus.model.RelFunds">
+        <id property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="investmentBalanceTime" column="investment_balance_time" jdbcType="TIMESTAMP"/>
+        <result property="relName" column="rel_name" jdbcType="VARCHAR"/>
+        <result property="relType" column="rel_type" jdbcType="VARCHAR"/>
+        <result property="relIdentifyNumber" column="rel_identify_number" jdbcType="VARCHAR"/>
+        <result property="relIdentifyType" column="rel_identify_type" jdbcType="VARCHAR"/>
+        <result property="fundsInvestmentBalance" column="funds_investment_balance" jdbcType="NUMERIC"/>
+        <result property="relTotalAssets" column="rel_total_assets" jdbcType="NUMERIC"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="createById" column="created_by_id_" jdbcType="VARCHAR"/>
+        <result property="createTime" column="created_time_" jdbcType="TIMESTAMP"/>
+        <result property="delflag" column="delflag_" jdbcType="VARCHAR"/>
+        <result property="displayOrder" column="display_order_" jdbcType="VARCHAR"/>
+        <result property="modifiedById" column="modified_by_id_" jdbcType="VARCHAR"/>
+        <result property="modifiedByName" column="modified_by_name_" jdbcType="VARCHAR"/>
+        <result property="modifiedTime" column="modified_time_" jdbcType="TIMESTAMP"/>
+        <result property="tenantId" column="tenant_id_" jdbcType="VARCHAR"/>
+        <result property="createByName" column="created_by_name_" jdbcType="VARCHAR"/>
+        <result property="version" column="version_" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="sumRelTraBalance" resultType="java.math.BigDecimal">
+        select ifnull(sum(funds_investment_balance), 0)
+        from bus_rel_funds a
+                 join (select rel_identify_number, max(created_time_) as "created_time_"
+                       from bus_rel_funds where delflag_ !='0' and status = '1'
+                       group by rel_identify_number ) b on a.created_time_ = b.created_time_
+    </select>
+
+    <!--查询关联方的交易余额-->
+    <select id="sumAmountByRelId" resultType="java.math.BigDecimal">
+       SELECT ifnull(sum(ifnull(funds_investment_balance,0)),0) FROM (
+        select
+        funds_investment_balance
+        from bus_rel_funds
+        where rel_identify_number =
+            <if test="relType == 'ORG'">
+                (select unisc_code
+                from bus_rel_org
+                where pid = #{relId})
+            </if>
+            <if test="relType == 'PSN'">
+                (select identify_number
+                from bus_rel_psn
+                where pid = #{relId})
+            </if>
+            order by created_time_ desc
+            limit 1
+        ) a
+    </select>
+
+    <select id="queryYearFunds" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select * from (select * from bus_rel_funds where  investment_balance_time
+        between CONCAT(#{year},'-01-01 00:00:00') and CONCAT(#{year},'-03-31 23:59:59')
+        order by investment_balance_time  ) b
+            union ALL
+        select * from (select * from bus_rel_funds where  investment_balance_time
+        between CONCAT(#{year},'-04-01 00:00:00' )and CONCAT(#{year},'-06-30 23:59:59')
+        order by investment_balance_time  ) b
+            union ALL
+        select * from (select * from bus_rel_funds where  investment_balance_time
+        between CONCAT(#{year},'-07-01 00:00:00') and CONCAT(#{year},'-09-30 23:59:59')
+        order by investment_balance_time  ) b
+            union all
+        select * from (select * from bus_rel_funds where  investment_balance_time
+        between CONCAT(#{year},'-10-01 00:00:00') and CONCAT(#{year},'-12-31 23:59:59')
+        order by investment_balance_time  ) b
+    </select>
+    <select id="checkExistRelated" resultMap="BaseResultMap">
+        SELECT * FROM bus_rel_funds WHERE delflag_ = '1' AND investment_balance_time <![CDATA[ >= ]]> #{startTime} AND
+        investment_balance_time <![CDATA[ <= ]]> #{endTime} AND rel_identify_number = #{relNumber}
+    </select>
+    <select id="selectRelFunds" resultMap="BaseResultMap">
+        select
+            *
+        from
+            bus_rel_funds
+        where
+            DELFLAG_ = '1'
+          and DATE_FORMAT(investment_balance_time, '%Y-%m-%d') between #{quarterBeginDate} and #{quarterEndDate}
+        order by
+            investment_balance_time desc
+            limit 1
+    </select>
+</mapper>

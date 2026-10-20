@@ -1,0 +1,623 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.yzj</groupId>
+        <artifactId>rptrs-app</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>rptrs-app-base</artifactId>
+    <packaging>war</packaging>
+    <name>rptrs-app-base</name>
+
+    <dependencies>
+
+        <!-- 系统管理模块 -->
+        <dependency>
+            <groupId>com.yzj</groupId>
+            <artifactId>rptrs-app-sys</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 工作流引擎 -->
+        <dependency>
+            <groupId>com.yzj</groupId>
+            <artifactId>rptrs-app-workflow</artifactId>
+        </dependency>
+
+        <!-- 规则引擎 -->
+        <dependency>
+            <groupId>com.yzj</groupId>
+            <artifactId>rptrs-app-rule</artifactId>
+        </dependency>
+
+        <!-- 调度管理 -->
+        <dependency>
+            <groupId>com.yzj</groupId>
+            <artifactId>rptrs-app-schedule</artifactId>
+        </dependency>
+
+        <!-- ************************************************************** -->
+        <!-- j2ee -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- jstl -->
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+        </dependency>
+
+        <!-- ************************************************************** -->
+
+        <dependency>
+            <groupId>com.jzr.fpaas</groupId>
+            <artifactId>fpaas-gateway-client-tools</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpcore</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <!--统一登录cas认证-->
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.trusfort.cims</groupId>
+            <artifactId>sync_sdk_pull</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jzr.fpaas</groupId>
+            <artifactId>fpaas-gateway-server-tools</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpcore</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.opensymphony.quartz</groupId>
+                    <artifactId>quartz</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mvel</groupId>
+                    <artifactId>mvel2</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- httpcore，解决fpaas依赖冲突，误删 -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.4</version>
+        </dependency>
+
+        <!-- httpclient必须大于4.5.2，解决fpaas依赖冲突，误删 -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-cells</artifactId>
+            <version>8.5.2</version>
+        </dependency>
+
+        <!-- ZipEntry包-->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+
+        <!-- xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/e-iceblue/spire.pdf.free -->
+<!--        <dependency>-->
+<!--            <groupId>e-iceblue</groupId>-->
+<!--            <artifactId>spire.pdf.free</artifactId>-->
+<!--            <version>5.1.0</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>e-iceblue</groupId>-->
+<!--            <artifactId>spire.pdf.free</artifactId>-->
+<!--            <version>5.2.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${pom.basedir}/src/main/resources/lib/spire.doc.free-5.2.0.jar</systemPath>-->
+<!--        </dependency>-->
+
+
+        <!--Doc转Pdf-->
+       <!-- <dependency>
+            <groupId>aspose-words</groupId>
+            <artifactId>word</artifactId>
+        </dependency>-->
+
+        <!-- hutool工具包合集 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.5.8</version>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.84</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <profiles>
+<!--        sit 测试环境-->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- **************************************************** -->
+                <!-- rptrs-app-base 配置文件路径：  resources\jep.properties-->
+                <!--开发数据库-->
+<!--                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>-->
+<!--                <jdbc.url>jdbc:mysql://1.119.134.166:23316/rptrs_ygbx_dev?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>-->
+<!--                <jdbc.username>root</jdbc.username>-->
+<!--                <jdbc.password>root</jdbc.password>-->
+                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://218.17.55.195:16706/fxgljy?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>UoA_KygTTja-tDx3J_eu</jdbc.password>
+
+                <!--<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://118.212.37.201:16706/fxgljy?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>UoA_KygTTja-tDx3J_eu</jdbc.password>-->
+
+                <!-- dbcp settings-->
+                <dbcp.maxIdle>5</dbcp.maxIdle>
+                <dbcp.maxActive>40</dbcp.maxActive>
+                <!--工作流开发环境-->
+<!--                <wf.service.url>10.3.20.64</wf.service.url>-->
+                <wf.service.url>127.0.0.1</wf.service.url>
+                <wf.service.port>8080</wf.service.port>
+                <wf.service.context>rptrs</wf.service.context>
+                <wf.service.corePoolSize>10</wf.service.corePoolSize>
+                <wf.service.maxPoolSize>15</wf.service.maxPoolSize>
+                <wf.service.keepAliveTime>5000</wf.service.keepAliveTime>
+                <!--redis配置-->
+                <redis.maxIdle>8</redis.maxIdle>
+                <redis.maxTotal>200</redis.maxTotal>
+                <redis.maxWaitMillis>20000</redis.maxWaitMillis>
+                <redis.address>10.3.20.64</redis.address>
+
+                <mybatis.configuration.map-underscore-to-camel-case>true
+                </mybatis.configuration.map-underscore-to-camel-case>
+
+                <!--图谱应用sit访问路径-->
+                <neo4jUrl>http://10.3.20.64:7005</neo4jUrl>
+                <!--图谱应用本地开发访问路径-->
+                <!--<neo4jUrl>http://127.0.0.1:8099</neo4jUrl>-->
+                <!--报表路径-暂时没用-但不要注掉-->
+                <reportUrl>http://10.3.20.64:8801/report/frameset?__report=</reportUrl>
+                <!--jetty settings-->
+                <jetty.port>20007</jetty.port>
+                <jetty.contextPath>/gatewaySrv</jetty.contextPath>
+                <jetty.minThreads>200</jetty.minThreads>
+                <jetty.maxThreads>1000</jetty.maxThreads>
+                <!--打开邮件发送 0关闭 1打开-->
+                <email.Switch>1</email.Switch>
+                <file.path>/u01/tomcat/rptrs/storage/attachment</file.path>
+                <file.path.down>/u01/tomcat/rptrs/storage/attachment</file.path.down>
+                <!--1.合同缓存目录 #缓存  OA系统缓存目录-->
+                <file.path.temp>/u01/tomcat/rptrs/storage/attachment</file.path.temp>
+                <!--2.交易附件目录-->
+                <file.path.attachment>/u01/tomcat/rptrs/storage/attachment</file.path.attachment>
+                <!--3.制度管理文件目录-->
+                <file.path.systematic>/u01/tomcat/rptrs/storage/attachment</file.path.systematic>
+                <!--4.披露功能文件目录  #月报 #季报-->
+                <file.path.disclose>/u01/tomcat/rptrs/storage/attachment</file.path.disclose>
+                <!--5.报送文件目录 #基础报送 #单笔报送  #关系报送 #季度报送-->
+                <file.path.report>/u01/tomcat/rptrs/storage/attachment</file.path.report>
+                <!--6.报送文件目录 #EAST报送-->
+                <file.path.east>/u01/tomcat/rptrs/storage/attachment</file.path.east>
+                <!--7.关联方决议管理文件目录 #关联方决议管理-->
+                <file.path.relResolution>/u01/tomcat/rptrs/storage/attachment</file.path.relResolution>
+                <MOVE_IP>10.3.20.64</MOVE_IP>
+                <file.path.template>/u01/tomcat/rptrs/storage/pdf/template/auditRecordForm</file.path.template>
+                <file.path.font>/u01/tomcat/rptrs/storage/pdf</file.path.font>
+                <file.path.save>/u01/tomcat/rptrs/storage/pdf/template</file.path.save>
+            </properties>
+        </profile>
+
+        <profile>
+            <!--演示环境-->
+            <id>sit</id>
+            <properties>
+                <!--数据库-->
+<!--                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>-->
+<!--                <jdbc.url>jdbc:mysql://1.119.134.166:23316/rptrs_ygbx_pre?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>-->
+<!--                <jdbc.username>root</jdbc.username>-->
+<!--                <jdbc.password>root</jdbc.password>-->
+
+                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://10.3.20.64:3306/ugljy?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>
+                <jdbc.username>gljy</jdbc.username>
+                <jdbc.password>jdna#hdkANC3</jdbc.password>
+                <!-- dbcp settings-->
+                <dbcp.maxIdle>5</dbcp.maxIdle>
+                <dbcp.maxActive>40</dbcp.maxActive>
+                <!--工作流开发环境-->
+                <wf.service.url>10.3.20.64</wf.service.url>
+                <wf.service.port>8080</wf.service.port>
+                <wf.service.context>rptrs</wf.service.context>
+                <wf.service.corePoolSize>10</wf.service.corePoolSize>
+                <wf.service.maxPoolSize>15</wf.service.maxPoolSize>
+                <wf.service.keepAliveTime>5000</wf.service.keepAliveTime>
+                <!--redis配置-->
+                <redis.maxIdle>8</redis.maxIdle>
+                <redis.maxTotal>200</redis.maxTotal>
+                <redis.maxWaitMillis>20000</redis.maxWaitMillis>
+                <redis.address>10.3.20.64</redis.address>
+
+                <mybatis.configuration.map-underscore-to-camel-case>true
+                </mybatis.configuration.map-underscore-to-camel-case>
+
+                <!--图数据库sit环境-->
+                <neo4jUrl>http://10.3.20.64:7005</neo4jUrl>
+                <!--报表路径-暂时没用-但不要注掉-->
+                <reportUrl>http://10.3.20.64:8801/report/frameset?__report=</reportUrl>
+                <!--jetty settings-->
+                <jetty.port>20007</jetty.port>
+                <jetty.contextPath>/gatewaySrv</jetty.contextPath>
+                <jetty.minThreads>200</jetty.minThreads>
+                <jetty.maxThreads>1000</jetty.maxThreads>
+                <!--关闭邮件发送-->
+                <email.Switch>0</email.Switch>
+                <file.path>/u01/tomcat/rptrs/storage/attachment</file.path>
+                <file.path.down>/u01/tomcat/rptrs/storage/attachment</file.path.down>
+                <!--1.合同缓存目录 #缓存  OA系统缓存目录-->
+                <file.path.temp>/u01/tomcat/rptrs/storage/attachment</file.path.temp>
+                <!--2.交易附件目录-->
+                <file.path.attachment>/u01/tomcat/rptrs/storage/attachment</file.path.attachment>
+                <!--3.制度管理文件目录-->
+                <file.path.systematic>/u01/tomcat/rptrs/storage/attachment</file.path.systematic>
+                <!--4.披露功能文件目录  #月报 #季报-->
+                <file.path.disclose>/u01/tomcat/rptrs/storage/attachment</file.path.disclose>
+                <!--5.报送文件目录 #基础报送 #单笔报送  #关系报送 #季度报送-->
+                <file.path.report>/u01/tomcat/rptrs/storage/attachment</file.path.report>
+                <!--6.报送文件目录 #EAST报送-->
+                <file.path.east>/u01/tomcat/rptrs/storage/attachment</file.path.east>
+                <!--7.关联方决议管理文件目录 #关联方决议管理-->
+                <file.path.relResolution>/u01/tomcat/rptrs/storage/attachment</file.path.relResolution>
+                <file.path.template>/u01/tomcat/rptrs/storage/pdf/template/auditRecordForm</file.path.template>
+                <file.path.font>/u01/tomcat/rptrs/storage/pdf/template</file.path.font>
+                <file.path.save>/u01/tomcat/rptrs/storage/pdf/template</file.path.save>
+                <MOVE_IP>10.3.20.64</MOVE_IP>
+            </properties>
+        </profile>
+
+                <!--  本地测试环境      -->
+        <profile>
+            <id>mac</id>
+            <properties>
+                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://222.89.153.14:16706/fxgljy?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>root</jdbc.password>
+
+                <!-- dbcp settings-->
+                <dbcp.maxIdle>5</dbcp.maxIdle>
+                <dbcp.maxActive>40</dbcp.maxActive>
+                <!--工作流开发环境-->
+                <wf.service.url>localhost</wf.service.url>
+                <wf.service.port>8080</wf.service.port>
+                <wf.service.context>rptrs</wf.service.context>
+                <wf.service.corePoolSize>10</wf.service.corePoolSize>
+                <wf.service.maxPoolSize>15</wf.service.maxPoolSize>
+                <wf.service.keepAliveTime>5000</wf.service.keepAliveTime>
+                <!--redis配置-->
+                <redis.maxIdle>8</redis.maxIdle>
+                <redis.maxTotal>200</redis.maxTotal>
+                <redis.maxWaitMillis>20000</redis.maxWaitMillis>
+                <redis.address>10.3.20.64</redis.address>
+
+                <mybatis.configuration.map-underscore-to-camel-case>true
+                </mybatis.configuration.map-underscore-to-camel-case>
+
+                <!--图谱应用sit访问路径-->
+                <neo4jUrl>http://10.3.20.64:7005</neo4jUrl>
+                <!--图谱应用本地开发访问路径-->
+                <!--<neo4jUrl>http://127.0.0.1:8099</neo4jUrl>-->
+                <!--报表路径-暂时没用-但不要注掉-->
+                <reportUrl>http://10.3.20.64:8801/report/frameset?__report=</reportUrl>
+                <!--jetty settings-->
+                <jetty.port>20007</jetty.port>
+                <jetty.contextPath>/gatewaySrv</jetty.contextPath>
+                <jetty.minThreads>200</jetty.minThreads>
+                <jetty.maxThreads>1000</jetty.maxThreads>
+                <!--打开邮件发送 0关闭 1打开-->
+                <email.Switch>1</email.Switch>
+                <file.path>/u01/tomcat/rptrs/storage/attachment</file.path>
+                <file.path.down>/u01/tomcat/rptrs/storage/attachment</file.path.down>
+                <!--模板地址-->
+                <file.path.template>C:/home/rptrs/关联交易办公室审计记录表</file.path.template>
+                <!--生成pdf 字体位置-->
+                <file.path.font>C:/app/share/template</file.path.font>
+                <file.path.save>C:/app/share/template</file.path.save>
+                <!--1.合同缓存目录 #缓存  OA系统缓存目录-->
+                <file.path.temp>/u01/tomcat/rptrs/storage/attachment</file.path.temp>
+                <!--2.交易附件目录-->
+                <file.path.attachment>/u01/tomcat/rptrs/storage/attachment</file.path.attachment>
+                <!--3.制度管理文件目录-->
+                <file.path.systematic>/u01/tomcat/rptrs/storage/attachment</file.path.systematic>
+                <!--4.披露功能文件目录  #月报 #季报-->
+                <file.path.disclose>/u01/tomcat/rptrs/storage/attachment</file.path.disclose>
+                <!--5.报送文件目录 #基础报送 #单笔报送  #关系报送 #季度报送-->
+                <file.path.report>/u01/tomcat/rptrs/storage/attachment</file.path.report>
+                <!--6
+
+                      .报送文件目录 #EAST报送-->
+                <file.path.east>/u01/tomcat/rptrs/storage/attachment</file.path.east>
+                <!--7.关联方决议管理文件目录 #关联方决议管理-->
+                <file.path.relResolution>/u01/tomcat/rptrs/storage/attachment</file.path.relResolution>
+                <MOVE_IP>10.3.20.64</MOVE_IP>
+            </properties>
+        </profile>
+
+
+        <!--  公司测试环境      -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://118.212.37.201:16706/fxgljy?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>UoA_KygTTja-tDx3J_eu</jdbc.password>
+
+                <!-- dbcp settings-->
+                <dbcp.maxIdle>5</dbcp.maxIdle>
+                <dbcp.maxActive>40</dbcp.maxActive>
+                <!--工作流开发环境-->
+                <wf.service.url>118.212.37.201</wf.service.url>
+                <wf.service.port>15088</wf.service.port>
+                <wf.service.context>rptrs</wf.service.context>
+                <wf.service.corePoolSize>10</wf.service.corePoolSize>
+                <wf.service.maxPoolSize>15</wf.service.maxPoolSize>
+                <wf.service.keepAliveTime>5000</wf.service.keepAliveTime>
+                <!--redis配置-->
+                <redis.maxIdle>8</redis.maxIdle>
+                <redis.maxTotal>200</redis.maxTotal>
+                <redis.maxWaitMillis>20000</redis.maxWaitMillis>
+                <redis.address>10.3.20.64</redis.address>
+
+                <mybatis.configuration.map-underscore-to-camel-case>true
+                </mybatis.configuration.map-underscore-to-camel-case>
+
+                <!--图谱应用sit访问路径-->
+                <neo4jUrl>http://10.3.20.64:7005</neo4jUrl>
+                <!--图谱应用本地开发访问路径-->
+                <!--<neo4jUrl>http://127.0.0.1:8099</neo4jUrl>-->
+                <!--报表路径-暂时没用-但不要注掉-->
+                <reportUrl>http://118.212.37.201:8080/report/frameset?__report=</reportUrl>
+                <!--jetty settings-->
+                <jetty.port>20007</jetty.port>
+                <jetty.contextPath>/gatewaySrv</jetty.contextPath>
+                <jetty.minThreads>200</jetty.minThreads>
+                <jetty.maxThreads>1000</jetty.maxThreads>
+                <!--打开邮件发送 0关闭 1打开-->
+                <email.Switch>1</email.Switch>
+                <file.path>/home/fx/rptrs/storage/attachment</file.path>
+                <file.path.down>/home/fx/rptrs/storage/attachment</file.path.down>
+                <!--模板地址-->
+                <file.path.template>/home/fx/rptrs/storage/template/record</file.path.template>
+                <!--生成pdf 字体位置-->
+                <file.path.font>/home/fx/rptrs/storage/template</file.path.font>
+                <file.path.save>/home/fx/rptrs/storage/template</file.path.save>
+                <!--1.合同缓存目录 #缓存  OA系统缓存目录-->
+                <file.path.temp>/home/fx/rptrs/storage/attachment</file.path.temp>
+                <!--2.交易附件目录-->
+                <file.path.attachment>/home/fx/rptrs/storage/attachment</file.path.attachment>
+                <!--3.制度管理文件目录-->
+                <file.path.systematic>/home/fx/rptrs/storage/attachment</file.path.systematic>
+                <!--4.披露功能文件目录  #月报 #季报-->
+                <file.path.disclose>/home/fx/rptrs/storage/attachment</file.path.disclose>
+                <!--5.报送文件目录 #基础报送 #单笔报送  #关系报送 #季度报送-->
+                <file.path.report>/home/fx/rptrs/storage/attachment</file.path.report>
+                <!--6
+
+                      .报送文件目录 #EAST报送-->
+                <file.path.east>/home/fx/rptrs/storage/attachment</file.path.east>
+                <!--7.关联方决议管理文件目录 #关联方决议管理-->
+                <file.path.relResolution>/home/fx/rptrs/storage/attachment</file.path.relResolution>
+                <MOVE_IP>10.3.20.64</MOVE_IP>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <id>pro</id>
+            <properties>
+                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+                <jdbc.url>jdbc:mysql://10.2.24.70:3306/gljy?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;autoReconnect=true&amp;amp;failOverReadOnly=false&amp;amp;useSSL=false</jdbc.url>
+                <jdbc.username>gljy</jdbc.username>
+                <jdbc.password>gljy_257</jdbc.password>
+                <!-- dbcp settings-->
+                <dbcp.maxIdle>5</dbcp.maxIdle>
+                <dbcp.maxActive>40</dbcp.maxActive>
+                <!--工作流开发环境-->
+                <wf.service.url>gljy.pflife.com.cn</wf.service.url>
+                <wf.service.port>8080</wf.service.port>
+                <wf.service.context>rptrs</wf.service.context>
+                <wf.service.corePoolSize>10</wf.service.corePoolSize>
+                <wf.service.maxPoolSize>15</wf.service.maxPoolSize>
+                <wf.service.keepAliveTime>5000</wf.service.keepAliveTime>
+                <!--redis配置-->
+                <redis.maxIdle>8</redis.maxIdle>
+                <redis.maxTotal>200</redis.maxTotal>
+                <redis.maxWaitMillis>20000</redis.maxWaitMillis>
+                <redis.address>10.2.24.70</redis.address>
+
+                <mybatis.configuration.map-underscore-to-camel-case>true
+                </mybatis.configuration.map-underscore-to-camel-case>
+
+                <!--图谱应用sit访问路径-->
+                <neo4jUrl>http://gljy.pflife.com.cn:7005</neo4jUrl>
+                <!--图谱应用本地开发访问路径-->
+                <!--<neo4jUrl>http://127.0.0.1:8099</neo4jUrl>-->
+                <!--报表路径-暂时没用-但不要注掉-->
+                <reportUrl>http://gljy.pflife.com.cn:8801/report/frameset?__report=</reportUrl>
+                <!--jetty settings-->
+                <jetty.port>20007</jetty.port>
+                <jetty.contextPath>/gatewaySrv</jetty.contextPath>
+                <jetty.minThreads>200</jetty.minThreads>
+                <jetty.maxThreads>1000</jetty.maxThreads>
+                <!--打开邮件发送 0关闭 1打开-->
+                <email.Switch>1</email.Switch>
+                <file.path>/u01/tomcat/rptrs/storage/attachment</file.path>
+                <file.path.down>/u01/tomcat/rptrs/storage/attachment</file.path.down>
+                <!--1.合同缓存目录 #缓存  OA系统缓存目录-->
+                <file.path.temp>/u01/tomcat/rptrs/storage/attachment</file.path.temp>
+                <!--2.交易附件目录-->
+                <file.path.attachment>/u01/tomcat/rptrs/storage/attachment</file.path.attachment>
+                <!--3.制度管理文件目录-->
+                <file.path.systematic>/u01/tomcat/rptrs/storage/attachment</file.path.systematic>
+                <!--4.披露功能文件目录  #月报 #季报-->
+                <file.path.disclose>/u01/tomcat/rptrs/storage/attachment</file.path.disclose>
+                <!--5.报送文件目录 #基础报送 #单笔报送  #关系报送 #季度报送-->
+                <file.path.report>/u01/tomcat/rptrs/storage/attachment</file.path.report>
+                <!--6.报送文件目录 #EAST报送-->
+                <file.path.east>/u01/tomcat/rptrs/storage/attachment</file.path.east>
+                <!--7.关联方决议管理文件目录 #关联方决议管理-->
+                <file.path.relResolution>/u01/tomcat/rptrs/storage/attachment</file.path.relResolution>
+                <MOVE_IP>http://gljy.pflife.com.cn</MOVE_IP>
+                <file.path.template>/u01/tomcat/rptrs/storage/pdf/template/auditRecordForm</file.path.template>
+                <file.path.font>/u01/tomcat/rptrs/storage/pdf/template</file.path.font>
+                <file.path.save>/u01/tomcat/rptrs/storage/pdf/template</file.path.save>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>rptrs</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.ftl</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

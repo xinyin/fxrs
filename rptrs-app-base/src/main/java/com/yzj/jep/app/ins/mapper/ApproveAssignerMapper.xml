@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.ins.mapper.ApproveAssignerMapper">
+
+    <resultMap id="BaseResultMap" type="com.yzj.jep.sys.model.Staff">
+        <result column="STAFF_CODE_" property="staffCode"/>
+        <result column="STAFF_NAME_" property="staffName"/>
+        <result column="DEPT_CODE_" property="deptCode"/>
+        <result column="DEPT_NAME_" property="deptName"/>
+        <result column="UNIT_CODE_" property="unitCode"/>
+        <result column="UNIT_NAME_" property="unitName"/>
+        <result column="POSITION_NAME_" property="positionName"/>
+        <result column="POST_NAME_" property="postName"/>
+        <result column="GENDER_" property="gender"/>
+        <result column="ID_CARD_" property="idCard"/>
+        <result column="BIRTHDAY_" property="birthday"/>
+        <result column="EMAIL_" property="email"/>
+        <result column="TELEPHONE_" property="telephone"/>
+        <result column="MOBILE_" property="mobile"/>
+        <result column="ADDRESS_" property="address"/>
+        <result column="STATUS_" property="status"/>
+        <result column="ADMIN_LEVEL_" property="adminLevel"/>
+        <result column="IS_PROXY_" property="isProxy"/>
+        <result column="PROXY_STAFF_CODE_" property="proxyStaffCode"/>
+        <result column="STAFF_TYPE_" property="staffType"/>
+        <result column="STAFF_TYPE2_" property="staffType2"/>
+        <result column="TENANT_ID_" property="tenantId"/>
+        <result column="CREATED_BY_ID_" property="createById"/>
+        <result column="CREATED_BY_NAME_" property="createByName"/>
+        <result column="CREATED_TIME_" property="createTime"/>
+        <result column="DELFLAG_" property="delflag"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime"/>
+        <result column="VERSION_" property="version"/>
+    </resultMap>
+
+    <select id="queryUnitAndRole" resultType="java.lang.String">
+        SELECT DISTINCT
+        c.STAFF_CODE_
+        FROM
+        sys_duty c
+        JOIN sys_staff d ON c.STAFF_CODE_ = d.STAFF_CODE_
+        WHERE
+        position_code_ IN (
+        SELECT DISTINCT
+        b.position_code_
+        FROM
+        sys_role a
+        JOIN sys_position b ON a.role_code_ = b.role_code_
+        WHERE
+        a.role_std_code_ = #{roleStdCode}
+        AND a.DELFLAG_ = '1'
+        AND b.DELFLAG_ = '1'
+        )
+        AND c.DELFLAG_ = '1'
+        AND d.DELFLAG_ = '1'
+        AND d.UNIT_CODE_ = #{uintCode}
+        <if test="deptCode!=null and deptCode!=''">
+            AND d.DEPT_CODE_ = #{deptCode}
+        </if>
+    </select>
+    <select id="queryDeptCodeByDeptName" resultType="java.lang.String">
+        SELECT UNIT_CODE_
+        FROM sys_unit
+        WHERE OWNER_ = #{unitCode}
+          AND KIND_ = 'DEPT'
+          AND UNIT_NAME_ = #{deptName}
+    </select>
+    <!--查询该部门的父部门code-->
+    <select id="queryParentDeptCode" resultType="java.lang.String">
+        SELECT PARENT_ID_
+        FROM sys_unit
+        WHERE UNIT_CODE_ = #{deptCode}
+          AND OWNER_ = '8600'
+          AND DELFLAG_ = '1'
+    </select>
+
+    <select id="selectStaffByRoleStd" parameterType="map" resultMap="BaseResultMap">
+        SELECT s.STAFF_CODE_,
+               s.STAFF_NAME_,
+               s.DEPT_CODE_,
+               s.UNIT_CODE_,
+               s.DEPT_NAME_,
+               s.EMAIL_,
+               r.ROLE_NAME_
+        FROM sys_staff s
+                 LEFT JOIN sys_duty d ON s.STAFF_CODE_ = d.STAFF_CODE_
+                 LEFT JOIN sys_position p ON p.POSITION_CODE_ = d.POSITION_CODE_
+                 LEFT JOIN sys_role r ON r.ROLE_CODE_ = p.ROLE_CODE_
+        WHERE
+        1=1 and s.STATUS_ = 'ENABLE'
+        <if test="roleStdCode != null and roleStdCode != 0">
+           AND r.ROLE_STD_CODE_ = #{roleStdCode}
+        </if>
+        <if test="tenantId != null and tenantId != 0">
+            AND r.TENANT_ID_ = #{tenantId};
+        </if>
+        UNION ALL
+        SELECT
+        s.STAFF_CODE_,
+        a.STAFF_NAME_,
+        a.DEPT_CODE_,
+        a.DEPT_CODE_ UNIT_CODE_,
+        a.DEPT_NAME_,
+        s.EMAIL_,
+        a.ROLE_NAME_
+        FROM
+        sys_approve_map a LEFT JOIN
+        sys_staff s
+        ON a.STAFF_CODE_ = s.STAFF_CODE_
+        WHERE a.DELFLAG_ = '1' AND s.STATUS_ = 'ENABLE'
+        <if test="roleStdCode != null and roleStdCode != 0">
+            AND a.ROLE_STD_CODE_ = #{roleStdCode}
+        </if>
+        <if test="tenantId != null and tenantId != 0">
+            AND a.TENANT_ID_ = #{tenantId};
+        </if>
+    </select>
+    <select id="selectByEmail" resultMap="BaseResultMap">
+        select * from sys_staff where STAFF_CODE_ = #{staffCode}
+    </select>
+</mapper>
+

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.RelPsnSuspectMapper">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yzj.jep.app.bus.model.RelPsnSuspect" id="busRelSuspectMap">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="reg_code" property="regCode" jdbcType="VARCHAR"/>
+        <result column="orignal_org" property="orignalOrg" jdbcType="VARCHAR"/>
+        <result column="orignal_org_name" property="orignalOrgName" jdbcType="VARCHAR"/>
+        <result column="name_" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="nationality" property="nationality" jdbcType="VARCHAR"/>
+        <result column="domestic_or_foreign" property="domesticOrForeign" jdbcType="VARCHAR"/>
+        <result column="race" property="race" jdbcType="VARCHAR"/>
+        <result column="identify_type" property="identifyType" jdbcType="VARCHAR"/>
+        <result column="identify_number" property="identifyNumber" jdbcType="VARCHAR"/>
+        <result column="birthdate" property="birthdate" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="duty_code" property="dutyCode" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="status_comment" property="statusComment" jdbcType="VARCHAR"/>
+        <result column="marital_status" property="maritalStatus" jdbcType="VARCHAR"/>
+        <result column="valid_status" property="validStatus" jdbcType="VARCHAR"/>
+        <result column="active_time" property="activeTime" jdbcType="TIMESTAMP"/>
+        <result column="invalid_time" property="invalidTime" jdbcType="TIMESTAMP"/>
+        <result column="mger_org" property="mgerOrg" jdbcType="VARCHAR"/>
+        <result column="up_approval_department" property="upApprovalDepartment" jdbcType="VARCHAR"/>
+        <result column="next_approval_department" property="nextApprovalDepartment" jdbcType="VARCHAR"/>
+        <result column="up_approval_people" property="upApprovalPeople" jdbcType="VARCHAR"/>
+        <result column="next_approval_people" property="nextApprovalPeople" jdbcType="VARCHAR"/>
+        <result column="regulator_ybj" property="regulatorYbj" jdbcType="VARCHAR"/>
+        <result column="regulator_zjh" property="regulatorZjh" jdbcType="VARCHAR"/>
+        <result column="regulator_czb" property="regulatorCzb" jdbcType="VARCHAR"/>
+        <result column="regulator_oth1" property="regulatorOth1" jdbcType="VARCHAR"/>
+        <result column="regulator_oth2" property="regulatorOth2" jdbcType="VARCHAR"/>
+        <result column="is_black" property="isBlack" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+        <result column="data_source" property="dataSource" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryPsnRelation" parameterType="int" resultType="java.util.Map">
+        select a.pid as psnpid,a.identify_type,a.identify_number,a.name_,a.sex,a.mger_org,a.race,a.residential_address
+        as residentialAddress ,a.vote_proportion as voteProportion,
+        a.domestic_or_foreign,a.marital_status,a.birthdate,a.mobile,a.email,b.rel_category,b.relation,b.rel_category_sub
+        as relCategorySub,b.pid as relpid,b.rel_status as relStatus
+        from bus_rel_psn a
+        left join
+        bus_rel b
+        on a.pid=b.from_pid
+        and a.DELFLAG_=1
+        and b.DELFLAG_=1
+        and b.from_type='PSN'
+        and b.to_type='SUSPSN'
+        where b.to_pid=#{pid}
+    </select>
+
+    <select id="queryPsnRelationDown" parameterType="int" resultType="java.util.Map">
+        select a.pid as psnpid,a.identify_type,a.identify_number,a.name_,a.sex,a.mger_org,a.race,
+        a.domestic_or_foreign,a.marital_status,a.birthdate,a.mobile,a.email,b.rel_category,b.relation,b.relCategorySub,b.pid
+        as relpid,b.rel_status as relStatus
+        from bus_rel_psn_suspect a
+        left join
+        bus_rel b
+        on a.pid=b.to_pid
+        and a.DELFLAG_=1
+        and b.DELFLAG_=1
+        and b.from_type='PSN'
+        and b.to_type='SUSPSN'
+        where b.from_pid=#{pid}
+        UNION
+        select a.pid as psnpid,a.identify_type,a.identify_number,a.name_,a.sex,a.mger_org,a.race,
+        a.domestic_or_foreign,a.marital_status,a.birthdate,a.mobile,a.email,b.rel_category,b.relation,b.relCategorySub,b.pid
+        as relpid
+        from bus_rel_psn_suspect a
+        left join
+        bus_rel b
+        on a.pid=b.from_pid
+        and a.DELFLAG_=1
+        and b.DELFLAG_=1
+        and b.from_type='SUSPSN'
+        and b.to_type='SUSPSN'
+        where b.to_pid=#{pid}
+
+    </select>
+
+
+    <select id="queryOrgCompany" parameterType="int" resultType="java.util.Map">
+        select a.pid as orgpid,a.identify_type,a.unisc_code,a.org_name,
+        a.reg_address,a.domestic_or_foreign,a.mger_org,a.org_type,a.business_scope,a.reg_capital,
+        a.reg_capital_currency,a.legal_person,a.status,b.rel_category,b.rel_category_sub as
+        relCategorySub,b.shareholding_ratio,b.pid as relpid
+        from bus_rel_org a
+        left join
+        bus_rel b
+        on a.pid=b.from_pid
+        and b.from_type='ORG'
+        and b.to_type='SUSPSN'
+        and a.DELFLAG_=1
+        and b.DELFLAG_=1
+        where b.to_pid=#{pid}
+    </select>
+
+    <insert id="insertForMapper" parameterType="com.yzj.jep.app.bus.model.RelPsnSuspect">
+        <selectKey resultType="java.lang.Integer" keyProperty="pid" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into bus_rel_psn_suspect (pid, reg_code, orignal_org,
+        orignal_org_name, name, sex,
+        nationality, domestic_or_foreign, race,
+        identify_type, identify_number, birthdate,
+        mobile, email, duty_code,
+        status, status_comment, marital_status,
+        valid_status, active_time, invalid_time,
+        mger_org, up_approval_department, next_approval_department,
+        up_approval_people, next_approval_people, regulator_ybj,
+        regulator_zjh, regulator_czb, regulator_oth1,
+        regulator_oth2, is_black, TENANT_ID_,
+        CREATED_BY_ID_, CREATED_BY_NAME_, CREATED_TIME_,
+        DELFLAG_, DISPLAY_ORDER_, MODIFIED_BY_ID_,
+        MODIFIED_BY_NAME_, MODIFIED_TIME_, VERSION_
+        )
+        values (#{pid,jdbcType=INTEGER}, #{regCode,jdbcType=VARCHAR}, #{orignalOrg,jdbcType=VARCHAR},
+        #{orignalOrgName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+        #{nationality,jdbcType=VARCHAR}, #{domesticOrForeign,jdbcType=VARCHAR}, #{race,jdbcType=VARCHAR},
+        #{identifyType,jdbcType=VARCHAR}, #{identifyNumber,jdbcType=VARCHAR}, #{birthdate,jdbcType=VARCHAR},
+        #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{dutyCode,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR}, #{statusComment,jdbcType=VARCHAR}, #{maritalStatus,jdbcType=VARCHAR},
+        #{validStatus,jdbcType=VARCHAR}, #{activeTime,jdbcType=TIMESTAMP}, #{invalidTime,jdbcType=TIMESTAMP},
+        #{mgerOrg,jdbcType=VARCHAR}, #{upApprovalDepartment,jdbcType=VARCHAR},
+        #{nextApprovalDepartment,jdbcType=VARCHAR},
+        #{upApprovalPeople,jdbcType=VARCHAR}, #{nextApprovalPeople,jdbcType=VARCHAR}, #{regulatorYbj,jdbcType=VARCHAR},
+        #{regulatorZjh,jdbcType=VARCHAR}, #{regulatorCzb,jdbcType=VARCHAR}, #{regulatorOth1,jdbcType=VARCHAR},
+        #{regulatorOth2,jdbcType=VARCHAR}, #{isBlack,jdbcType=VARCHAR}, #{tenantId,jdbcType=VARCHAR},
+        #{createById,jdbcType=VARCHAR}, #{createByName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{delflag,jdbcType=VARCHAR}, #{displayOrder,jdbcType=INTEGER}, #{modifiedById,jdbcType=VARCHAR},
+        #{modifiedByName,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}
+        )
+    </insert>
+
+</mapper>
+

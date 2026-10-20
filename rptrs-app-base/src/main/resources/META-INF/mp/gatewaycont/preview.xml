@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.fPaaS1.com/schema/fPaaS1/xml">
+    <previews>
+        <preview id="gatewaycont" xpath="" datalength=""
+        trancodename="_TRAN_CODE" isArray="true" charset="UTF-8" special="" dataSign="false" faultCodeName=""
+			faultStringName="" soaErrCodeName="errCode" soaErrMsgName="errMsg"
+			soaErrCodeSuc="" errCodeName="" errMsgName=""
+			errCodeSuc="" appIdName="appId" channelIdName="channelId"
+			transIdName="transId" reqTimeName="reqTime" appSignName="appSign"
+			dataSignName="dataSign" serviceAddressName="serviceAddress" sysName="JZ"
+			relationSysId="62" concreteSysId="62">
+
+<!--			<urlMappings>-->
+<!--				<mapping code="InformationAuto" reqUrl="system/api/getSignedContractList"/>-->
+<!--			</urlMappings>-->
+
+		</preview>
+
+    </previews>
+
+</config>

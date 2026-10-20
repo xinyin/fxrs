@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.pub.mapper.PublogMapper">
+
+    <resultMap id="BaseResultMap" type="com.yzj.jep.app.pub.model.Publog">
+        <id property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="pubFileName" column="pub_file_name" jdbcType="VARCHAR"/>
+        <result property="pubSubject" column="pub_subject" jdbcType="VARCHAR"/>
+        <result property="pubYear" column="pub_year" jdbcType="VARCHAR"/>
+        <result property="pubQuarter" column="pub_quarter" jdbcType="VARCHAR"/>
+        <result property="maxPercentInNetAssets" column="max_percentin_net_assets" jdbcType="TIMESTAMP"/>
+        <result property="pubVersion" column="pub_version" jdbcType="VARCHAR"/>
+        <result property="downAmt" column="down_amt" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="statusComment" column="status_comment" jdbcType="VARCHAR"/>
+        <result property="downStatus" column="down_status" jdbcType="VARCHAR"/>
+        <result property="approvalId" column="approval_id" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="tenant_id_" jdbcType="VARCHAR"/>
+        <result property="createById" column="created_by_id_" jdbcType="VARCHAR"/>
+        <result property="createByName" column="created_by_name_" jdbcType="VARCHAR"/>
+        <result property="modifiedByName" column="modified_by_name_" jdbcType="VARCHAR"/>
+        <result property="delflag" column="delflag_" jdbcType="VARCHAR"/>
+        <result property="displayOrder" column="display_order_" jdbcType="INTEGER"/>
+        <result property="modifiedById" column="modified_by_id_" jdbcType="VARCHAR"/>
+        <result property="createTime" column="created_time_" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time_" jdbcType="VARCHAR"/>
+        <result property="version" column="version_" jdbcType="INTEGER"/>
+        <result property="pubType" column="pub_type" jdbcType="VARCHAR"/>
+        <result property="fileUrl" column="file_url" jdbcType="VARCHAR"/>
+        <result property="tranType" column="tran_type" jdbcType="VARCHAR"/>
+        <result property="relId" column="rel_id" jdbcType="INTEGER"/>
+        <result property="archDate" column="arch_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pid,pub_file_name,pub_subject,
+        pub_year,pub_quarter,max_percentin_net_assets,
+        pub_version,down_amt,status,
+        status_comment,down_status,approval_id,
+        tenant_id_,created_by_id_,created_by_name_,
+        modified_by_name_,delflag_,display_order_,
+        modified_by_id_,created_time_,modified_time_,
+        version_,pub_type,file_url,
+        tran_type,rel_id,arch_date
+    </sql>
+
+    <select id="queryDate" parameterType="java.lang.String" resultType="com.yzj.jep.app.pub.model.PubYearVo">
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_business
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            and YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_funds
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_investment
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_interest
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_service
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+    </select>
+
+    <select id="selectTotal" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+        SELECT
+        SUM(a.tradeAmount) total
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_business
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            and YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_funds
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_investment
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_interest
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_service
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        ) t
+        WHERE 1=1
+        <if test="tranType != null and tranType != ''">
+            AND t.tranType = #{tranType}
+        </if>
+        GROUP BY
+        t.relName
+        ) a
+    </select>
+
+    <select id="selectAmt" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+        SELECT
+        t.tradeAmount tradeAmount
+        FROM
+        (
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_business
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            and YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_funds
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_investment
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_interest
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_service
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        ) t
+        WHERE 1=1
+        <if test="tranType != null and tranType != ''">
+            AND t.tranType = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND t.relName = #{relName}
+        </if>
+        GROUP BY
+        t.relName
+    </select>
+
+    <select id="selectLastAmt" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+        SELECT
+        t.tradeAmount tradeAmount
+        FROM
+        (
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_business
+        WHERE 1=1
+        <if test="date != null and date != ''">
+            and YEAR (TRAN_DATE) = #{date}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_funds
+        WHERE 1=1
+        <if test="date != null and date != ''">
+            AND YEAR (TRAN_DATE) = #{date}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_investment
+        WHERE 1=1
+        <if test="date != null and date != ''">
+            AND YEAR (TRAN_DATE) = #{date}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_interest
+        WHERE 1=1
+        <if test="date != null and date != ''">
+            AND YEAR (TRAN_DATE) = #{date}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_service
+        WHERE 1=1
+        <if test="date != null and date != ''">
+            AND YEAR (TRAN_DATE) = #{date}
+        </if>
+        GROUP BY
+        rel_name
+        ) t
+        WHERE 1=1
+        <if test="tranType != null and tranType != ''">
+            AND t.tranType = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND t.relName = #{relName}
+        </if>
+        GROUP BY
+        t.relName
+    </select>
+    <select id="majorTradeCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+        SUM(t.majorTradecount) majorTradecount
+        FROM
+        (
+        SELECT
+        count(MAJOR_TRADE) majorTradecount
+        FROM
+        ins_tra_business
+        WHERE
+        MAJOR_TRADE = 1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        <if test="tranType != null and tranType != ''">
+            AND TRAN_TYPE = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND rel_name = #{relName}
+        </if>
+        UNION
+        SELECT
+        count(MAJOR_TRADE) majorTradecount
+        FROM
+        ins_tra_funds
+        WHERE
+        MAJOR_TRADE = 1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        <if test="tranType != null and tranType != ''">
+            AND TRAN_TYPE = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND rel_name = #{relName}
+        </if>
+        UNION
+        SELECT
+        count(MAJOR_TRADE) majorTradecount
+        FROM
+        ins_tra_investment
+        WHERE
+        MAJOR_TRADE = 1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        <if test="tranType != null and tranType != ''">
+            AND TRAN_TYPE = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND rel_name = #{relName}
+        </if>
+        UNION
+        SELECT
+        count(MAJOR_TRADE) majorTradecount
+        FROM
+        ins_tra_interest
+        WHERE
+        MAJOR_TRADE = 1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        <if test="tranType != null and tranType != ''">
+            AND TRAN_TYPE = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND rel_name = #{relName}
+        </if>
+        UNION
+        SELECT
+        count(MAJOR_TRADE) majorTradecount
+        FROM
+        ins_tra_service
+        WHERE
+        MAJOR_TRADE = 1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        <if test="tranType != null and tranType != ''">
+            AND TRAN_TYPE = #{tranType}
+        </if>
+        <if test="relName != null and relName != ''">
+            AND rel_name = #{relName}
+        </if>
+        ) t
+    </select>
+
+    <select id="queryQuarterDate" parameterType="java.lang.String" resultType="com.yzj.jep.app.pub.model.PubQuarterVo">
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        REL_TYPE rel_type,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        IS_deal_PRICE is_deal_price,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_business
+        WHERE 1=1
+        <if test="pubQuarterge != null and pubQuarterge != ''">
+            AND TRAN_DATE = #{pubQuarterge}
+        </if>
+        <if test="pubQuarterle != null and pubQuarterle != ''">
+            AND TRAN_DATE = #{pubQuarterle}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        REL_TYPE rel_type,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        IS_deal_PRICE is_deal_price,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_funds
+        WHERE 1=1
+        <if test="pubQuarterge != null and pubQuarterge != ''">
+            AND TRAN_DATE = #{pubQuarterge}
+        </if>
+        <if test="pubQuarterle != null and pubQuarterle != ''">
+            AND TRAN_DATE = #{pubQuarterle}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        REL_TYPE rel_type,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        IS_deal_PRICE is_deal_price,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_investment
+        WHERE 1=1
+        <if test="pubQuarterge != null and pubQuarterge != ''">
+            AND TRAN_DATE = #{pubQuarterge}
+        </if>
+        <if test="pubQuarterle != null and pubQuarterle != ''">
+            AND TRAN_DATE = #{pubQuarterle}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        REL_TYPE rel_type,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        IS_deal_PRICE is_deal_price,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_interest
+        WHERE 1=1
+        <if test="pubQuarterge != null and pubQuarterge != ''">
+            AND TRAN_DATE = #{pubQuarterge}
+        </if>
+        <if test="pubQuarterle != null and pubQuarterle != ''">
+            AND TRAN_DATE = #{pubQuarterle}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        REL_TYPE rel_type,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        IS_deal_PRICE is_deal_price,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_service
+        WHERE 1=1
+        <if test="pubQuarterge != null and pubQuarterge != ''">
+            AND TRAN_DATE = #{pubQuarterge}
+        </if>
+        <if test="pubQuarterle != null and pubQuarterle != ''">
+            AND TRAN_DATE = #{pubQuarterle}
+        </if>
+        GROUP BY
+        rel_name
+    </select>
+
+    <select id="selectQuarterTotal" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+        SELECT
+        SUM(a.tradeAmount) total
+        FROM
+        (
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_business
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            and YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        <if test="pubYear != null and pubYear != ''">
+            and YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_funds
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_investment
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_interest
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        UNION
+        SELECT
+        rel_id pid,
+        rel_name relName,
+        TRAN_TYPE tranType,
+        TRAN_DATE tranDate,
+        TRADE_PRICE tradePrice,
+        PRICING_POLICY pricingPolicy,
+        TRADE_SUBJECT tradeSubject,
+        MAJOR_TRADE majorTrade,
+        SUM(TRADE_AMOUNT) tradeAmount
+        FROM
+        ins_tra_service
+        WHERE 1=1
+        <if test="pubYear != null and pubYear != ''">
+            AND YEAR (TRAN_DATE) = #{pubYear}
+        </if>
+        GROUP BY
+        rel_name
+        ) t
+        WHERE 1=1
+        <if test="tranType != null and tranType != ''">
+            AND t.tranType = #{tranType}
+        </if>
+        GROUP BY
+        t.relName
+        ) a
+    </select>
+
+    <update id="del" parameterType="java.lang.Integer">
+        update pub_publog set delflag_ = 0 where pid = #{pid}
+    </update>
+    <select id="selectById" resultType="com.yzj.jep.app.pub.model.Publog">
+        select * from pub_publog where pid = #{pid}
+    </select>
+
+    <select id="selectArchList" resultType="com.yzj.jep.app.pub.model.Publog">
+        select
+        pub_file_name as pubFileName,
+        pub_subject as pubSubject,
+        CREATED_BY_NAME_ as createByName,
+        ARCH_DATE as archDate
+        from pub_publog
+        where status = '1'
+    </select>
+    <select id="selectByConditions" resultMap="BaseResultMap">
+        select * from (
+            select
+                <include refid="Base_Column_List"/>
+            from
+                pub_publog
+            where delflag_ = '1'
+            <if test="param.year != null ">
+                and arch_date like #{param.year} || '%'
+            </if>
+            <if test="param.begin != null">
+                and ( to_char(arch_date,'yyyy-MM-dd') like '%' || #{param.begin} || '%'
+                or to_char(arch_date,'yyyy-MM-dd') like '%' || #{param.center} || '%'
+                or to_char(arch_date,'yyyy-MM-dd') like '%' || #{param.end} || '%'
+                )
+            </if>
+            <if test="param.month != null">
+                and to_char(arch_date,'yyyy-MM-dd') like '%' || #{param.month} || '%'
+            </if>
+            order by created_time_ desc
+        )
+    </select>
+
+</mapper>
+

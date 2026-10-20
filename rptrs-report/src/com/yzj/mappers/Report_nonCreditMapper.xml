@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+
+
+<mapper namespace="com.yzj.dao.Report_nonCreditMapper">
+	<select id="selectByAll1" resultType="report_nonCredit">
+
+	SELECT
+	related_name  related_name,
+	ident_number  ident_number,
+	important_trade  important_trade,
+	contract_no  contract_no,
+	contract_sign_date  contract_sign_date,
+	business_start_time  business_start_time,
+	business_end_time  business_end_time,
+	tran_type  tran_type,
+	business_type  business_type,
+	tran_amount  tran_amount,
+	tran_price  tran_price,
+	tran_target  tran_target,
+	pricing_strategy  pricing_strategy,
+	remark  remark 
+FROM
+	bus_tra_asset 
+WHERE
+	business_start_time &gt; #{param1} 
+	AND business_start_time &lt; #{param2}
+									
+	</select>
+	
+	<select id="selectByAll2" resultType="report_nonCredit">
+
+	SELECT
+	related_name   related_name,
+	ident_number   ident_number,
+	important_trade   important_trade,
+	contract_no   contract_no,
+	contract_sign_date    contract_sign_date,
+	business_start_time   business_start_time,
+	business_end_time   business_end_time,
+	tran_type   tran_type,
+	business_type   business_type,
+	tran_amount   tran_amount,
+	tran_price   tran_price,
+	tran_target   tran_target,
+	pricing_strategy   pricing_strategy,
+	remark   remark 
+FROM
+	bus_tra_service 
+WHERE
+	business_start_time &gt; #{param1} 
+	AND business_start_time &lt; #{param2} 
+									
+	</select>
+	
+	<select id="selectByAll3" resultType="report_nonCredit">
+
+	SELECT
+	related_name  related_name,
+	ident_number  ident_number,
+	important_trade  important_trade,
+	contract_no   contract_no,
+	contract_sign_date   contract_sign_date,
+	business_start_time   business_start_time,
+	business_end_time   business_end_time,
+	tran_type   tran_type,
+	business_type   business_type,
+	tran_amount   tran_amount,
+	tran_price   tran_price,
+	tran_target    tran_target,
+	pricing_strategy   pricing_strategy,
+	remark   remark 
+FROM
+	bus_tra_other 
+WHERE
+	business_start_time &gt;#{param1}
+	AND business_start_time &lt; #{param2}
+									
+	</select>
+	
+	
+	
+
+</mapper>

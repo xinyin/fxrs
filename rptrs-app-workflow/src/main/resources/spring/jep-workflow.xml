@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	http://www.springframework.org/schema/cache 
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- Activiti Modeler中用到 -->
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+	
+	<!-- workflowService 工厂类 -->
+	<bean id="workflowEngine" class="com.yzj.jep.workflow.impl.spring.WorkflowEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<!-- <bean id="repositoryService" factory-bean="workflowEngine" factory-method="getRepositoryService"/>
+	<bean id="diagramService" factory-bean="workflowEngine" factory-method="getDiagramService"/>
+	<bean id="formService" factory-bean="workflowEngine" factory-method="getFormService"/>
+	<bean id="processService" factory-bean="workflowEngine" factory-method="getProcessService"/>
+	<bean id="runtimeService" factory-bean="workflowEngine" factory-method="getRuntimeService"/>
+	<bean id="historyService" factory-bean="workflowEngine" factory-method="getHistoryService"/>
+	<bean id="logService" factory-bean="workflowEngine" factory-method="getLogService"/> -->
+	
+	<bean id="activitiRepositoryService" factory-bean="workflowEngine" factory-method="getActivitiRepositoryService"/>
+	<bean id="activitiFormService" factory-bean="workflowEngine" factory-method="getActivitiFormService"/>
+	<bean id="activitiRuntimeService" factory-bean="workflowEngine" factory-method="getActivitiRuntimeService"/>
+	<bean id="activitiHistoryService" factory-bean="workflowEngine" factory-method="getActivitiHistoryService"/>
+	<bean id="activitiTaskService" factory-bean="workflowEngine" factory-method="getActivitiTaskService"/>
+	<bean id="activitiIdentityService" factory-bean="workflowEngine" factory-method="getActivitiIdentityService"/>
+	<bean id="activitiManagementService" factory-bean="workflowEngine" factory-method="getActivitiManagementService"/>
+	<bean id="activitiDynamicBpmnService" factory-bean="workflowEngine" factory-method="getActivitiDynamicBpmnService"/>
+	
+		
+	<!-- 配置对象 -->
+	<bean id="processEngineConfiguration" class="com.yzj.jep.workflow.impl.cfg.WorkflowProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="txManager" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
+		<property name="activityFontName" value="宋体" />
+        <property name="labelFontName" value="宋体" />
+        <property name="annotationFontName" value="宋体" />
+		
+		<!-- 开启系统通知服务，并注册通知器 -->
+		<property name="enableNotify" value="true"/>
+		<property name="notifiers">
+			<list>
+				<!-- 系统消息通知 -->
+				<bean class="com.yzj.jep.workflow.impl.notify.SystemNotifyNotifier">
+					<!-- 此处配置SYS模块的消息接口 -->
+					
+				</bean>
+				<bean class="com.yzj.jep.app.workflow.sms.notify.SmsNotifyNotifier"/>
+			</list>
+		</property>
+		
+		<!-- 表单渲染器 -->
+		<property name="formRenderer">
+			<bean class="com.yzj.jep.workflow.impl.renderer.bootstrap.BootstrapFormRenderer"/>
+		</property>
+		
+		<!-- 数据通知器 -->
+		<property name="workflowServerHandlerExecutor">
+			<bean class="com.yzj.jep.workflow.impl.executor.WorkflowServerHandlerExecutorImpl">
+				<property name="restClient" ref="restClient"/>
+				<property name="tokenService" ref="tokenService"/>
+				<property name="corePoolSize" value="10"/>
+				<property name="maxPoolSize" value="15"/>
+				<property name="keepAliveTime" value="5000"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="assigneeFinderHandlerProcessor" class="com.yzj.jep.workflow.impl.assign.spring.AssigneeFinderHandlerProcessor">
+		<property name="packages">
+			<list>
+				<value>com.yzj</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="urlUtil" class="com.yzj.jep.workflow.impl.util.UrlUtil">
+		<property name="workflowServerURL" value="${wf.service.url}"/>
+		<property name="workflowServerPort" value="${wf.service.port}"/>
+		<property name="workflowServerContext" value="${wf.service.context}"/>
+	</bean>
+	
+	<bean id="sysServiceFactory" class="com.yzj.jep.workflow.impl.factory.SysServiceFactoryImpl" />
+	<bean id="sysConfigService" factory-bean="sysServiceFactory" factory-method="createSysConfigService"/>
+	<bean id="sysUserService" factory-bean="sysServiceFactory" factory-method="createSysUserService"/>
+	<bean id="sysNotifyService" factory-bean="sysServiceFactory" factory-method="createSysNotifyService"/>
+	<bean id="sysUnitService" factory-bean="sysServiceFactory" factory-method="createSysUnitService"/>
+</beans>

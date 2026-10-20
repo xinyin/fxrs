@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.fil.mapper.FilFundsMapper">
+    <resultMap id="FilFundsMap" type="com.yzj.jep.app.fil.model.FilFunds">
+        <id column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="flag_pid" property="flagPid" jdbcType="VARCHAR"/>
+        <result column="fil_num" property="filNum" jdbcType="VARCHAR"/>
+        <result column="REL_ID" property="relId" jdbcType="INTEGER"/>
+        <result column="REL_TYPE" property="relType" jdbcType="VARCHAR"/>
+        <result column="REL_NAME" property="relName" jdbcType="VARCHAR"/>
+        <result column="REL_NUMBER" property="relNumber" jdbcType="VARCHAR"/>
+        <result column="TRADE_ORG" property="tradeOrg" jdbcType="VARCHAR"/>
+        <result column="TRAN_TYPE" property="tranType" jdbcType="VARCHAR"/>
+        <result column="DATA_SOURCES" property="dataSources" jdbcType="VARCHAR"/>
+        <result column="TRAN_DATE" property="tranDate" jdbcType="TIMESTAMP"/>
+        <result column="MAJOR_TRADE" property="majorTrade" jdbcType="VARCHAR"/>
+        <result column="CALIBER" property="caliber" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="STATUS_COMMENT" property="statusComment" jdbcType="VARCHAR"/>
+        <result column="TOTOL_TRADE_AMOUNT" property="totolTradeAmount" jdbcType="VARCHAR"/>
+        <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR"/>
+        <result column="TRADE_AMOUNT" property="tradeAmount" jdbcType="VARCHAR"/>
+        <result column="BUS_START_TIME" property="busStartTime" jdbcType="TIMESTAMP"/>
+        <result column="BUS_END_TIME" property="busEndTime" jdbcType="TIMESTAMP"/>
+        <result column="INVESTMENT_TYPE" property="investmentType" jdbcType="VARCHAR"/>
+        <result column="INVESTMENT_METHOD" property="investmentMethod" jdbcType="VARCHAR"/>
+        <result column="INVESTED_ENTERPRISES" property="investedEnterprises" jdbcType="VARCHAR"/>
+        <result column="EQUITY_LAST_TRADE_PRICE" property="equityLastTradePrice" jdbcType="VARCHAR"/>
+        <result column="IM_LAST_TRADE_PRICE" property="imLastTradePrice" jdbcType="VARCHAR"/>
+        <result column="IM_SUBJECT_MATTER" property="imSubjectMatter" jdbcType="VARCHAR"/>
+        <result column="OUT_SUBJECT_MATTER" property="outSubjectMatter" jdbcType="VARCHAR"/>
+        <result column="SHARE_DEBT_RATIO" property="shareDebtRatio" jdbcType="VARCHAR"/>
+        <result column="FINANCIAL_ASSSTS_TYPE" property="financialAssstsType" jdbcType="VARCHAR"/>
+        <result column="FINANCIAL_ASSSTS_NUM" property="financialAssstsNum" jdbcType="VARCHAR"/>
+        <result column="FINANCIAL_PRO_SCALE" property="financialProScale" jdbcType="VARCHAR"/>
+        <result column="FINANCIAL_PRO_RATIO" property="financialProRatio" jdbcType="VARCHAR"/>
+        <result column="UNDERLYING_ASSET" property="underlyingAsset" jdbcType="VARCHAR"/>
+        <result column="UNDER_IS_REL" property="underIsRel" jdbcType="VARCHAR"/>
+        <result column="UNDER_INVOLVE_REL" property="underInvolveRel" jdbcType="VARCHAR"/>
+        <result column="UNDER_REL" property="underRel" jdbcType="VARCHAR"/>
+        <result column="INVESTED_ENTERPRISES_NAME" property="investedEnterprisesName" jdbcType="VARCHAR"/>
+        <result column="BUS_MODEL" property="busModel" jdbcType="VARCHAR"/>
+        <result column="EARNINGS_EXPECTAIONS" property="earningsExpectaions" jdbcType="VARCHAR"/>
+        <result column="INVESTMENT_RATIO" property="investmentRatio" jdbcType="VARCHAR"/>
+        <result column="INVESTMENT_ALLOCATION" property="investmentAllocation" jdbcType="VARCHAR"/>
+        <result column="LOSS_SHARE" property="lossShare" jdbcType="VARCHAR"/>
+        <result column="TRADE_PRICE" property="tradePrice" jdbcType="VARCHAR"/>
+        <result column="PRICING_POLICY" property="pricingPolicy" jdbcType="VARCHAR"/>
+        <result column="TRADE_SUBJECT" property="tradeSubject" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="IS_EFFECTIVE" property="isEffective" jdbcType="VARCHAR"/>
+        <result column="APPROVE_TRADE_AMOUNT" property="approveTradeAmount" jdbcType="VARCHAR"/>
+        <result column="TRANS_NUM" property="transNum" jdbcType="VARCHAR"/>
+        <result column="DEPOSIT_TERMS" property="depositTerms" jdbcType="VARCHAR"/>
+        <result column="IS_DEAL_PRICE" property="isDealPrice" jdbcType="VARCHAR"/>
+        <result column="RULE_RESULT" property="ruleResult" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectfilFundsByfalgPid" parameterType="String" resultMap="FilFundsMap">
+        SELECT * FROM ins_fil_funds where flag_pid = #{flagPid} and DELFLAG_ = 1 order by pid
+
+    </select>
+</mapper>
+

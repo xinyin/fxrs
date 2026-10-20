@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.yzj.dao.Report_alltraMapper">
+    <select id="selectAll" resultType="com.yzj.beans.Report_alltra">
+	SELECT
+	i.NAME,
+	i.number
+FROM
+	((
+		SELECT
+			P.name_ AS NAME,
+			p.identify_number AS number 
+		FROM
+			(
+				( SELECT iti.REL_NAME FROM ins_tra_investment iti WHERE iti.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY iti.REL_NAME ) UNION ALL
+				( SELECT itf.REL_NAME FROM ins_tra_funds itf WHERE itf.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY itf.REL_NAME ) UNION ALL
+				( SELECT itb.REL_NAME FROM ins_tra_business itb WHERE itb.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY itb.REL_NAME ) UNION ALL
+				( SELECT it.REL_NAME FROM ins_tra_interest it WHERE it.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY it.REL_NAME ) UNION ALL
+				( SELECT its.REL_NAME FROM ins_tra_service its WHERE its.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY its.REL_NAME ) 
+			) r
+			LEFT JOIN bus_rel_psn p ON p.name_ = r.REL_NAME 
+		WHERE
+			p.name_ IS NOT NULL 
+			) UNION
+		(
+		SELECT
+			P.org_name AS NAME,
+			p.unisc_code AS number 
+		FROM
+			(
+				( SELECT iti.REL_NAME FROM ins_tra_investment iti WHERE iti.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY iti.REL_NAME ) UNION ALL
+				( SELECT itf.REL_NAME FROM ins_tra_funds itf WHERE itf.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY itf.REL_NAME ) UNION ALL
+				( SELECT itb.REL_NAME FROM ins_tra_business itb WHERE itb.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY itb.REL_NAME ) UNION ALL
+				( SELECT it.REL_NAME FROM ins_tra_interest it WHERE it.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY it.REL_NAME ) UNION ALL
+				( SELECT its.REL_NAME FROM ins_tra_service its WHERE its.REL_NAME IS NOT NULL AND BUS_START_TIME &gt;#{param1} AND BUS_START_TIME &lt; #{param2} <if test="param3 != null and param3 != '' "> AND TENANT_ID_ = #{param3} </if> GROUP BY its.REL_NAME ) 
+			) r
+			LEFT JOIN bus_rel_org p ON p.org_name = r.REL_NAME 
+		WHERE
+			p.org_name IS NOT NULL 
+		)) AS i 
+GROUP BY
+	i.NAME;
+	</select>
+	
+	<select id="selectAll1" resultType="BigDecimal">
+	SELECT
+	SUM(coalesce(iti.TRADE_AMOUNT ,0)) as ii
+FROM
+	ins_tra_investment iti 
+WHERE
+	iti.REL_NUMBER = #{param1} 
+	AND date( iti.BUS_START_TIME ) &gt; #{param2}
+	AND date( iti.BUS_START_TIME ) &lt; #{param3} 
+	<if test="param4 != null and param4 != '' ">
+	AND TENANT_ID_ = #{param4}
+	</if>
+	AND iti.DELFLAG_ = '1'
+	</select>
+	
+	<select id="selectAll2" resultType="BigDecimal">
+	SELECT
+	SUM(coalesce(itf.TRADE_AMOUNT ,0)) as a
+FROM
+	ins_tra_funds itf  
+WHERE
+	itf.REL_NUMBER = #{param1} 
+	AND date( itf.BUS_START_TIME ) &gt; #{param2}
+	AND date( itf.BUS_START_TIME ) &lt; #{param3} 
+	<if test="param4 != null and param4 != '' ">
+	AND TENANT_ID_ = #{param4}
+	</if>
+	AND itf.DELFLAG_ = '1'
+	</select>
+	
+	<select id="selectAll3" resultType="BigDecimal">
+	SELECT
+	SUM(coalesce(itb.TRADE_AMOUNT ,0)) as b
+FROM
+	ins_tra_business itb
+WHERE
+	itb.REL_NUMBER = #{param1} 
+	AND date( itb.BUS_START_TIME ) &gt; #{param2}
+	AND date( itb.BUS_START_TIME ) &lt; #{param3} 
+	<if test="param4 != null and param4 != '' ">
+	AND TENANT_ID_ = #{param4}
+	</if>
+	AND itb.DELFLAG_ = '1'
+	</select>
+	
+	<select id="selectAll4" resultType="BigDecimal">
+	SELECT
+	SUM(coalesce(it.TRADE_AMOUNT ,0)) as c
+FROM
+	ins_tra_interest it 
+WHERE
+	it.REL_NUMBER = #{param1} 
+	AND date( it.BUS_START_TIME ) &gt; #{param2}
+	AND date( it.BUS_START_TIME ) &lt; #{param3} 
+	<if test="param4 != null and param4 != '' ">
+	AND TENANT_ID_ = #{param4}
+	</if>
+	AND it.DELFLAG_ = '1'
+	</select>
+	
+	<select id="selectAll5" resultType="BigDecimal">
+	SELECT
+	SUM(coalesce(its.TRADE_AMOUNT ,0)) as d
+FROM
+	ins_tra_service its 
+WHERE
+	its.REL_NUMBER = #{param1} 
+	AND date( its.BUS_START_TIME ) &gt; #{param2}
+	AND date( its.BUS_START_TIME ) &lt; #{param3} 
+	<if test="param4 != null and param4 != '' ">
+	AND TENANT_ID_ = #{param4}
+	</if>
+	AND its.DELFLAG_ = '1'
+	</select>
+
+
+</mapper>

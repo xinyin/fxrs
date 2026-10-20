@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="relProSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="relPros" var="relPro"
+              varType="com.yzj.jep.app.bus.vo.PronImportVo">
+            <section startRow="1" endRow="1">
+                <!--金融产品-->
+                <!--<mapping cell="A3">relPro.no</mapping>&lt;!&ndash;金融产品序号&ndash;&gt;-->
+                <mapping cell="A2">relPro.productName</mapping><!--产品名称-->
+                <mapping cell="B2">relPro.productIssueNo</mapping><!--备案号-->
+                <mapping cell="C2">relPro.productRegisterNo</mapping><!--产品代码-->
+                <mapping cell="D2">relPro.productType</mapping><!--产品分类-->
+                <mapping cell="E2">relPro.registerOrg</mapping><!--登记机构-->
+                <mapping cell="F2">relPro.productOwner</mapping><!--产品管理人全称-->
+                <mapping cell="G2">relPro.productOwnerUniscCode</mapping><!--管理人社会统一代码-->
+                <mapping cell="H2">relPro.productCustodian</mapping><!--产品托管人全称-->
+                <mapping cell="I2">relPro.productCustodianUniscCode</mapping><!--产品托管人社会统一代码-->
+                <mapping cell="J2">relPro.assetDesc</mapping><!--底层资产-->
+                <mapping cell="K2">relPro.investors</mapping><!--投资者-->
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

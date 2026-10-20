@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.ins.mapper.InsTraServiceMapper">
+    <!--<select id="getCurrYearTotalTradeAmount" parameterType="java.util.Map"
+            resultType="java.math.BigDecimal">
+        select sum(APPROVE_TRADE_AMOUNT) from ins_tra_service where IS_EFFECTIVE = '1' and DELFLAG_ = '1'
+
+        <if test="year != null">
+            and year(TRAN_DATE) = #{year}
+        </if>
+        and REL_ID = #{relId} and REL_TYPE = #{relType}
+    </select>-->
+
+    <select id="getSumTradeAmount" parameterType="com.yzj.jep.app.bus.model.RelOrg" resultType="java.math.BigDecimal">
+        select sum(APPROVE_TRADE_AMOUNT) from rptrs.ins_tra_service where IS_EFFECTIVE = '1' and DELFLAG_ = '1' and
+        REL_TYPE = 'ORG' and REL_ID = #{pid};
+    </select>
+
+    <select id="getAllSumTradeAmount" resultType="java.math.BigDecimal">
+        select sum(prac_trade_amount) from rptrs.ins_tra_service where  DELFLAG_ = '1';
+    </select>
+
+    <select id="getCurrYearTotalTradeAmount" parameterType="java.util.Map"
+            resultType="java.math.BigDecimal">
+        SELECT sum(coalesce(t.Contract_Amount,0)) res FROM (
+            select sum(coalesce(Contract_Amount,0)) Contract_Amount
+            from
+            ins_tra_service
+            where
+            STATUS= '6'
+            <if test='"0"== isAccumulated'>
+                AND IS_ACCUMULATED != '1'
+            </if>
+            and DELFLAG_ = '1'
+            and DATE_FORMAT(TRAN_DATE, '%Y') = #{year}
+            and is_cash_subscribe = '1'
+            <if test="'02'==tranType and 'ORG'==relType">
+                and REL_ID IN (
+                    SELECT pid FROM bus_rel_org WHERE mem_group = (SELECT mem_group FROM bus_rel_org WHERE pid = #{relId}) AND pid != #{relId}
+                    union ALL
+                    SELECT pid FROM bus_rel_org WHERE pid = #{relId})
+                <if test='"3"== countType'>
+                    and Contract_Amount <![CDATA[ > ]]> 500
+                </if>
+            </if>
+            <if test="'02'!=tranType and 'ORG'==relType">
+                and REL_ID = #{relId}
+                and REL_TYPE = #{relType}
+                <if test='"3"== countType'>
+                    and Contract_Amount <![CDATA[ > ]]> 500
+                </if>
+            </if>
+            <if test="'PSN'==relType">
+                and REL_ID = #{relId}
+                and REL_TYPE = #{relType}
+                <if test='"3"== countType'>
+                    and Contract_Amount <![CDATA[ > ]]> 50
+                </if>
+            </if>
+            <if test='"3"== countType'>
+                AND (Major_Type is NULL OR Major_Type = 2)
+            </if>
+            <if test="traSubName != null">
+                AND Tra_sub_Name = #{traSubName}
+            </if>
+            /*GROUP BY CONTRACT_NO
+            HAVING COUNT(CONTRACT_NO) = 1*/
+            ) t order by res limit 10
+    </select>
+
+    <select id="selectByYearAndQuarter" parameterType="java.lang.String" resultType="com.yzj.jep.app.ins.model.TraService">
+        SELECT TRAN_DATE as tranDate,REL_NAME as relName,is_HoldingSubsidiary as isHoldingSubsidiary ,
+        PRODUCT_NAME as productName,TRADE_AMOUNT as tradeAmount,Contract_Amount as contractAmount,
+        TRADE_SUBJECT as tradeSubject
+        from ins_tra_service
+        WHERE 1=1
+        <if test="year != null and year != ''">
+            and DATE_FORMAT(TRAN_DATE, '%Y')=#{year}
+        </if>
+
+        <if test="quarter != null and quarter != ''and quarter!=0">
+            and QUARTER(TRAN_DATE)=#{quarter}
+        </if>
+
+        <if test="subOrg != null and subOrg != ''">
+            and Tra_sub_Name=#{subOrg}
+        </if>
+        and DELFLAG_=1
+        and STATUS=6
+        <!--        SELECT * from ins_tra_business WHERE   YEAR(MODIFIED_TIME_)=#{year} and QUARTER(MODIFIED_TIME_)=#{quarter} and Tra_sub_Name=#{subOrg}  and DELFLAG_=1-->
+    </select>
+    <select id="selectHisByYearAndQuarter" parameterType="java.lang.String" resultType="com.yzj.jep.app.ins.model.TraService">
+        SELECT TRAN_DATE as tranDate,REL_NAME as relName,is_HoldingSubsidiary as isHoldingSubsidiary ,PRODUCT_NAME as productName,TRADE_AMOUNT as tradeAmount,Contract_Amount as contractAmount
+        from ins_tra_service
+        WHERE 1=1
+        and (DATE_FORMAT(TRAN_DATE, '%Y') &lt; #{year} or (DATE_FORMAT(TRAN_DATE, '%Y') = #{year} and QUARTER(TRAN_DATE) &lt; #{quarter}))
+        and (date_part('year',BUS_END_TIME) &gt; #{year} or (date_part('year',BUS_END_TIME) = #{year} and QUARTER(BUS_END_TIME) &gt;= #{quarter}))
+        <if test="subOrg != null and subOrg != ''">
+            and Tra_sub_Name=#{subOrg}
+        </if>
+        and DELFLAG_=1
+        and STATUS=6
+    </select>
+
+    <select id="getInRoadTotalTradeAmount" parameterType="java.util.Map"
+            resultType="java.math.BigDecimal">
+        SELECT sum(coalesce(t.Contract_Amount,0)) FROM (
+        select sum(coalesce(Contract_Amount,0)) Contract_Amount
+        from
+        ins_tra_service
+        where
+        STATUS in ('1','3','4')
+        AND (IS_ACCUMULATED is NULL OR IS_ACCUMULATED = '0')
+        and DELFLAG_ = '1'
+        and DATE_FORMAT(TRAN_DATE, '%Y') = #{year}
+        and is_cash_subscribe = '1'
+        <if test="'02'==tranType and 'ORG'==relType">
+            and REL_ID IN (
+            SELECT pid FROM bus_rel_org WHERE mem_group = (SELECT mem_group FROM bus_rel_org WHERE pid = #{relId})
+            AND pid != #{relId}
+            union ALL
+            SELECT pid FROM bus_rel_org WHERE pid = #{relId})
+            and Contract_Amount <![CDATA[ > ]]> 500
+            and REL_TYPE = #{relType}
+        </if>
+        <if test="'02'!=tranType and 'ORG'==relType">
+            and REL_ID = #{relId}
+            and REL_TYPE = #{relType}
+            and Contract_Amount <![CDATA[ > ]]> 500
+        </if>
+        <if test="'PSN'==relType">
+            and REL_ID = #{relId}
+            and REL_TYPE = #{relType}
+            and Contract_Amount <![CDATA[ > ]]> 50
+        </if>
+        <if test="traSubName != null">
+            AND Tra_sub_Name = #{traSubName}
+        </if>
+        AND (Major_Type is NULL OR Major_Type = 2)
+        /*GROUP BY CONTRACT_NO
+        HAVING COUNT(CONTRACT_NO) = 1*/
+        ) t
+    </select>
+
+    <update id="grandTradeZero" parameterType="java.util.Map">
+        UPDATE ins_tra_service
+        SET IS_ACCUMULATED = '1'
+        WHERE
+        STATUS = '6'
+        AND (IS_ACCUMULATED is NULL OR IS_ACCUMULATED = '0')
+        AND DELFLAG_ = '1'
+        AND YEAR ( TRAN_DATE ) = #{year}
+        AND is_cash_subscribe = '1'
+        <if test="'02'==tranType and 'ORG'==relType">
+            and REL_ID IN (
+            SELECT pid FROM bus_rel_org WHERE mem_group = (SELECT mem_group FROM bus_rel_org WHERE pid = #{relId})
+            AND pid != #{relId}
+            union ALL
+            SELECT pid FROM bus_rel_org WHERE pid = #{relId})
+            and Contract_Amount <![CDATA[ > ]]> 500
+        </if>
+        <if test="'02'!=tranType and 'ORG'==relType">
+            AND REL_ID = #{relId}
+            AND REL_TYPE = #{relType}
+            AND Contract_Amount<![CDATA[>]]> 500
+        </if>
+        <if test="'PSN'==relType">
+            AND REL_ID = #{relId}
+            AND REL_TYPE = #{relType}
+            AND Contract_Amount<![CDATA[>]]> 50
+        </if>
+        <if test="traSubName != null">
+            AND Tra_sub_Name = #{traSubName}
+        </if>
+        AND (Major_Type is NULL OR Major_Type = 2)
+    </update>
+    <update id="updateByTradeAmount">
+        update ins_tra_service
+        set TRAN_DATE = #{contractDate},TRADE_AMOUNT = #{relTrandeAmount},STATUS = '6'
+        Where pid = #{pid}
+    </update>
+
+    <select id="getService" parameterType="java.util.Map" resultType="com.yzj.jep.app.bus.vo.QuarterListVo">
+        SELECT
+        iti.REL_ID AS relId,
+        iti.REL_NAME AS relName,
+        iti.TRAN_TYPE AS tranType,
+        iti.REMARK  AS remark,
+        iti.TRAN_DATE  AS tranDate,
+        iti.TRA_SUB_NAME  AS traSubName,
+        iti.manager_org as managerOrg,
+        SUM(iti.prac_trade_amount) over(partition by rel_id,tran_type,bus_type
+        <if test="managerOrg != null and managerOrg != ''"  >
+            ,manager_org
+        </if>
+        )  AS contractAmount,
+        iti.BUS_TYPE AS tranOverView
+        FROM
+        INS_TRA_SERVICE iti
+        WHERE
+        iti.STATUS IN ( '6', '7', '10' )
+        AND iti.DELFLAG_ = '1'
+        and iti.tran_type is not null
+        and iti.prac_trade_amount is not null
+        and iti.bus_type is not null
+        <if test="staTime != null and staTime != '' and endTime != null and endTime != ''"  >
+            and to_char(iti.TRAN_DATE,'YYYY-MM-DD') BETWEEN #{staTime}  AND #{endTime}
+        </if>
+    </select>
+
+    <resultMap type="com.yzj.jep.app.ins.model.TraService" id="InsTraServiceMap">
+        <result property="pid" column="PID" jdbcType="INTEGER"/>
+        <result property="relId" column="REL_ID" jdbcType="INTEGER"/>
+        <result property="relType" column="REL_TYPE" jdbcType="VARCHAR"/>
+        <result property="relName" column="REL_NAME" jdbcType="VARCHAR"/>
+        <result property="relNumber" column="REL_NUMBER" jdbcType="VARCHAR"/>
+        <result property="tradeOrg" column="TRADE_ORG" jdbcType="VARCHAR"/>
+        <result property="tranType" column="TRAN_TYPE" jdbcType="VARCHAR"/>
+        <result property="busType" column="BUS_TYPE" jdbcType="VARCHAR"/>
+        <result property="dataSources" column="DATA_SOURCES" jdbcType="VARCHAR"/>
+        <result property="tranDate" column="TRAN_DATE" jdbcType="TIMESTAMP"/>
+        <result property="majorTrade" column="MAJOR_TRADE" jdbcType="VARCHAR"/>
+        <result property="caliber" column="CALIBER" jdbcType="VARCHAR"/>
+        <result property="status" column="STATUS" jdbcType="VARCHAR"/>
+        <result property="statusComment" column="STATUS_COMMENT" jdbcType="VARCHAR"/>
+        <result property="totolTradeAmount" column="TOTOL_TRADE_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="contractNo" column="CONTRACT_NO" jdbcType="VARCHAR"/>
+        <result property="tradeAmount" column="TRADE_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="busStartTime" column="BUS_START_TIME" jdbcType="TIMESTAMP"/>
+        <result property="busEndTime" column="BUS_END_TIME" jdbcType="TIMESTAMP"/>
+        <result property="tradeOccur" column="TRADE_OCCUR" jdbcType="VARCHAR"/>
+        <result property="tradePrice" column="TRADE_PRICE" jdbcType="VARCHAR"/>
+        <result property="pricingPolicy" column="PRICING_POLICY" jdbcType="VARCHAR"/>
+        <result property="tradeSubject" column="TRADE_SUBJECT" jdbcType="VARCHAR"/>
+        <result property="remark" column="REMARK" jdbcType="VARCHAR"/>
+        <result property="isEffective" column="IS_EFFECTIVE" jdbcType="VARCHAR"/>
+        <result property="approveTradeAmount" column="APPROVE_TRADE_AMOUNT" jdbcType="NUMERIC"/>
+        <result property="transNum" column="TRANS_NUM" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+        <result property="createById" column="CREATED_BY_ID_" jdbcType="VARCHAR"/>
+        <result property="createByName" column="CREATED_BY_NAME_" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATED_TIME_" jdbcType="TIMESTAMP"/>
+        <result property="delflag" column="DELFLAG_" jdbcType="VARCHAR"/>
+        <result property="displayOrder" column="DISPLAY_ORDER_" jdbcType="INTEGER"/>
+        <result property="modifiedById" column="MODIFIED_BY_ID_" jdbcType="VARCHAR"/>
+        <result property="modifiedByName" column="MODIFIED_BY_NAME_" jdbcType="VARCHAR"/>
+        <result property="modifiedTime" column="MODIFIED_TIME_" jdbcType="VARCHAR"/>
+        <result property="version" column="VERSION_" jdbcType="INTEGER"/>
+        <result property="unitfTradeAgrmentAbusiness" column="UNITF_TRADE_AGREMENT_BUSINESS" jdbcType="VARCHAR"/>
+        <result property="isDealPrice" column="IS_DEAL_PRICE" jdbcType="VARCHAR"/>
+        <result property="ruleResult" column="RULE_RESULT" jdbcType="VARCHAR"/>
+        <result property="productCode" column="PRODUCT_CODE" jdbcType="VARCHAR"/>
+        <result property="productName" column="PRODUCT_NAME" jdbcType="VARCHAR"/>
+        <result property="isHoldingSubsidiary" column="is_HoldingSubsidiary" jdbcType="VARCHAR"/>
+        <result property="holdingSubsidiaryName" column="HoldingSubsidiary_name" jdbcType="VARCHAR"/>
+        <result property="holdingSubsidiaryNumber" column="HoldingSubsidiary_number" jdbcType="VARCHAR"/>
+        <result property="totalAssets" column="totalAssets" jdbcType="VARCHAR"/>
+        <result property="isAgreement" column="is_agreement" jdbcType="VARCHAR"/>
+        <result property="considerType" column="consider_type" jdbcType="VARCHAR"/>
+        <result property="tradingDirection" column="Trading_direction" jdbcType="VARCHAR"/>
+        <result property="tradeAgreementNumber" column="trade_agreement_number" jdbcType="VARCHAR"/>
+        <result property="financialImpact" column="Financial_Impact" jdbcType="VARCHAR"/>
+        <result property="traSubName" column="Tra_sub_Name" jdbcType="VARCHAR"/>
+        <result property="majorType" column="Major_Type" jdbcType="VARCHAR"/>
+        <result property="contractAmount" column="Contract_Amount" jdbcType="NUMERIC"/>
+        <result property="holdingSubsidiaryTYPE" column="HoldingSubsidiary_type" jdbcType="VARCHAR"/>
+        <result property="iscashsubscribe" column="IS_CASH_SUBSCRIBE" jdbcType="VARCHAR"/>
+        <result property="amendId" column="AMEND_ID" jdbcType="VARCHAR"/>
+        <result property="amendName" column="AMEND_NAME" jdbcType="VARCHAR"/>
+        <result property="tranName" column="tran_name" jdbcType="VARCHAR"/>
+        <result property="tranOpponent" column="tran_opponent" jdbcType="VARCHAR"/>
+        <result property="certType" column="cert_type" jdbcType="VARCHAR"/>
+<!--        <result property="protocol_Code" column="protocol_code" jdbcType="VARCHAR"/>-->
+        <result property="actualTotal" column="actual_Total" jdbcType="NUMERIC"/>
+        <result property="contractDate" column="contract_Date" jdbcType="TIMESTAMP"/>
+        <result property="contraTotal" column="contra_Total" jdbcType="NUMERIC"/>
+        <result property="isAgreement" column="is_Agreement" jdbcType="VARCHAR"/>
+        <result property="isAgreementImpl" column="is_Agreement_Impl" jdbcType="VARCHAR"/>
+        <result property="relInfoListStr" column="rel_info_list_str" jdbcType="VARCHAR"/>
+        <result property="relTradeAmount" column="rel_trade_amount" jdbcType="VARCHAR"/>
+        <result property="pracTradeAmount" column="prac_trade_amount" jdbcType="VARCHAR"/>
+        <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
+        <result property="fundsFlowNumber" column="FUNDS_FLOW_NUMBER" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="select">
+        select PID,
+               REL_ID,
+               REL_TYPE,
+               REL_NAME,
+               REL_NUMBER,
+               TRADE_ORG,
+               TRAN_TYPE,
+               BUS_TYPE,
+               DATA_SOURCES,
+               TRAN_DATE,
+               MAJOR_TRADE,
+               CALIBER,
+               STATUS,
+               STATUS_COMMENT,
+               TOTOL_TRADE_AMOUNT,
+               CONTRACT_NO,
+               TRADE_AMOUNT,
+               BUS_START_TIME,
+               BUS_END_TIME,
+               TRADE_OCCUR,
+               TRADE_PRICE,
+               PRICING_POLICY,
+               TRADE_SUBJECT,
+               REMARK,
+               IS_EFFECTIVE,
+               APPROVE_TRADE_AMOUNT,
+               TRANS_NUM,
+               TENANT_ID_,
+               CREATED_BY_ID_,
+               CREATED_BY_NAME_,
+               CREATED_TIME_,
+               DELFLAG_,
+               DISPLAY_ORDER_,
+               MODIFIED_BY_ID_,
+               MODIFIED_BY_NAME_,
+               MODIFIED_TIME_,
+               VERSION_,
+               UNITF_TRADE_AGREMENT_BUSINESS,
+               IS_DEAL_PRICE,
+               RULE_RESULT,
+               PRODUCT_CODE,
+               PRODUCT_NAME,
+               is_HoldingSubsidiary,
+               HoldingSubsidiary_name,
+               HoldingSubsidiary_number,
+               totalAssets,
+               is_trade_agreement,
+               consider_type,
+               Trading_direction,
+               trade_agreement_number,
+               Financial_Impact,
+               Tra_sub_Name,
+               Major_Type,
+               Contract_Amount,
+               HoldingSubsidiary_type,
+               IS_CASH_SUBSCRIBE,
+               AMEND_ID,
+               AMEND_NAME,
+               IS_ACCUMULATED,
+               CONTRACT_NAME,
+               tran_name,
+               tran_opponent,
+               cert_type,
+               actual_Total,
+               contract_Date,
+               contra_Total,
+               is_Agreement,
+               is_Agreement_Impl,
+               rel_info_list_str,
+               rel_trade_amount
+    </sql>
+
+    <!--集中审议数据查询-->
+    <select id="queryByConditions" resultMap="InsTraServiceMap">
+        <include refid="select" />
+         from  ins_tra_service
+        where consider_type = '2'
+        AND STATUS = '3'
+        AND prac_trade_amount IS NOT NULL
+        AND DELFLAG_ = '1'
+        <if test="param.year!=null">
+            AND CREATED_TIME_ like #{param.year}
+        </if>
+        <if test="param.begin!=null">
+            AND (CREATED_TIME_ like #{param.begin} or CREATED_TIME_ like #{param.center} or CREATED_TIME_ like #{param.end})
+        </if>
+        order by CREATED_TIME_ desc
+    </select>
+    <select id="traServiceNo" resultMap="InsTraServiceMap">
+        <include refid="select" />
+        from
+        ins_tra_service
+        where
+        1=1
+        AND data_version = 'E2.0'
+        and PRAC_TRADE_AMOUNT IS null
+        and STATUS != '9'
+        <if test="contractNo !=null">
+            AND CONTRACT_NO = #{contractNo}
+        </if>
+        <if test="relNumber !=null">
+            AND REL_NUMBER = #{relNumber}
+        </if>
+        AND DELFLAG_ = '1'
+    </select>
+    <select id="traServiceList" resultMap="InsTraServiceMap">
+        <include refid="select" />
+        from
+        ins_tra_service
+        where
+        1=1
+        <if test="contractNo !=null">
+            AND CONTRACT_NO = #{contractNo}
+        </if>
+    </select>
+    <select id="traServiceByAmount" resultMap="InsTraServiceMap">
+        select
+        CONTRACT_NO,
+        Contract_Amount,
+        SUM(PRAC_TRADE_AMOUNT) as PRAC_TRADE_AMOUNT
+        from
+        ins_tra_service
+        where
+        1=1
+        <if test="contractNo !=null">
+            AND CONTRACT_NO = #{contractNo}
+        </if>
+        <if test="contractAmount !=null">
+            AND Contract_Amount = #{contractAmount}
+        </if>
+        GROUP BY CONTRACT_NO, Contract_Amount
+
+    </select>
+
+    <select id="getInit" resultMap="InsTraServiceMap">
+        SELECT *
+        FROM ins_tra_service
+        WHERE
+        1=1
+            AND data_version = 'E2.0'
+        <if test="contractNo!= null">
+            and  contract_no like
+            CONCAT(CONCAT('%', #{contractNo}), '%')
+        </if>
+        <if test="relNumber != null">
+            and REL_NUMBER = #{relNumber}
+        </if>
+        <if test="relName != null">
+            and rel_Name like
+            CONCAT(CONCAT('%', #{relName}), '%')
+        </if>
+        <if test="busType != null">
+            and bus_type = #{busType}
+        </if>
+        <if test="startTranDate != null">
+            and DATE_FORMAT(tran_Date,'%Y-%m-%d') &gt;= #{startTranDate}
+        </if>
+        <if test="endTranDate != null">
+            and DATE_FORMAT(tran_Date,'%Y-%m-%d') &lt;= #{endTranDate}
+        </if>
+        <if test="considerType != null">
+            and consider_Type = #{considerType}
+        </if>
+        <if test="majorTrade!=null">
+            and major_Trade=#{majorTrade}
+        </if>
+        <if test="status!=null">
+            and status = #{status}
+        </if>
+        <if test="deptCode!=null">
+            and  (AMEND_ID IN (SELECT staff_code_ FROM sys_staff WHERE  dept_code_ = #{deptCode}) or AMEND_ID is null)
+        </if>
+        <if test="createTimeString != null">
+            and subStr(created_time_,1,10) = #{createTimeString}
+        </if>
+        <if test="dataSources!=null">
+            and data_sources = #{dataSources}
+        </if>
+        <choose>
+            <when test="contractNo!=null or contractNo!='' or relNumber!=null or relNumber!='' or relName!=null or relName!='' or busType!=null or busType!='' or majorTrade!=null or majorTrade!='' or status!=null or status!=''">
+
+            </when>
+            <otherwise>
+                OR AMEND_NAME = 'System'
+                OR AMEND_NAME IS NULL
+            </otherwise>
+        </choose>
+        and ((DELFLAG_ = '1'))
+        ORDER BY MODIFIED_TIME_ DESC,CREATED_TIME_ DESC
+    </select>
+
+    <select id="getTranNum" resultMap="InsTraServiceMap">
+        SELECT *
+        FROM ins_tra_service
+        WHERE
+        1=1
+        <if test="transNum!=null and transNum != ''">
+            and TRANS_NUM = #{transNum}
+        </if>
+        and ((DELFLAG_ = '1'))
+        ORDER BY MODIFIED_TIME_ DESC
+
+    </select>
+</mapper>
+

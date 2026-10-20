@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.ins.mapper.BaseServiceMapper">
+
+    <select id="queryAgreementAmountSum" parameterType="java.util.Map"
+            resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(A.rel_trade_amount), 0) trade_amount
+        FROM (SELECT IFNULL(PRAC_TRADE_AMOUNT,REL_TRADE_AMOUNT) rel_trade_amount
+
+              FROM ins_tra_funds
+              WHERE STATUS IN ('2','6','7','8')
+                AND DELFLAG_ = '1'
+                AND is_accumulated = '0'
+                AND major_trade = '0'
+                AND substr(IFNULL(MODIFIED_TIME_,CREATED_TIME_), 1, 4) = #{year}
+                AND rel_number = #{relNumber}
+                AND data_version = 'E2.0'
+              UNION ALL
+              SELECT IFNULL(PRAC_TRADE_AMOUNT,REL_TRADE_AMOUNT) rel_trade_amount
+              FROM ins_tra_service
+              WHERE STATUS IN ('2','6','7','8')
+                AND DELFLAG_ = '1'
+                AND is_accumulated = '0'
+                AND major_trade = '0'
+                AND is_agreement = '0'
+                AND substr(IFNULL(MODIFIED_TIME_,CREATED_TIME_), 1, 4) = #{year}
+                AND rel_number = #{relNumber}
+                AND data_version = 'E2.0'
+              UNION ALL
+              SELECT IFNULL(PRAC_TRADE_AMOUNT,REL_TRADE_AMOUNT) rel_trade_amount
+              FROM ins_tra_interest
+              WHERE STATUS IN ('2','6','7','8')
+                AND DELFLAG_ = '1'
+                AND is_accumulated = '0'
+                AND major_trade = '0'
+                AND substr(IFNULL(MODIFIED_TIME_,CREATED_TIME_), 1, 4) = #{year}
+                AND rel_number = #{relNumber}
+                AND data_version = 'E2.0'
+              UNION ALL
+              SELECT IFNULL(PRAC_TRADE_AMOUNT,REL_TRADE_AMOUNT) rel_trade_amount
+              FROM ins_tra_business
+              WHERE STATUS IN ('2','6','7','8')
+                AND DELFLAG_ = '1'
+                AND is_accumulated = '0'
+                AND major_trade = '0'
+                AND is_agreement = '0'
+                AND substr(IFNULL(MODIFIED_TIME_,CREATED_TIME_), 1, 4) = #{year}
+                AND rel_number = #{relNumber}
+                AND data_version = 'E2.0'
+              ) A
+    </select>
+</mapper>

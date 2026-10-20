@@ -1,0 +1,172 @@
+<shapes name="mxGraph.risk">
+
+    <shape name="流程" h="60" w="98" aspect="variable" strokewidth="inherit">
+        <connections>
+            <constraint x="0.5" y="0" perimeter="0" name="N"/>
+            <constraint x="0.5" y="1" perimeter="0" name="S"/>
+            <constraint x="0" y="0.5" perimeter="0" name="W"/>
+            <constraint x="1" y="0.5" perimeter="0" name="E"/>
+        </connections>
+        <background>
+            <roundrect x="0" y="0" w="98" h="60" arcsize="6.717687074829931"/>
+        </background>
+        <foreground>
+            <fillstroke/>
+        </foreground>
+    </shape>
+
+    <shape name="判定" h="57.43" w="98" aspect="variable"
+           strokewidth="inherit">
+        <connections>
+            <constraint x="0.5" y="0" perimeter="0" name="N"/>
+            <constraint x="0.5" y="1" perimeter="0" name="S"/>
+            <constraint x="0" y="0.5" perimeter="0" name="W"/>
+            <constraint x="1" y="0.5" perimeter="0" name="E"/>
+        </connections>
+        <background>
+            <path>
+                <move x="51" y="0.71"/>
+                <line x="97" y="26.71"/>
+                <arc rx="2.5" ry="2.5" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="97" y="30.71"/>
+                <line x="51" y="56.71"/>
+                <arc rx="4" ry="4" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="47" y="56.71"/>
+                <line x="1" y="30.71"/>
+                <arc rx="2.5" ry="2.5" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="1" y="26.71"/>
+                <line x="47" y="0.71"/>
+                <arc rx="4" ry="4" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="51" y="0.71"/>
+                <close/>
+            </path>
+        </background>
+        <foreground>
+            <fillstroke/>
+        </foreground>
+    </shape>
+
+    <shape name="文档" h="60.9" w="98" aspect="variable"
+           strokewidth="inherit">
+        <connections>
+            <constraint x="0.5" y="0" perimeter="0" name="N"/>
+            <constraint x="0.5" y="0.9" perimeter="0" name="S"/>
+            <constraint x="0" y="0.5" perimeter="0" name="W"/>
+            <constraint x="1" y="0.5" perimeter="0" name="E"/>
+            <constraint x="0.02" y="0.015" perimeter="0" name="NW"/>
+            <constraint x="0" y="0.9" perimeter="0" name="SW"/>
+            <constraint x="0.98" y="0.015" perimeter="0" name="NE"/>
+            <constraint x="1" y="0.9" perimeter="0" name="SE"/>
+        </connections>
+        <background>
+            <path>
+                <move x="0" y="5"/>
+                <arc rx="5" ry="5" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="5" y="0"/>
+                <line x="93" y="0"/>
+                <arc rx="5" ry="5" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="98" y="5"/>
+                <line x="98" y="55"/>
+                <arc rx="70" ry="70" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="0" x="49" y="55"/>
+                <arc rx="70" ry="70" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="0" y="55"/>
+                <close/>
+            </path>
+        </background>
+        <foreground>
+            <fillstroke/>
+        </foreground>
+    </shape>
+
+    <shape name="数据" h="60.24" w="98.77" aspect="variable"
+           strokewidth="inherit">
+        <connections>
+            <constraint x="0.5" y="0" perimeter="0" name="N"/>
+            <constraint x="0.5" y="1" perimeter="0" name="S"/>
+            <constraint x="0.095" y="0.5" perimeter="0" name="W"/>
+            <constraint x="0.905" y="0.5" perimeter="0" name="E"/>
+            <constraint x="0.23" y="0.02" perimeter="0" name="NW"/>
+            <constraint x="0.015" y="0.98" perimeter="0" name="SW"/>
+            <constraint x="0.985" y="0.02" perimeter="0" name="NE"/>
+            <constraint x="0.77" y="0.98" perimeter="0" name="SE"/>
+        </connections>
+        <background>
+            <path>
+                <move x="19.37" y="5.12"/>
+                <arc rx="2.5" ry="5" x-axis-rotation="30" large-arc-flag="0"
+                     sweep-flag="1" x="24.37" y="0.12"/>
+                <line x="93.37" y="0.12"/>
+                <arc rx="5" ry="4" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="98.37" y="5.12"/>
+                <line x="79.37" y="55.12"/>
+                <arc rx="2.5" ry="5" x-axis-rotation="30" large-arc-flag="0"
+                     sweep-flag="1" x="74.37" y="60.12"/>
+                <line x="4.37" y="60.12"/>
+                <arc rx="5" ry="4" x-axis-rotation="0" large-arc-flag="0"
+                     sweep-flag="1" x="0.37" y="55.12"/>
+                <close/>
+            </path>
+        </background>
+        <foreground>
+            <fillstroke/>
+        </foreground>
+    </shape>
+
+    <shape name="子流程" h="60" w="98" aspect="variable"
+           strokewidth="inherit">
+        <connections>
+            <constraint x="0.5" y="0" perimeter="0" name="N"/>
+            <constraint x="0.5" y="1" perimeter="0" name="S"/>
+            <constraint x="0" y="0.5" perimeter="0" name="W"/>
+            <constraint x="1" y="0.5" perimeter="0" name="E"/>
+            <constraint x="0.02" y="0.015" perimeter="0" name="NW"/>
+            <constraint x="0.02" y="0.985" perimeter="0" name="SW"/>
+            <constraint x="0.98" y="0.015" perimeter="0" name="NE"/>
+            <constraint x="0.98" y="0.985" perimeter="0" name="SE"/>
+        </connections>
+        <background>
+            <roundrect x="0" y="0" w="98" h="60" arcsize="6.717687074829931"/>
+        </background>
+        <foreground>
+            <fillstroke/>
+            <path>
+                <move x="14" y="0"/>
+                <line x="14" y="60"/>
+            </path>
+            <stroke/>
+            <path>
+                <move x="84" y="0"/>
+                <line x="84" y="60"/>
+            </path>
+            <stroke/>
+        </foreground>
+    </shape>
+
+    <shape name="开始/结束" h="60" w="98" aspect="variable" strokewidth="inherit">
+        <connections>
+            <constraint x="0.5" y="0" perimeter="0" name="N"/>
+            <constraint x="0.5" y="1" perimeter="0" name="S"/>
+            <constraint x="0" y="0.5" perimeter="0" name="W"/>
+            <constraint x="1" y="0.5" perimeter="0" name="E"/>
+            <constraint x="0.11" y="0.11" perimeter="0" name="NW"/>
+            <constraint x="0.11" y="0.89" perimeter="0" name="SW"/>
+            <constraint x="0.89" y="0.11" perimeter="0" name="NE"/>
+            <constraint x="0.89" y="0.89" perimeter="0" name="SE"/>
+        </connections>
+        <background>
+            <path>
+                <move x="30" y="0"/>
+                <line x="68" y="0"/>
+                <arc rx="30" ry="30" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="68" y="60"/>
+                <line x="30" y="60"/>
+                <arc rx="30" ry="30" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="30" y="0"/>
+                <close/>
+            </path>
+        </background>
+        <foreground>
+            <fillstroke/>
+        </foreground>
+    </shape>
+
+</shapes>

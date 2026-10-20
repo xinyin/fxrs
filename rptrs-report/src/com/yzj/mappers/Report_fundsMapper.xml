@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.yzj.dao.Report_fundsMapper">
+    <select id="selectByAll" resultType="com.yzj.beans.Report_funds">
+	SELECT
+	i.REL_NAME,
+	i.REL_NUMBER,
+	CASE i.MAJOR_TRADE WHEN '1' THEN '是' WHEN '0' THEN '否' ELSE '否' END AS MAJOR_TRADE,
+	i.CONTRACT_NO,
+	DATE(i.TRAN_DATE) AS TRAN_DATE,
+	DATE(i.BUS_START_TIME) AS BUS_START_TIME,
+	DATE(i.BUS_END_TIME) AS BUS_END_TIME,
+(
+		SELECT
+			sdi.ITEM_LABEL_
+		FROM
+			sys_dict_item sdi
+		WHERE
+			sdi.DICT_CODE_ = 'INS-InvestmentType'
+		AND sdi.ITEM_VALUE_ = INVESTMENT_TYPE
+		LIMIT 1
+	) INVESTMENT_TYPE,
+	i.INVESTED_ENTERPRISES,
+i.INVESTMENT_RATIO,
+i.FINANCIAL_ASSSTS_TYPE,
+i.FINANCIAL_ASSSTS_NUM,
+i.FINANCIAL_PRO_SCALE,
+i.UNDERLYING_ASSET,
+i.UNDER_IS_REL,
+i.UNDER_INVOLVE_REL,
+i.UNDER_REL,
+i.BUS_MODEL,
+i.EARNINGS_EXPECTAIONS,
+i.INVESTMENT_ALLOCATION,
+i.LOSS_SHARE,
+i.TRADE_AMOUNT,
+i.TRADE_PRICE,
+i.TRADE_SUBJECT,
+i.PRICING_POLICY,
+i.REMARK
+FROM
+	ins_tra_funds i
+WHERE
+BUS_START_TIME &gt; #{param1} AND  BUS_START_TIME &lt; #{param2} AND DELFLAG_ = 1 
+<if test="param3 != null and param3 != '' ">
+AND TENANT_ID_ = #{param3}
+</if>
+	</select>
+
+
+
+</mapper>

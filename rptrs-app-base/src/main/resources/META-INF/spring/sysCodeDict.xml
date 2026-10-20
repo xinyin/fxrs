@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fPaaS1="http://www.fPaaS1.com/schema/fPaaS1/dict"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.fPaaS1.com/schema/fPaaS1/dict
+	http://www.fPaaS1.com/schema/fPaaS1/dict.xsd">
+
+
+	<fPaaS1:dicts id="62" desc="demo">
+		<fPaaS1:mappings>
+			<fPaaS1:mapping out="_THIRD_SYS_SUCCESS_CODE" in="[000000]"/>
+			<fPaaS1:mapping out="RB6017" in="BISHRB6017" msg="账户密码错误" />
+			<fPaaS1:mapping in="BISPMT9999" out="*" />
+		</fPaaS1:mappings>
+	</fPaaS1:dicts>
+		
+	<bean id="_THIRD_SYS_CODE_DICT_FACTORY" class="com.fPaaS1.dict.utils.CodeDictCache"
+		init-method="initThirdSysCode">
+		<property name="dictsBeanDefinitionMap">
+			<bean class="java.util.HashMap">
+				<constructor-arg type="java.util.Map">
+					<map>
+						<entry key="62" value-ref="62" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<fPaaS1:dicts id="appCodeDict">
+		<fPaaS1:mappings>
+			<fPaaS1:mapping in="0000000000" out="" msg="交易成功" />
+			<fPaaS1:mapping in="9999999999" out="" msg="系统繁忙，请您稍后再试" />
+		</fPaaS1:mappings>
+	</fPaaS1:dicts>
+</beans>	

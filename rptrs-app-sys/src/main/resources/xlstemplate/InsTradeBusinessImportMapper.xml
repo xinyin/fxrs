@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+    <worksheet name="traBusinessSheet">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="insTradeBusiness" var="business"
+              varType="com.yzj.jep.app.ins.model.TraBusinessVo">
+            <section startRow="1" endRow="1">
+                <mapping cell="A3">business.tranName</mapping>
+                <mapping cell="B3">business.relName</mapping>
+                <mapping cell="C3">business.relType</mapping>
+                <mapping cell="D3">business.relNumber</mapping>
+                <mapping cell="E3">business.busType</mapping>
+                <mapping cell="F3">business.contractNo</mapping>
+                <mapping cell="G3">business.relTradeAmount</mapping>
+                <mapping cell="H3">business.pracTradeAmount</mapping>
+                <mapping cell="I3">business.contractDateString</mapping>
+                <mapping cell="J3">business.busStartTimeString</mapping>
+                <mapping cell="K3">business.busEndTimeString</mapping>
+                <mapping cell="L3">business.isconsiderSituation</mapping>
+                <mapping cell="M3">business.considerSituation</mapping>
+                <mapping cell="N3">business.isAgreement</mapping>
+                <mapping cell="O3">business.tradeAgreementType</mapping>
+                <mapping cell="P3">business.isAgreementImpl</mapping>
+                <mapping cell="Q3">business.tradePrice</mapping>
+                <mapping cell="R3">business.pricingPolicy</mapping>
+                <mapping cell="S3">business.tradeSubject</mapping>
+                <mapping cell="T3">business.remark</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

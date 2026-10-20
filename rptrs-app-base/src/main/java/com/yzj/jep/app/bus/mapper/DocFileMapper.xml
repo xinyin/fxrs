@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yzj.jep.app.bus.mapper.DocFileMapper">
+    <resultMap id="ResultMap" type="com.yzj.jep.app.bus.model.DocFile">
+        <id property="pid" column="pid" jdbcType="INTEGER"/>
+        <result column="file_url" property="fileUrl" jdbcType="VARCHAR"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_type" property="fileType" jdbcType="VARCHAR"/>
+        <result column="file_size" property="fileSize" jdbcType="VARCHAR"/>
+        <result column="file_version" property="fileVersion" jdbcType="VARCHAR"/>
+        <result column="approve_status" property="approveStatus" jdbcType="VARCHAR"/>
+        <result column="doc_pid" property="docPid" jdbcType="VARCHAR"/>
+        <result column="upload_org_name" property="uploadOrgName" jdbcType="VARCHAR"/>
+        <result column="upload_dept_name" property="uploadDeptName" jdbcType="VARCHAR"/>
+        <result column="upload_type" property="uploadType" jdbcType="VARCHAR"/>
+        <result column="upload_name" property="uploadName" jdbcType="VARCHAR"/>
+        <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_ID_" property="createById" jdbcType="VARCHAR"/>
+        <result column="CREATED_BY_NAME_" property="createByName" jdbcType="VARCHAR"/>
+        <result column="CREATED_TIME_" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="DELFLAG_" property="delflag" jdbcType="VARCHAR"/>
+        <result column="DISPLAY_ORDER_" property="displayOrder" jdbcType="INTEGER"/>
+        <result column="MODIFIED_BY_ID_" property="modifiedById" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_BY_NAME_" property="modifiedByName" jdbcType="VARCHAR"/>
+        <result column="MODIFIED_TIME_" property="modifiedTime" jdbcType="TIMESTAMP"/>
+        <result column="VERSION_" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getLimitTwo" resultMap="ResultMap">
+            select a1.* from bus_doc_file a1
+                                     inner join
+                                     (select a.upload_type,a.CREATED_TIME_ from bus_doc_file a left join bus_doc_file b
+                                             on a.upload_type=b.upload_type and a.CREATED_TIME_ &lt;= b.CREATED_TIME_
+                                      group by a.upload_type, a.CREATED_TIME_
+                                      having count(b.CREATED_TIME_) &lt;=2
+                                             )b1
+                                             on a1.upload_type=b1.upload_type and a1.CREATED_TIME_=b1.CREATED_TIME_
+            order by a1.upload_type,a1.CREATED_TIME_ desc
+    </select>
+</mapper>
+

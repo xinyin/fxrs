@@ -1,0 +1,11 @@
+{
+"nonce":"${nonce}",
+"appId":"${appId}",
+"timestamp":"${timestamp}",
+"sig":"${sig}",
+"methodType":"${methodType}",
+    "data":{
+        "signApplyTimeEnd":"${signApplyTimeEnd}"
+        "signApplyTimeStart":"${signApplyTimeStart}"
+    }
+}	

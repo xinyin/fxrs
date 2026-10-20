@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fPaaS1="http://www.fPaaS1.com/schema/fPaaS1"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.fPaaS1.com/schema/fPaaS1
+	http://www.fPaaS1.com/schema/fPaaS1.xsd">
+
+	<!--<bean id="StartUpRun" class="com.fpaas.startrun.StartUpRun"/>-->
+    <bean class="com.fpaas.startrun.StartUpRun" init-method="init"/>
+
+    <bean id="springHolder" class="com.yzj.jep.app.holder.SpringHolder" />
+
+</beans>	

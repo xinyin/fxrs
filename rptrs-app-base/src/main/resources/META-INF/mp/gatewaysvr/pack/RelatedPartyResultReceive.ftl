@@ -1,0 +1,14 @@
+{
+"BODY":{
+    "tenantId":"${tenantId}",
+    "tranType":"${tranType}",
+    "contractNo":"${contractNo}",
+    "OAStatus":"${OAStatus}"
+},
+"SYSHEAD":{
+"msg":"${msg}",
+"resultCode":"${resultCode}",
+"TRANS_CODE":"${TRANS_CODE}",
+"CHNL_ID":"${CHNL_ID}"
+}
+}

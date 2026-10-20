@@ -1,0 +1,123 @@
+-- 金融产品中间表
+DROP TABLE IF EXISTS `mid_jrcpxxb_2`;
+CREATE TABLE `mid_jrcpxxb_2`  (
+  `SERIALNO` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '流水号',
+  `BATCHNO` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '原始数据批次号',
+  `BUSSNO` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '业务号',
+  `MAKEDATE` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '申请日期',
+  `BUSSDATE` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标识日期',
+  `DATASRC` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据来源',
+  `OTHERSIGN` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态位标签',
+  `REMARK` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注说明',
+  `BXJGDM` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '保险机构代码',
+  `BXJGMC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '保险机构名称',
+  `JRCPBH` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '金融产品编号',
+  `JRCPQC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '金融产品全称',
+  `CPPZZCBAH` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品批准/注册/备案号',
+  `CPDM` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品代码',
+  `CPFL` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品分类',
+  `CPDJJG` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品登记机构',
+  `CPGLRQC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品管理人全称',
+  `GLRTYSHXYDM` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '管理人统一社会信用代码',
+  `CPTGRQC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '产品托管人全称',
+  `TGRTYSHXYDM` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '托管人统一社会信用代码',
+  `DCZC` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '底层资产',
+  `TZZ` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '投资者',
+  `CJRQ` varchar(7) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '采集日期',
+  `JGXQDM` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '监管辖区代码',
+  PRIMARY KEY (`SERIALNO`) USING BTREE
+);
+
+-- 关联方中间表
+DROP TABLE IF EXISTS `mid_glfxxb_2`;
+CREATE TABLE `mid_glfxxb_2`  (
+  `SERIALNO` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '流水号',
+  `BATCHNO` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '原始数据批次号',
+  `BUSSNO` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '业务号',
+  `MAKEDATE` timestamp  COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '申请日期',
+  `BUSSDATE` timestamp COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标识日期',
+  `DATASRC` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据来源',
+  `OTHERSIGN` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态位标签',
+  `REMARK` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注说明',
+  `BXJGDM` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '保险机构代码',
+  `BXJGMC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '保险机构名称',
+
+  `GLFDM` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方代码',
+  `GLFMC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方名称',
+  `JNWXZ` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '境内外性质',
+  `GLFLX` char(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方类型',
+  `ZJLX` char(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '证件类型',
+  `ZJLXZWMC` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '证件类型中文名称',
+  `GLFZJHM` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方证件号码',
+  `JJXZHLX` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '经济性质或类型',
+  `ZYYWHJYFW` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主营业务或经营范围',
+  `FDDBRXM` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '法定代表人姓名',
+  `ZCD` varchar(765) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册地',
+  `ZCZB` decimal(22,0)  COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册资本',
+  `ZCZBBZ` char(9) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '注册资本币种',
+  `YXBZ` char(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '有效标志',
+  `CJRQ` date COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '采集日期',
+
+  `JGXQDM` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '监管辖区代码',
+
+
+  `TENANT_ID_` varchar(64) DEFAULT NULL COMMENT '租户',
+  `CREATED_BY_ID_` varchar(64) DEFAULT NULL COMMENT '创建人ID',
+  `CREATED_BY_NAME_` varchar(64) DEFAULT NULL COMMENT '创建人名称',
+  `CREATED_TIME_` datetime DEFAULT NULL COMMENT '创建时间',
+  `DELFLAG_` varchar(1) DEFAULT NULL COMMENT '逻辑删除标记',
+  `DISPLAY_ORDER_` int(11) DEFAULT NULL COMMENT '显示序号',
+  `MODIFIED_BY_ID_` varchar(64) DEFAULT NULL COMMENT '修改人ID',
+  `MODIFIED_BY_NAME_` varchar(64) DEFAULT NULL COMMENT '修改人名称',
+  `MODIFIED_TIME_` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `VERSION_` int(11) DEFAULT NULL COMMENT '版本',
+  PRIMARY KEY (`SERIALNO`) USING BTREE
+);
+
+
+-- 关联关系中间表
+DROP TABLE IF EXISTS `mid_glgxb_2`;
+CREATE TABLE `mid_glgxb_2`  (
+  `SERIALNO` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '流水号',
+  `BATCHNO` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '原始数据批次号',
+  `BUSSNO` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '业务号',
+  `MAKEDATE` timestamp  COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '申请日期',
+  `BUSSDATE` timestamp COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标识日期',
+  `DATASRC` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据来源',
+  `OTHERSIGN` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '状态位标签',
+  `REMARK` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注说明',
+  `BXJGDM` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '保险机构代码',
+  `BXJGMC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '保险机构名称',
+
+  `GLFMCGLFZJJDMC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方名称/关联方中间节点名称',
+  `GLFDMGLFZJJDDM` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方代码/关联方中间节点代码',
+  `GLFGLFZJJDLX` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联方/关联方中间节点类型',
+  `QYCGLFMCGLFZJJDMC` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '前一层关联方名称/关联方中间节点名称',
+  `QYCGLFDMGLFZJJDDM` varchar(600) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '前一层关联方代码/关联方中间节点代码',
+  `QYCGLFGLFZJJDLX` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '前一层关联方/关联方中间节点类型',
+  `YQYCDGLGX` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '与前一层的关联关系',
+  `YQYCZJSFYQYFE` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '与前一层之间是否有权益份额',
+  `CYBL` numeric(22)  COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '持有比例',
+  `ZYGQBL` numeric(22)  COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '质押股权比例',
+  `GLGXSM` varchar(4000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联关系说明',
+  `GXYXBZ` char(3)  COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关系有效标志',
+  `SXRQ1` date COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '生效日期',
+  `SXRQ2` date COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '失效日期',
+  `CJRQ` date COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '采集日期',
+
+  `JGXQDM` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '监管辖区代码',
+
+
+  `TENANT_ID_` varchar(64) DEFAULT NULL COMMENT '租户',
+  `CREATED_BY_ID_` varchar(64) DEFAULT NULL COMMENT '创建人ID',
+  `CREATED_BY_NAME_` varchar(64) DEFAULT NULL COMMENT '创建人名称',
+  `CREATED_TIME_` datetime DEFAULT NULL COMMENT '创建时间',
+  `DELFLAG_` varchar(1) DEFAULT NULL COMMENT '逻辑删除标记',
+  `DISPLAY_ORDER_` int(11) DEFAULT NULL COMMENT '显示序号',
+  `MODIFIED_BY_ID_` varchar(64) DEFAULT NULL COMMENT '修改人ID',
+  `MODIFIED_BY_NAME_` varchar(64) DEFAULT NULL COMMENT '修改人名称',
+  `MODIFIED_TIME_` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `VERSION_` int(11) DEFAULT NULL COMMENT '版本',
+  PRIMARY KEY (`SERIALNO`) USING BTREE
+);
+
